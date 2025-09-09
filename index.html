@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Genesis Evangelion - Official Landing Page</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+        <video class="hero-video" id="heroVideo" autoplay muted loop>
+            <source src="Media/Neon Genesis Evangelion - Opening [4K 60FPS  Creditless  CC] - Neobrane (720p, h264).mp4" type="video/mp4">
+            <div class="hero-background"></div>
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title" id="heroTitle">NEON GENESIS<br><span class="subtitle">EVANGELION</span></h1>
+            <button class="cta-button" id="ctaButton">ENTER THE WORLD</button>
+        </div>
+        <div class="terminal-borders">
+            <div class="corner top-left"></div>
+            <div class="corner top-right"></div>
+            <div class="corner bottom-left"></div>
+            <div class="corner bottom-right"></div>
+        </div>
+    </section>
+
+    <!-- Mini Video Player (hidden initially) -->
+    <div class="mini-video-container" id="miniVideoContainer">
+        <video class="mini-video" id="miniVideo" muted loop>
+            <source src="Media/Neon Genesis Evangelion - Opening [4K 60FPS  Creditless  CC] - Neobrane (720p, h264).mp4" type="video/mp4">
+        </video>
+        <div class="mini-video-controls">
+            <button class="mini-control-btn" id="miniPlayPause">⏸️</button>
+            <button class="mini-control-btn" id="miniClose">✕</button>
+        </div>
+        <div class="mini-video-border"></div>
+    </div>
+
+    <!-- Synopsis Section -->
+    <section class="synopsis-section" id="synopsis">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">SERIES OVERVIEW</h2>
+                <div class="section-border"></div>
+            </div>
+            <div class="synopsis-content">
+                <p class="synopsis-text">
+                    In the year 2015, the world stands on the brink of apocalypse. Mysterious beings known as "Angels" threaten humanity's existence, and only the Evangelions - massive bio-mechanical mecha - can stand against them. Fourteen-year-old Shinji Ikari is reluctantly recruited by his father to pilot Evangelion Unit-01 for the shadowy organization NERV. But as Shinji delves deeper into this world of giant robots and cosmic horrors, he discovers that the line between salvation and destruction is thinner than he ever imagined.
+                </p>
+                <div class="synopsis-image">
+                    <img src="Media/sinpsis.jpg" alt="Evangelion Unit-01">
+                    <div class="image-overlay"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Character Gallery -->
+    <section class="character-gallery" id="characters">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">CHOOSE YOUR PILOT</h2>
+                <div class="section-border"></div>
+            </div>
+            <div class="arcade-grid">
+                <div class="character-slot" data-character="shinji">
+                    <div class="character-frame">
+                        <img src="https://via.placeholder.com/200x200/ff0000/ffffff?text=SHINJI" alt="Shinji Ikari">
+                        <div class="character-name">SHINJI IKARI</div>
+                        <div class="character-status">PILOT</div>
+                    </div>
+                </div>
+                <div class="character-slot" data-character="rei">
+                    <div class="character-frame">
+                        <img src="https://via.placeholder.com/200x200/0000ff/ffffff?text=REI" alt="Rei Ayanami">
+                        <div class="character-name">REI AYANAMI</div>
+                        <div class="character-status">PILOT</div>
+                    </div>
+                </div>
+                <div class="character-slot" data-character="asuka">
+                    <div class="character-frame">
+                        <img src="https://via.placeholder.com/200x200/ff8800/ffffff?text=ASUKA" alt="Asuka Langley">
+                        <div class="character-name">ASUKA LANGLEY</div>
+                        <div class="character-status">PILOT</div>
+                    </div>
+                </div>
+                <div class="character-slot" data-character="gendo">
+                    <div class="character-frame">
+                        <img src="https://via.placeholder.com/200x200/800080/ffffff?text=GENDO" alt="Gendo Ikari">
+                        <div class="character-name">GENDO IKARI</div>
+                        <div class="character-status">COMMANDER</div>
+                    </div>
+                </div>
+                <div class="character-slot" data-character="misato">
+                    <div class="character-frame">
+                        <img src="https://via.placeholder.com/200x200/ff69b4/ffffff?text=MISATO" alt="Misato Katsuragi">
+                        <div class="character-name">MISATO KATSURAGI</div>
+                        <div class="character-status">MAJOR</div>
+                    </div>
+                </div>
+                <div class="character-slot" data-character="kaworu">
+                    <div class="character-frame">
+                        <img src="https://via.placeholder.com/200x200/87ceeb/ffffff?text=KAWORU" alt="Kaworu Nagisa">
+                        <div class="character-name">KAWORU NAGISA</div>
+                        <div class="character-status">ANGEL</div>
+                    </div>
+                </div>
+            </div>
+            <div class="character-info" id="characterInfo">
+                <div class="info-panel">
+                    <h3 id="infoName">SELECT A CHARACTER</h3>
+                    <p id="infoDescription">Click on a character above to view their information</p>
+                    <div class="info-stats">
+                        <div class="stat">
+                            <span class="stat-label">AGE:</span>
+                            <span class="stat-value" id="infoAge">--</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">ROLE:</span>
+                            <span class="stat-value" id="infoRole">--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Eva Units Section -->
+    <section class="eva-section" id="evas">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">EVANGELION UNITS</h2>
+                <div class="section-border"></div>
+            </div>
+            <div class="eva-grid">
+                <div class="eva-card" data-eva="unit01">
+                    <div class="eva-image">
+                        <img src="https://via.placeholder.com/400x600/800080/ffffff?text=UNIT-01" alt="EVA Unit-01">
+                        <div class="eva-overlay"></div>
+                    </div>
+                    <div class="eva-label">UNIT-01</div>
+                </div>
+                <div class="eva-card" data-eva="unit00">
+                    <div class="eva-image">
+                        <img src="https://via.placeholder.com/400x600/0066cc/ffffff?text=UNIT-00" alt="EVA Unit-00">
+                        <div class="eva-overlay"></div>
+                    </div>
+                    <div class="eva-label">UNIT-00</div>
+                </div>
+                <div class="eva-card" data-eva="unit02">
+                    <div class="eva-image">
+                        <img src="https://via.placeholder.com/400x600/ff3300/ffffff?text=UNIT-02" alt="EVA Unit-02">
+                        <div class="eva-overlay"></div>
+                    </div>
+                    <div class="eva-label">UNIT-02</div>
+                </div>
+            </div>
+            <div class="eva-info" id="evaInfo">
+                <div class="eva-details">
+                    <h3 id="evaTitle">EVANGELION SPECIFICATIONS</h3>
+                    <p id="evaDescription">Hover over an Evangelion unit to view detailed specifications</p>
+                    <div class="eva-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">PILOT:</span>
+                            <span class="spec-value" id="evaPilot">--</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">STATUS:</span>
+                            <span class="spec-value" id="evaStatus">--</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">SYNC RATIO:</span>
+                            <span class="spec-value" id="evaSyncRatio">--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Episodes Carousel -->
+    <section class="episodes-section" id="episodes">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">EPISODE ARCHIVE</h2>
+                <div class="section-border"></div>
+            </div>
+            <div class="carousel-container">
+                <div class="carousel" id="episodeCarousel">
+                    <div class="episode-card active" data-episode="1">
+                        <div class="episode-image">
+                            <img src="https://via.placeholder.com/300x400/ff0000/ffffff?text=EP.01" alt="Episode 1">
+                        </div>
+                        <div class="episode-number">01</div>
+                    </div>
+                    <div class="episode-card" data-episode="2">
+                        <div class="episode-image">
+                            <img src="https://via.placeholder.com/300x400/00ff00/ffffff?text=EP.02" alt="Episode 2">
+                        </div>
+                        <div class="episode-number">02</div>
+                    </div>
+                    <div class="episode-card" data-episode="3">
+                        <div class="episode-image">
+                            <img src="https://via.placeholder.com/300x400/0000ff/ffffff?text=EP.03" alt="Episode 3">
+                        </div>
+                        <div class="episode-number">03</div>
+                    </div>
+                    <div class="episode-card" data-episode="26">
+                        <div class="episode-image">
+                            <img src="https://via.placeholder.com/300x400/ffff00/000000?text=EP.26" alt="Episode 26">
+                        </div>
+                        <div class="episode-number">26</div>
+                    </div>
+                    <div class="episode-card" data-episode="eoe">
+                        <div class="episode-image">
+                            <img src="https://via.placeholder.com/300x400/ff00ff/ffffff?text=EOE" alt="End of Evangelion">
+                        </div>
+                        <div class="episode-number">EOE</div>
+                    </div>
+                </div>
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev" id="prevBtn">‹</button>
+                    <button class="carousel-btn next" id="nextBtn">›</button>
+                </div>
+            </div>
+            <div class="episode-info">
+                <h3 id="episodeTitle">Angel Attack</h3>
+                <p id="episodeSynopsis">Fifteen years after the Second Impact, Shinji Ikari is summoned to Tokyo-3 by his estranged father to pilot a giant bio-mechanical robot called Evangelion to combat beings known as Angels.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- World Building Section -->
+    <section class="world-section" id="world">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">TOKYO-3 FORTRESS CITY</h2>
+                <div class="section-border"></div>
+            </div>
+            <div class="world-content">
+                <div class="map-container">
+                    <div class="japan-map">
+                        <svg viewBox="0 0 400 500" class="map-svg">
+                            <path d="M200 50 L350 80 L380 150 L360 250 L320 350 L280 420 L200 450 L150 420 L100 380 L80 320 L60 250 L80 180 L120 120 L160 80 Z" 
+                                  fill="none" stroke="#00ff00" stroke-width="2"/>
+                            <circle cx="250" cy="200" r="8" fill="#ff0000" class="tokyo3-marker">
+                                <animate attributeName="r" values="8;12;8" dur="2s" repeatCount="indefinite"/>
+                            </circle>
+                            <defs>
+                                <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                                    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#00ff00" stroke-width="0.5" opacity="0.3"/>
+                                </pattern>
+                            </defs>
+                            <rect width="100%" height="100%" fill="url(#grid)"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="world-info">
+                    <h3>POST-SECOND IMPACT WORLD</h3>
+                    <p>After the catastrophic Second Impact in 2000, the world was forever changed. Sea levels rose dramatically, eliminating half of the Earth's population. Tokyo-3, built in the ruins of Hakone, serves as humanity's last fortress against the Angels.</p>
+                    
+                    <div class="world-features">
+                        <div class="feature-item">
+                            <h4>NERV HEADQUARTERS</h4>
+                            <p>Hidden deep beneath Tokyo-3, the massive underground fortress houses the Evangelion units and the mysterious Central Dogma.</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>RETRACTABLE CITY</h4>
+                            <p>Tokyo-3's buildings can retract into the ground during Angel attacks, transforming the city into a battlefield for the Evangelions.</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>AT FIELD BARRIERS</h4>
+                            <p>The city is protected by powerful AT Field barriers, but only Evangelions can penetrate the Angels' own AT Fields.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">SUBMIT REVIEW</h2>
+                <div class="section-border"></div>
+            </div>
+            <div class="contact-content">
+                <form class="review-form" id="reviewForm">
+                    <div class="form-group">
+                        <label for="reviewerName">PILOT NAME</label>
+                        <input type="text" id="reviewerName" name="reviewerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reviewRating">SYNC RATIO (1-10)</label>
+                        <select id="reviewRating" name="reviewRating" required>
+                            <option value="">Select Rating</option>
+                            <option value="10">10 - Perfect Sync</option>
+                            <option value="9">9 - Excellent</option>
+                            <option value="8">8 - Very Good</option>
+                            <option value="7">7 - Good</option>
+                            <option value="6">6 - Above Average</option>
+                            <option value="5">5 - Average</option>
+                            <option value="4">4 - Below Average</option>
+                            <option value="3">3 - Poor</option>
+                            <option value="2">2 - Very Poor</option>
+                            <option value="1">1 - Rejected</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="reviewText">MISSION REPORT</label>
+                        <textarea id="reviewText" name="reviewText" rows="6" placeholder="Share your thoughts on Neon Genesis Evangelion..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">TRANSMIT DATA</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>NEON GENESIS EVANGELION</h3>
+                    <p>A landmark series that redefined anime</p>
+                </div>
+                <div class="footer-section">
+                    <h3>DEVELOPER</h3>
+                    <p>Agustin Citti</p>
+                </div>
+                <div class="footer-section">
+                    <h3>ACADEMIC PROJECT</h3>
+                    <p>Programación 4</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Evangelion Landing Page. Created for educational purposes.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
