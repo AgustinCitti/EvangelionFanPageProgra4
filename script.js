@@ -14,8 +14,96 @@ const episodes = [
         synopsis: "A new student transfers to Shinji's school, and the mysterious Third Angel appears. Shinji must overcome his fears to protect those he cares about."
     },
     {
-        title: "Take Care of Yourself",
-        synopsis: "The final episode of the TV series explores the psychological state of the characters during the Human Instrumentality Project, leading to Shinji's final decision about his own existence."
+        title: "Hedgehog's Dilemma",
+        synopsis: "Shinji moves in with Misato and starts attending school. He struggles with connecting to others while learning about the Hedgehog's Dilemma."
+    },
+    {
+        title: "Rei I",
+        synopsis: "Shinji tries to get to know Rei better, while a new Angel attacks. We learn more about Rei's mysterious connection to Gendo."
+    },
+    {
+        title: "Rei II",
+        synopsis: "The sixth Angel attacks Tokyo-3, forcing Shinji and Rei to work together in a synchronized operation to defeat it."
+    },
+    {
+        title: "A Human Work",
+        synopsis: "NERV faces a human threat as a prototype giant robot built by the Japanese government challenges the Evangelions."
+    },
+    {
+        title: "Asuka Strikes!",
+        synopsis: "The fiery Asuka Langley arrives from Germany with Eva Unit-02, immediately clashing with Shinji while fighting the eighth Angel."
+    },
+    {
+        title: "Both of You, Dance Like You Want to Win!",
+        synopsis: "Shinji and Asuka must learn to synchronize their movements to defeat an Angel that has split into two parts."
+    },
+    {
+        title: "Magma Diver",
+        synopsis: "Asuka pilots Eva Unit-02 in a dangerous mission to capture an Angel hiding in an active volcano."
+    },
+    {
+        title: "The Day Tokyo-3 Stood Still",
+        synopsis: "A massive blackout hits Tokyo-3 just as an Angel attacks, forcing the Eva pilots to fight without power support."
+    },
+    {
+        title: "She said, 'Don't make others suffer for your personal hatred.'",
+        synopsis: "As the twelfth Angel infiltrates NERV headquarters, Shinji must navigate through the facility to reach his Eva."
+    },
+    {
+        title: "Lilliputian Hitcher",
+        synopsis: "A microscopic Angel infects Eva Unit-00 and threatens to take control of it, forcing the pilots to enter a computer simulation."
+    },
+    {
+        title: "Weaving a Story",
+        synopsis: "Tokyo-3 faces a powerful Angel that can learn and adapt to any attack, pushing the Evas to their limits."
+    },
+    {
+        title: "Those women longed for the touch of others' lips, and thus invited their kisses.",
+        synopsis: "The fifteenth Angel attacks during a total solar eclipse, leading to revelations about the Angels' true nature."
+    },
+    {
+        title: "Splitting of the Breast",
+        synopsis: "Shinji's sync ratio reaches dangerous levels as he faces psychological breakdown and questions his own identity."
+    },
+    {
+        title: "Fourth Child",
+        synopsis: "The selection of the Fourth Child creates tension at NERV, while Unit-03 becomes possessed by an Angel."
+    },
+    {
+        title: "Ambivalence",
+        synopsis: "Shinji pilots Eva Unit-01 against the Angel-possessed Unit-03, not knowing who the pilot inside is."
+    },
+    {
+        title: "Introjection",
+        synopsis: "The most powerful Angel yet appears and begins a psychological attack on the Eva pilots' minds."
+    },
+    {
+        title: "Weaving a Story 2: oral stage",
+        synopsis: "Shinji's psychological state deteriorates further as the twentieth Angel continues its mental assault."
+    },
+    {
+        title: "He was aware that he was still a child.",
+        synopsis: "Kaji's investigation into NERV's true agenda reaches its climax, while relationships between characters become strained."
+    },
+    {
+        title: "Don't Be.",
+        synopsis: "The twenty-second Angel attacks and Asuka faces her traumatic past, leading to a devastating defeat."
+    },
+    {
+        title: "Rei III",
+        synopsis: "Rei faces her own existential crisis as Armisael, the twenty-third Angel, attacks by trying to merge with Eva Unit-00."
+    },
+    {
+        title: "The Beginning and the End, or 'Knockin' on Heaven's Door'",
+        synopsis: "Kaworu Nagisa arrives as the final Angel and pilot, forming a deep connection with Shinji before revealing his true nature."
+    },
+    {
+        title: "Do you love me?",
+        synopsis: "Shinji must make an impossible choice regarding Kaworu, leading to the series' psychological exploration."
+    },
+    {
+        title: "Take care of yourself.",
+        synopsis: "The final TV episode delves deep into the minds of the characters during the Human Instrumentality Project."
     },
     {
         title: "The End of Evangelion",
@@ -59,32 +147,21 @@ const characters = {
         age: "15",
         role: "FIFTH CHILD / SEVENTEENTH ANGEL",
         description: "The final Angel to appear, who takes human form. His relationship with Shinji becomes pivotal to the series' conclusion."
+    },
+    ryoji: {
+        name: "RYOJI KAJI",
+        age: "30",
+        role: "NERV SPECIAL INSPECTOR / SPY",
+        description: "A mysterious triple agent working for multiple organizations. Misato's former lover and a key figure investigating NERV's true agenda and the Human Instrumentality Project."
+    },
+    ritsuko: {
+        name: "RITSUKO AKAGI",
+        age: "30",
+        role: "CHIEF SCIENTIST / EVA DEVELOPER",
+        description: "NERV's head scientist and chief developer of the Evangelion units. Daughter of the late Dr. Naoko Akagi, she maintains the MAGI computer system and harbors complex feelings about her work."
     }
 };
 
-const evaUnits = {
-    unit01: {
-        name: "EVANGELION UNIT-01",
-        pilot: "SHINJI IKARI",
-        status: "ACTIVE",
-        syncRatio: "400%+",
-        description: "The Test Type Eva built from the remains of the Second Angel, Lilith. Possesses a unique bond with its pilot and can operate without external power."
-    },
-    unit00: {
-        name: "EVANGELION UNIT-00",
-        pilot: "REI AYANAMI",
-        status: "DESTROYED",
-        syncRatio: "100%",
-        description: "The Prototype Eva, colored blue and white. Known for its instability and eventual self-destruction to defeat the Sixteenth Angel."
-    },
-    unit02: {
-        name: "EVANGELION UNIT-02",
-        pilot: "ASUKA LANGLEY",
-        status: "HEAVILY DAMAGED",
-        syncRatio: "0%",
-        description: "The Production Model Eva, colored red. Built in Germany and equipped with advanced combat capabilities."
-    }
-};
 
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', function() {
@@ -95,7 +172,34 @@ document.addEventListener('DOMContentLoaded', function() {
     initEpisodeCarousel();
     initContactForm();
     initScrollEffects();
+    initImageErrorHandling();
 });
+
+// ===== IMAGE ERROR HANDLING =====
+function initImageErrorHandling() {
+    const images = document.querySelectorAll('img');
+    
+    images.forEach(img => {
+        img.addEventListener('error', function() {
+            console.warn('Failed to load image:', this.src);
+            
+            // Add error class for styling
+            this.classList.add('image-error');
+            
+            // For character images, show a fallback
+            if (this.closest('.character-frame')) {
+                this.style.background = 'linear-gradient(135deg, var(--grid-color), var(--dark-red))';
+                this.style.border = '2px dashed var(--primary-red)';
+                this.alt = 'Character image not found: ' + this.alt;
+            }
+        });
+        
+        img.addEventListener('load', function() {
+            console.log('✅ Successfully loaded image:', this.src);
+            this.classList.remove('image-error');
+        });
+    });
+}
 
 // ===== VIDEO PLAYER FUNCTIONALITY =====
 function initVideoPlayer() {
@@ -210,6 +314,13 @@ function initHeroAnimation() {
 }
 
 function typeText(element, text, speed) {
+    // For HTML content, we need to handle it differently
+    if (text.includes('<')) {
+        // If it contains HTML, just show it directly without typing effect
+        element.innerHTML = text;
+        return;
+    }
+    
     let i = 0;
     function type() {
         if (i < text.length) {
@@ -284,42 +395,73 @@ function typeEffect(element, text) {
 // ===== EVA SECTION =====
 function initEvaSection() {
     const evaCards = document.querySelectorAll('.eva-card');
-    const evaTitle = document.getElementById('evaTitle');
-    const evaDescription = document.getElementById('evaDescription');
-    const evaPilot = document.getElementById('evaPilot');
-    const evaStatus = document.getElementById('evaStatus');
-    const evaSyncRatio = document.getElementById('evaSyncRatio');
     
     evaCards.forEach(card => {
+        const specsElement = card.querySelector('.eva-specifications');
+        
         card.addEventListener('mouseenter', function() {
-            const evaKey = this.dataset.eva;
-            const eva = evaUnits[evaKey];
+            // Add glitch effect
+            this.style.animation = 'pulse 0.5s ease-in-out';
             
-            if (eva) {
-                evaTitle.textContent = eva.name;
-                evaDescription.textContent = eva.description;
-                evaPilot.textContent = eva.pilot;
-                evaStatus.textContent = eva.status;
-                evaSyncRatio.textContent = eva.syncRatio;
-                
-                // Add glitch effect
-                this.style.animation = 'pulse 0.5s ease-in-out';
-                
-                setTimeout(() => {
-                    this.style.animation = '';
-                }, 500);
-            }
+            setTimeout(() => {
+                this.style.animation = '';
+            }, 500);
+            
+            // Initialize mouse tracking for specifications parallax
+            initMouseParallax(this, specsElement);
         });
         
         card.addEventListener('mouseleave', function() {
-            // Reset to default info
-            evaTitle.textContent = 'EVANGELION SPECIFICATIONS';
-            evaDescription.textContent = 'Hover over an Evangelion unit to view detailed specifications';
-            evaPilot.textContent = '--';
-            evaStatus.textContent = '--';
-            evaSyncRatio.textContent = '--';
+            // Reset specifications position
+            if (specsElement) {
+                specsElement.style.transform = 'translate(-50%, -50%)';
+            }
         });
     });
+}
+
+// ===== MOUSE PARALLAX FOR EVA SPECIFICATIONS =====
+function initMouseParallax(card, specsElement) {
+    if (!specsElement) return;
+    
+    let animationFrameId;
+    
+    function handleMouseMove(e) {
+        if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+        }
+        
+        animationFrameId = requestAnimationFrame(() => {
+            const rect = card.getBoundingClientRect();
+            const cardCenterX = rect.left + rect.width / 2;
+            const cardCenterY = rect.top + rect.height / 2;
+            
+            // Calculate mouse position relative to card center
+            const mouseX = e.clientX - cardCenterX;
+            const mouseY = e.clientY - cardCenterY;
+            
+            // Calculate parallax offset (reduced intensity for subtlety)
+            const parallaxIntensity = 0.3;
+            const offsetX = mouseX * parallaxIntensity;
+            const offsetY = mouseY * parallaxIntensity;
+            
+            // Apply the parallax transform
+            specsElement.style.transform = `translate(calc(-50% + ${offsetX}px), calc(-50% + ${offsetY}px))`;
+        });
+    }
+    
+    function removeMouseMove() {
+        document.removeEventListener('mousemove', handleMouseMove);
+        if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+        }
+    }
+    
+    // Add mouse move listener when hovering over the card
+    document.addEventListener('mousemove', handleMouseMove);
+    
+    // Clean up when mouse leaves the card
+    card.addEventListener('mouseleave', removeMouseMove, { once: true });
 }
 
 // ===== EPISODE CAROUSEL =====
@@ -346,29 +488,57 @@ function initEpisodeCarousel() {
             typeEffect(episodeSynopsis, episodes[currentEpisode].synopsis);
         }
         
-        // 3D carousel positioning
-        const cardWidth = 220; // card width + gap
-        const offset = -currentEpisode * cardWidth;
+        // 3D circular carousel positioning
+        const totalCards = episodeCards.length;
+        const radius = 300;
+        const centerAngle = (360 / totalCards) * currentEpisode;
         
         episodeCards.forEach((card, index) => {
-            const position = index - currentEpisode;
-            let transform = `translateX(${position * cardWidth}px)`;
+            const angle = (360 / totalCards) * index - centerAngle;
+            const angleRad = (angle * Math.PI) / 180;
             
-            if (position === 0) {
-                transform += ' scale(1) rotateY(0deg)';
-                card.style.zIndex = '3';
-                card.style.opacity = '1';
-            } else if (Math.abs(position) === 1) {
-                transform += ` scale(0.9) rotateY(${position * -20}deg)`;
-                card.style.zIndex = '2';
-                card.style.opacity = '0.7';
+            // Calculate 3D position
+            const x = Math.sin(angleRad) * radius;
+            const z = Math.cos(angleRad) * radius - radius;
+            const rotateY = -angle;
+            
+            // Distance from center determines scale and opacity
+            const distance = Math.abs(angle % 360);
+            const normalizedDistance = Math.min(distance, 360 - distance) / 180;
+            
+            let scale, opacity, zIndex;
+            
+            if (index === currentEpisode) {
+                // Active card
+                scale = 1.1;
+                opacity = 1;
+                zIndex = 10;
+            } else if (normalizedDistance < 0.3) {
+                // Cards close to active
+                scale = 0.9;
+                opacity = 0.8;
+                zIndex = 5;
+            } else if (normalizedDistance < 0.6) {
+                // Medium distance cards
+                scale = 0.7;
+                opacity = 0.6;
+                zIndex = 3;
             } else {
-                transform += ` scale(0.8) rotateY(${position * 45}deg)`;
-                card.style.zIndex = '1';
-                card.style.opacity = '0.5';
+                // Far cards
+                scale = 0.5;
+                opacity = 0.3;
+                zIndex = 1;
             }
             
-            card.style.transform = transform;
+            // Apply transforms
+            card.style.transform = `
+                translateX(${x}px) 
+                translateZ(${z}px) 
+                rotateY(${rotateY}deg) 
+                scale(${scale})
+            `;
+            card.style.opacity = opacity;
+            card.style.zIndex = zIndex;
         });
     }
     
@@ -382,14 +552,16 @@ function initEpisodeCarousel() {
         updateCarousel();
     });
     
+    // Add click functionality to episode cards
+    episodeCards.forEach((card, index) => {
+        card.addEventListener('click', function() {
+            currentEpisode = index;
+            updateCarousel();
+        });
+    });
+    
     // Initialize carousel
     updateCarousel();
-    
-    // Auto-rotate carousel
-    setInterval(() => {
-        currentEpisode = (currentEpisode + 1) % episodes.length;
-        updateCarousel();
-    }, 5000);
 }
 
 // ===== CONTACT FORM =====
@@ -462,8 +634,32 @@ function initScrollEffects() {
         });
     });
     
-    // Parallax effects
-    window.addEventListener('scroll', function() {
+    // Function to check if element is in viewport
+    function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        const threshold = windowHeight * 0.1; // 10% threshold
+        
+        return (
+            rect.top < windowHeight - threshold &&
+            rect.bottom > threshold
+        );
+    }
+    
+    // Function to animate visible elements
+    function animateVisibleElements() {
+        const elements = document.querySelectorAll('.section-title, .synopsis-text, .character-slot, .eva-card');
+        elements.forEach(element => {
+            if (isInViewport(element) && !element.classList.contains('animated')) {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+                element.classList.add('animated');
+            }
+        });
+    }
+    
+    // Parallax effects and scroll animations
+    function handleScroll() {
         const scrolled = window.pageYOffset;
         const rate = scrolled * -0.5;
         
@@ -473,19 +669,20 @@ function initScrollEffects() {
             heroBackground.style.transform = `translateY(${rate}px)`;
         }
         
-        // Fade in elements on scroll
-        const elements = document.querySelectorAll('.section-title, .synopsis-text, .character-slot, .eva-card');
-        elements.forEach(element => {
-            const elementTop = element.offsetTop;
-            const elementBottom = elementTop + element.offsetHeight;
-            const viewportTop = scrolled;
-            const viewportBottom = viewportTop + window.innerHeight;
-            
-            if (elementBottom > viewportTop && elementTop < viewportBottom) {
-                element.style.opacity = '1';
-                element.style.transform = 'translateY(0)';
-            }
-        });
+        // Animate elements as they come into view
+        animateVisibleElements();
+    }
+    
+    // Throttled scroll event
+    let ticking = false;
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                handleScroll();
+                ticking = false;
+            });
+            ticking = true;
+        }
     });
     
     // Initial setup for scroll animations
@@ -495,6 +692,11 @@ function initScrollEffects() {
         element.style.transform = 'translateY(50px)';
         element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
     });
+    
+    // Check for elements that are already in viewport on page load
+    setTimeout(() => {
+        animateVisibleElements();
+    }, 100);
 }
 
 function smoothScrollTo(target) {
@@ -556,21 +758,6 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// ===== PERFORMANCE OPTIMIZATIONS =====
-// Throttle scroll events
-let ticking = false;
-
-function updateOnScroll() {
-    // Scroll-dependent animations go here
-    ticking = false;
-}
-
-window.addEventListener('scroll', function() {
-    if (!ticking) {
-        requestAnimationFrame(updateOnScroll);
-        ticking = true;
-    }
-});
 
 // ===== INITIALIZE ADDITIONAL EFFECTS =====
 setTimeout(() => {
