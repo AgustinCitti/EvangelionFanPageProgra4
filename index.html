@@ -11,7 +11,7 @@
 <body>
     <!-- Hero Section -->
     <section class="hero-section" id="hero">
-        <video class="hero-video" id="heroVideo" autoplay loop preload="metadata">
+        <video class="hero-video" id="heroVideo" autoplay muted loop preload="metadata">
             <source src="Media/Neon Genesis Evangelion - Opening [4K 60FPS  Creditless  CC] - Neobrane (720p, h264).mp4" type="video/mp4">
             <div class="hero-background"></div>
         </video>
@@ -31,9 +31,32 @@
         </div>
     </section>
 
+    <!-- Page Navigation -->
+    <nav class="page-nav" id="pageNav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="Media/nav.png" alt="NGE Logo" class="nav-logo-image">
+                <div class="nav-logo-pulse"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#hero" class="nav-link" data-section="hero">INTRO</a></li>
+                <li><a href="#synopsis" class="nav-link" data-section="synopsis">OVERVIEW</a></li>
+                <li><a href="#characters" class="nav-link" data-section="characters">PILOTS</a></li>
+                <li><a href="#evas" class="nav-link" data-section="evas">UNITS</a></li>
+                <li><a href="#episodes" class="nav-link" data-section="episodes">ARCHIVE</a></li>
+                <li><a href="#world" class="nav-link" data-section="world">TOKYO-3</a></li>
+                <li><a href="#contact" class="nav-link" data-section="contact">REPORT</a></li>
+            </ul>
+            <div class="nav-indicator">
+                <div class="nav-indicator-line"></div>
+                <div class="nav-indicator-dot"></div>
+            </div>
+        </div>
+    </nav>
+
     <!-- Mini Video Player (hidden initially) -->
     <div class="mini-video-container" id="miniVideoContainer">
-        <video class="mini-video" id="miniVideo" autoplay loop preload="metadata">
+        <video class="mini-video" id="miniVideo" autoplay muted loop preload="metadata">
             <source src="Media/Neon Genesis Evangelion - Opening [4K 60FPS  Creditless  CC] - Neobrane (720p, h264).mp4" type="video/mp4">
         </video>
         <div class="mini-video-controls">

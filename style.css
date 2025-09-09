@@ -286,6 +286,245 @@ body {
     border-top: none;
 }
 
+/* ===== PAGE NAVIGATION ===== */
+.page-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(-100%);
+    transition: all 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+    backdrop-filter: blur(8px);
+}
+
+.page-nav.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.nav-logo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-family: 'Orbitron', monospace;
+}
+
+.nav-logo-image {
+    height: 40px;
+    width: auto;
+    filter: brightness(1.2) contrast(1.1);
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.nav-logo-image:hover {
+    filter: brightness(1.4) contrast(1.2);
+    transform: scale(1.05);
+}
+
+.nav-logo-pulse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--terminal-green);
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: navPulse 2s ease-in-out infinite;
+}
+
+@keyframes navPulse {
+    0%, 100% { 
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.6;
+    }
+    50% { 
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.3;
+    }
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 2rem;
+    position: relative;
+}
+
+.nav-link {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--terminal-green);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    padding: 8px 12px;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+    text-transform: uppercase;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--terminal-green), var(--primary-red));
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+    box-shadow: 0 0 10px currentColor;
+}
+
+.nav-link:hover {
+    color: var(--text-primary);
+    border-color: var(--terminal-green);
+    text-shadow: 
+        0 0 8px var(--terminal-green),
+        0 0 16px var(--terminal-green);
+    box-shadow: 
+        0 0 15px rgba(0, 255, 65, 0.3),
+        inset 0 0 15px rgba(0, 255, 65, 0.1);
+    transform: translateY(-2px);
+}
+
+.nav-link:hover::before {
+    opacity: 1;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-link.active {
+    color: var(--primary-red);
+    border-color: var(--primary-red);
+    background: rgba(255, 51, 0, 0.1);
+    text-shadow: 
+        0 0 8px var(--primary-red),
+        0 0 16px var(--primary-red);
+    box-shadow: 
+        0 0 15px rgba(255, 51, 0, 0.4),
+        inset 0 0 15px rgba(255, 51, 0, 0.1);
+}
+
+.nav-link.active::after {
+    width: 100%;
+    background: linear-gradient(90deg, var(--primary-red), var(--neon-orange));
+}
+
+.nav-indicator {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0.7;
+}
+
+.nav-indicator-line {
+    width: 30px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--terminal-green));
+    animation: navScan 3s linear infinite;
+}
+
+@keyframes navScan {
+    0% { 
+        opacity: 0.3;
+        transform: scaleX(0);
+        transform-origin: left;
+    }
+    50% { 
+        opacity: 1;
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+    100% { 
+        opacity: 0.3;
+        transform: scaleX(0);
+        transform-origin: right;
+    }
+}
+
+.nav-indicator-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--terminal-green);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--terminal-green);
+    animation: navDotPulse 2s ease-in-out infinite;
+}
+
+@keyframes navDotPulse {
+    0%, 100% { 
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 0.5;
+        transform: scale(1.3);
+    }
+}
+
+/* Navigation hover state for entire nav */
+.page-nav:hover {
+    backdrop-filter: blur(12px);
+    border-bottom-color: rgba(255, 51, 0, 0.4);
+}
+
+/* Simple slide down animation for nav appearance */
+.page-nav.show {
+    animation: navSlideDown 0.8s ease-out;
+}
+
+@keyframes navSlideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* ===== SECTION HEADERS ===== */
 .section-header {
     text-align: center;
@@ -1284,6 +1523,30 @@ body {
     .eva-grid {
         gap: 1rem;
     }
+    
+    /* Navigation responsive styles */
+    .nav-container {
+        padding: 0 15px;
+        height: 60px;
+    }
+    
+    .nav-links {
+        gap: 1.5rem;
+    }
+    
+    .nav-link {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+    
+    .nav-logo-image {
+        height: 35px;
+    }
+    
+    .nav-logo-pulse {
+        width: 35px;
+        height: 35px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -1336,6 +1599,38 @@ body {
         grid-template-columns: 1fr;
         text-align: center;
         gap: 1rem;
+    }
+    
+    /* Navigation mobile styles */
+    .nav-container {
+        height: 55px;
+        padding: 0 10px;
+    }
+    
+    .nav-links {
+        gap: 1rem;
+    }
+    
+    .nav-link {
+        font-size: 0.75rem;
+        padding: 5px 8px;
+    }
+    
+    .nav-logo-image {
+        height: 30px;
+    }
+    
+    .nav-logo-pulse {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .nav-indicator {
+        opacity: 0.5;
+    }
+    
+    .nav-indicator-line {
+        width: 20px;
     }
     
     .carousel {
@@ -1447,6 +1742,36 @@ body {
         height: 90px;
         padding: 0.6rem;
         font-size: 0.8rem;
+    }
+    
+    /* Navigation ultra-mobile styles */
+    .nav-container {
+        height: 50px;
+        padding: 0 8px;
+    }
+    
+    .nav-links {
+        gap: 0.5rem;
+    }
+    
+    .nav-link {
+        font-size: 0.65rem;
+        padding: 4px 6px;
+        letter-spacing: 0.02em;
+    }
+    
+    .nav-logo-image {
+        height: 25px;
+    }
+    
+    .nav-logo-pulse {
+        width: 25px;
+        height: 25px;
+        border-width: 1px;
+    }
+    
+    .nav-indicator {
+        display: none; /* Hide indicator on very small screens */
     }
     
     .info-panel h3 {

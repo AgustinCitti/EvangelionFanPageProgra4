@@ -173,6 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initContactForm();
     initScrollEffects();
     initImageErrorHandling();
+    initPageNavigation();
 });
 
 // ===== IMAGE ERROR HANDLING =====
@@ -213,60 +214,89 @@ function initVideoPlayer() {
     let miniVideoVisible = false;
     let videoLoadAttempts = 0;
     const maxVideoLoadAttempts = 3;
-    let isMuted = false; // Try to start with sound enabled
+    let isMuted = true; // Start muted for autoplay to work
     let hasUserInteracted = false;
     
-    // Force video to start with sound immediately
-    async function startVideoWithSound() {
-        // Set volumes immediately
-        heroVideo.volume = 1.0; // Hero video at full volume
-        miniVideo.volume = 0.2; // Mini video at reduced volume to avoid double audio
+    // Initialize video player with proper autoplay handling
+    function initVideoPlayback() {
+        // Set initial volumes
+        heroVideo.volume = 1.0;
+        miniVideo.volume = 0.2;
         
-        // Force unmuted playback
-        heroVideo.muted = false;
-        miniVideo.muted = false;
-        isMuted = false;
+        // Videos start muted for autoplay compliance
+        heroVideo.muted = true;
+        miniVideo.muted = true;
+        isMuted = true;
         
-        try {
-            // Force play with sound - no fallback to muted
-            await heroVideo.play();
-            console.log('Video started with sound');
-        } catch (error) {
-            console.log('Attempting to force sound autoplay...');
-            
-            // Try again after a brief delay
-            setTimeout(async () => {
-                try {
-                    heroVideo.muted = false;
-                    heroVideo.volume = 1.0;
-                    await heroVideo.play();
-                    console.log('Video sound forced on second attempt');
-                } catch (secondError) {
-                    console.log('Sound autoplay still blocked, but video should play with sound');
-                    // Even if blocked, keep trying to enable sound
-                    heroVideo.muted = false;
-                    heroVideo.volume = 1.0;
-                }
-            }, 100);
+        console.log('Video initialized - will autoplay muted');
+        
+        // Enable sound after first user interaction
+        function enableSoundOnInteraction() {
+            if (!hasUserInteracted) {
+                hasUserInteracted = true;
+                heroVideo.muted = false;
+                miniVideo.muted = false;
+                isMuted = false;
+                console.log('Sound enabled after user interaction');
+                
+                // Update sound toggle button state
+                soundToggle.textContent = '🔊';
+                miniSoundToggle.textContent = '🔊';
+                
+                // Remove this listener after first interaction
+                document.removeEventListener('click', enableSoundOnInteraction);
+                document.removeEventListener('keydown', enableSoundOnInteraction);
+                document.removeEventListener('touchstart', enableSoundOnInteraction);
+            }
         }
         
-        // Ensure sound stays enabled
-        setInterval(() => {
-            if (heroVideo.muted) {
-                heroVideo.muted = false;
-                heroVideo.volume = 1.0;
-            }
-            if (miniVideo.muted) {
-                miniVideo.muted = false;
-                miniVideo.volume = 0.2;
-            }
-        }, 1000);
+        // Listen for first user interaction to enable sound
+        document.addEventListener('click', enableSoundOnInteraction);
+        document.addEventListener('keydown', enableSoundOnInteraction);
+        document.addEventListener('touchstart', enableSoundOnInteraction);
     }
     
-    // Start the video
-    startVideoWithSound();
+    // Start the video initialization
+    initVideoPlayback();
     
-    // Note: Sound toggle buttons are hidden, sound automatically enables on user interaction
+    // Sound toggle functionality
+    soundToggle.addEventListener('click', function() {
+        if (isMuted) {
+            heroVideo.muted = false;
+            miniVideo.muted = false;
+            isMuted = false;
+            this.textContent = '🔊';
+            miniSoundToggle.textContent = '🔊';
+            hasUserInteracted = true;
+        } else {
+            heroVideo.muted = true;
+            miniVideo.muted = true;
+            isMuted = true;
+            this.textContent = '🔇';
+            miniSoundToggle.textContent = '🔇';
+        }
+    });
+    
+    miniSoundToggle.addEventListener('click', function() {
+        if (isMuted) {
+            heroVideo.muted = false;
+            miniVideo.muted = false;
+            isMuted = false;
+            this.textContent = '🔊';
+            soundToggle.textContent = '🔊';
+            hasUserInteracted = true;
+        } else {
+            heroVideo.muted = true;
+            miniVideo.muted = true;
+            isMuted = true;
+            this.textContent = '🔇';
+            soundToggle.textContent = '🔇';
+        }
+    });
+    
+    // Set initial sound toggle button states
+    soundToggle.textContent = '🔇';
+    miniSoundToggle.textContent = '🔇';
     
     // Function to handle video loading with retry mechanism
     function handleVideoLoadError(videoElement, isHeroVideo = false) {
@@ -317,9 +347,9 @@ function initVideoPlayer() {
         // Sync video time and play state
         miniVideo.currentTime = heroVideo.currentTime;
         
-        // Reduce mini video volume to avoid double audio (keep hero video at full volume)
+        // Set proper mini video volume and muted state
         miniVideo.volume = 0.2; // Set mini video to 20% volume
-        miniVideo.muted = false; // Ensure it's not muted so volume control works
+        miniVideo.muted = isMuted; // Respect current muted state
         
         if (!heroVideo.paused) {
             miniVideo.play();
@@ -351,9 +381,16 @@ function initVideoPlayer() {
             this.textContent = '▶️';
         }
         
-        // Maintain proper volume levels
+        // Maintain proper volume levels and muted state
         heroVideo.volume = 1.0; // Keep hero at full volume
         miniVideo.volume = 0.2; // Keep mini at reduced volume
+        heroVideo.muted = isMuted; // Maintain current muted state
+        miniVideo.muted = isMuted; // Maintain current muted state
+        
+        // Enable sound on user interaction if not already done
+        if (!hasUserInteracted && !isMuted) {
+            hasUserInteracted = true;
+        }
     });
     
     miniClose.addEventListener('click', function() {
@@ -368,7 +405,7 @@ function initVideoPlayer() {
             heroVideo.currentTime = miniVideo.currentTime;
         }
         
-        // Maintain proper volume levels (hero at full, mini at reduced)
+        // Maintain proper volume levels
         if (miniVideoVisible) {
             if (heroVideo.volume !== 1.0) heroVideo.volume = 1.0;
             if (miniVideo.volume !== 0.2) miniVideo.volume = 0.2;
@@ -399,11 +436,13 @@ function initVideoPlayer() {
 function initHeroAnimation() {
     const ctaButton = document.getElementById('ctaButton');
     const heroTitle = document.getElementById('heroTitle');
+    const pageNav = document.getElementById('pageNav');
     
     // Track video time to show title and CTA at specific times
     const heroVideo = document.getElementById('heroVideo');
     let titleShown = false;
     let ctaShown = false;
+    let navShown = false;
     
     // Function to check video time and show elements
     function checkVideoTime() {
@@ -423,6 +462,13 @@ function initHeroAnimation() {
                 ctaShown = true;
                 console.log('CTA shown at', currentTime, 'seconds');
             }
+            
+            // Show navigation after 24 seconds
+            if (currentTime >= 24 && !navShown) {
+                showPageNavigation();
+                navShown = true;
+                console.log('Navigation shown at', currentTime, 'seconds');
+            }
         }
     }
     
@@ -435,6 +481,91 @@ function initHeroAnimation() {
     ctaButton.addEventListener('click', function() {
         smoothScrollTo('#synopsis');
     });
+}
+
+// ===== PAGE NAVIGATION =====
+function initPageNavigation() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section[id]');
+    
+    // Handle navigation link clicks
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetSection = this.getAttribute('href');
+            smoothScrollTo(targetSection);
+            
+            // Add terminal click effect
+            addTerminalClickEffect(this);
+        });
+    });
+    
+    // Track current section and update active nav link
+    function updateActiveNavLink() {
+        let currentSection = '';
+        const scrollPosition = window.scrollY + 100; // Account for nav height
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                currentSection = section.getAttribute('id');
+            }
+        });
+        
+        // Update active class on nav links
+        navLinks.forEach(link => {
+            const linkSection = link.getAttribute('data-section');
+            if (linkSection === currentSection) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }
+    
+    // Throttled scroll event for nav updates
+    let navTicking = false;
+    window.addEventListener('scroll', function() {
+        if (!navTicking) {
+            requestAnimationFrame(() => {
+                updateActiveNavLink();
+                navTicking = false;
+            });
+            navTicking = true;
+        }
+    });
+    
+    // Initial active link update
+    setTimeout(updateActiveNavLink, 500);
+}
+
+function showPageNavigation() {
+    const pageNav = document.getElementById('pageNav');
+    if (pageNav) {
+        // Add show class for simple slide down animation
+        pageNav.classList.add('show');
+        
+        console.log('Page navigation is now visible');
+    }
+}
+
+function addTerminalClickEffect(element) {
+    // Add visual feedback for nav link clicks
+    const originalTransform = element.style.transform;
+    const originalTextShadow = element.style.textShadow;
+    
+    // Terminal-style click effect
+    element.style.transform = 'translateY(-2px) scale(1.05)';
+    element.style.textShadow = '0 0 20px var(--terminal-green), 0 0 30px var(--terminal-green)';
+    element.style.filter = 'brightness(1.3)';
+    
+    setTimeout(() => {
+        element.style.transform = originalTransform;
+        element.style.textShadow = originalTextShadow;
+        element.style.filter = '';
+    }, 200);
 }
 
 function typeText(element, text, speed) {
