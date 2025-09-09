@@ -216,61 +216,51 @@ function initVideoPlayer() {
     let isMuted = false; // Try to start with sound enabled
     let hasUserInteracted = false;
     
-    // Try to play with sound first, fallback to muted if blocked
+    // Force video to start with sound immediately
     async function startVideoWithSound() {
+        // Set volumes immediately
+        heroVideo.volume = 1.0; // Hero video at full volume
+        miniVideo.volume = 0.2; // Mini video at reduced volume to avoid double audio
+        
+        // Force unmuted playback
+        heroVideo.muted = false;
+        miniVideo.muted = false;
+        isMuted = false;
+        
         try {
-            // Set initial volumes
-            heroVideo.volume = 1.0; // Hero video at full volume
-            miniVideo.volume = 0.2; // Mini video at reduced volume to avoid double audio
-            
-            // Attempt to play with sound enabled
-            heroVideo.muted = false;
-            miniVideo.muted = false;
+            // Force play with sound - no fallback to muted
             await heroVideo.play();
-            isMuted = false;
             console.log('Video started with sound');
         } catch (error) {
-            console.log('Autoplay with sound blocked, trying muted autoplay');
-            // Fallback to muted autoplay but set proper volumes for when sound is enabled
-            heroVideo.volume = 1.0; // Hero video at full volume
-            miniVideo.volume = 0.2; // Mini video at reduced volume
-            heroVideo.muted = true;
-            miniVideo.muted = true;
-            isMuted = true;
-            try {
-                await heroVideo.play();
-                console.log('Video started muted - will enable sound on user interaction');
-                
-                // Enable sound on first user interaction
-                function enableSoundOnInteraction() {
-                    if (!hasUserInteracted && isMuted) {
-                        hasUserInteracted = true;
-                        heroVideo.muted = false;
-                        miniVideo.muted = false;
-                        
-                        // Set proper volumes when enabling sound
-                        heroVideo.volume = 1.0; // Hero video at full volume
-                        miniVideo.volume = 0.2; // Mini video at reduced volume
-                        
-                        isMuted = false;
-                        console.log('Sound enabled after user interaction');
-                    }
+            console.log('Attempting to force sound autoplay...');
+            
+            // Try again after a brief delay
+            setTimeout(async () => {
+                try {
+                    heroVideo.muted = false;
+                    heroVideo.volume = 1.0;
+                    await heroVideo.play();
+                    console.log('Video sound forced on second attempt');
+                } catch (secondError) {
+                    console.log('Sound autoplay still blocked, but video should play with sound');
+                    // Even if blocked, keep trying to enable sound
+                    heroVideo.muted = false;
+                    heroVideo.volume = 1.0;
                 }
-                
-                // Listen for first user interaction to enable sound
-                document.addEventListener('click', enableSoundOnInteraction, { once: true });
-                document.addEventListener('keydown', enableSoundOnInteraction, { once: true });
-                document.addEventListener('touchstart', enableSoundOnInteraction, { once: true });
-                
-            } catch (mutedError) {
-                console.log('All autoplay blocked:', mutedError);
-                // Show fallback background if video can't play at all
-                const fallbackBg = heroSection.querySelector('.hero-background');
-                if (fallbackBg) {
-                    fallbackBg.classList.add('show');
-                }
-            }
+            }, 100);
         }
+        
+        // Ensure sound stays enabled
+        setInterval(() => {
+            if (heroVideo.muted) {
+                heroVideo.muted = false;
+                heroVideo.volume = 1.0;
+            }
+            if (miniVideo.muted) {
+                miniVideo.muted = false;
+                miniVideo.volume = 0.2;
+            }
+        }, 1000);
     }
     
     // Start the video
@@ -410,13 +400,36 @@ function initHeroAnimation() {
     const ctaButton = document.getElementById('ctaButton');
     const heroTitle = document.getElementById('heroTitle');
     
-    // Add typing effect to title
-    const titleText = heroTitle.innerHTML;
-    heroTitle.innerHTML = '';
+    // Track video time to show title and CTA at specific times
+    const heroVideo = document.getElementById('heroVideo');
+    let titleShown = false;
+    let ctaShown = false;
     
-    setTimeout(() => {
-        typeText(heroTitle, titleText, 50);
-    }, 500);
+    // Function to check video time and show elements
+    function checkVideoTime() {
+        if (heroVideo && !heroVideo.paused) {
+            const currentTime = heroVideo.currentTime;
+            
+            // Show title at 23 seconds
+            if (currentTime >= 23 && !titleShown) {
+                heroTitle.classList.add('show-title');
+                titleShown = true;
+                console.log('Title shown at', currentTime, 'seconds');
+            }
+            
+            // Show CTA button at 24 seconds
+            if (currentTime >= 24 && !ctaShown) {
+                ctaButton.classList.add('show-cta');
+                ctaShown = true;
+                console.log('CTA shown at', currentTime, 'seconds');
+            }
+        }
+    }
+    
+    // Listen to video timeupdate events
+    if (heroVideo) {
+        heroVideo.addEventListener('timeupdate', checkVideoTime);
+    }
     
     // CTA button click handler
     ctaButton.addEventListener('click', function() {
@@ -694,7 +707,7 @@ function initEpisodeCarousel() {
     let autoRotateInterval = setInterval(() => {
         currentEpisode = (currentEpisode + 1) % episodes.length;
         updateCarousel();
-    }, 4000); // Change every 4 seconds
+    }, 5000); // Change every 5 seconds
     
     // Pause auto-rotation when user interacts
     function pauseAutoRotation() {
@@ -704,7 +717,7 @@ function initEpisodeCarousel() {
             autoRotateInterval = setInterval(() => {
                 currentEpisode = (currentEpisode + 1) % episodes.length;
                 updateCarousel();
-            }, 4000);
+            }, 5000);
         }, 8000);
     }
     
