@@ -60,6 +60,56 @@ body {
     transition: all 0.3s ease;
 }
 
+.video-controls {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    z-index: 10;
+    display: none; /* Hide sound controls */
+    gap: 10px;
+}
+
+.sound-toggle {
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--primary-red);
+    color: var(--text-primary);
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.sound-toggle:hover {
+    background: rgba(255, 51, 0, 0.2);
+    border-color: var(--neon-orange);
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 51, 0, 0.5);
+}
+
+.sound-toggle.muted {
+    opacity: 0.6;
+    border-color: var(--text-secondary);
+    animation: soundPrompt 2s ease-in-out infinite;
+}
+
+@keyframes soundPrompt {
+    0%, 100% { 
+        transform: scale(1);
+        box-shadow: 0 0 10px rgba(255, 51, 0, 0.3);
+    }
+    50% { 
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(255, 51, 0, 0.6);
+    }
+}
+
 .hero-background {
     position: absolute;
     top: 0;
@@ -73,6 +123,14 @@ body {
         linear-gradient(45deg, var(--background-darker) 0%, var(--background-dark) 100%);
     animation: heroBackground 10s ease-in-out infinite alternate;
     z-index: 1;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.hero-background.show {
+    display: block;
+    opacity: 1;
 }
 
 @keyframes heroBackground {
@@ -1611,6 +1669,10 @@ body::after {
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+}
+
+#miniSoundToggle {
+    display: none; /* Hide mini video sound toggle */
 }
 
 .mini-control-btn:hover {

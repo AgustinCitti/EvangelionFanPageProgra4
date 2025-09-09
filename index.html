@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neon Genesis Evangelion - Official Landing Page</title>
+    <link rel="icon" type="image/x-icon" href="Media/favicon.ico">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Hero Section -->
     <section class="hero-section" id="hero">
-        <video class="hero-video" id="heroVideo" autoplay muted loop>
+        <video class="hero-video" id="heroVideo" loop preload="metadata">
             <source src="Media/Neon Genesis Evangelion - Opening [4K 60FPS  Creditless  CC] - Neobrane (720p, h264).mp4" type="video/mp4">
             <div class="hero-background"></div>
         </video>
@@ -18,6 +19,9 @@
         <div class="hero-content">
             <h1 class="hero-title" id="heroTitle">NEON GENESIS<br><span class="subtitle">EVANGELION</span></h1>
             <button class="cta-button" id="ctaButton">ENTER THE WORLD</button>
+        </div>
+        <div class="video-controls">
+            <button class="sound-toggle" id="soundToggle" title="Toggle Sound">🔊</button>
         </div>
         <div class="terminal-borders">
             <div class="corner top-left"></div>
@@ -29,11 +33,12 @@
 
     <!-- Mini Video Player (hidden initially) -->
     <div class="mini-video-container" id="miniVideoContainer">
-        <video class="mini-video" id="miniVideo" muted loop>
+        <video class="mini-video" id="miniVideo" loop preload="metadata">
             <source src="Media/Neon Genesis Evangelion - Opening [4K 60FPS  Creditless  CC] - Neobrane (720p, h264).mp4" type="video/mp4">
         </video>
         <div class="mini-video-controls">
             <button class="mini-control-btn" id="miniPlayPause">⏸️</button>
+            <button class="mini-control-btn" id="miniSoundToggle">🔊</button>
             <button class="mini-control-btn" id="miniClose">✕</button>
         </div>
         <div class="mini-video-border"></div>

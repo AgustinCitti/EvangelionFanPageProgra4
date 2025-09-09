@@ -181,8 +181,6 @@ function initImageErrorHandling() {
     
     images.forEach(img => {
         img.addEventListener('error', function() {
-            console.warn('Failed to load image:', this.src);
-            
             // Add error class for styling
             this.classList.add('image-error');
             
@@ -195,7 +193,6 @@ function initImageErrorHandling() {
         });
         
         img.addEventListener('load', function() {
-            console.log('✅ Successfully loaded image:', this.src);
             this.classList.remove('image-error');
         });
     });
@@ -209,9 +206,98 @@ function initVideoPlayer() {
     const miniVideo = document.getElementById('miniVideo');
     const miniPlayPause = document.getElementById('miniPlayPause');
     const miniClose = document.getElementById('miniClose');
+    const soundToggle = document.getElementById('soundToggle');
+    const miniSoundToggle = document.getElementById('miniSoundToggle');
     
     let isHeroVisible = true;
     let miniVideoVisible = false;
+    let videoLoadAttempts = 0;
+    const maxVideoLoadAttempts = 3;
+    let isMuted = false; // Try to start with sound enabled
+    let hasUserInteracted = false;
+    
+    // Try to play with sound first, fallback to muted if blocked
+    async function startVideoWithSound() {
+        try {
+            // Set initial volumes
+            heroVideo.volume = 1.0; // Hero video at full volume
+            miniVideo.volume = 0.2; // Mini video at reduced volume to avoid double audio
+            
+            // Attempt to play with sound enabled
+            heroVideo.muted = false;
+            miniVideo.muted = false;
+            await heroVideo.play();
+            isMuted = false;
+            console.log('Video started with sound');
+        } catch (error) {
+            console.log('Autoplay with sound blocked, trying muted autoplay');
+            // Fallback to muted autoplay but set proper volumes for when sound is enabled
+            heroVideo.volume = 1.0; // Hero video at full volume
+            miniVideo.volume = 0.2; // Mini video at reduced volume
+            heroVideo.muted = true;
+            miniVideo.muted = true;
+            isMuted = true;
+            try {
+                await heroVideo.play();
+                console.log('Video started muted - will enable sound on user interaction');
+                
+                // Enable sound on first user interaction
+                function enableSoundOnInteraction() {
+                    if (!hasUserInteracted && isMuted) {
+                        hasUserInteracted = true;
+                        heroVideo.muted = false;
+                        miniVideo.muted = false;
+                        
+                        // Set proper volumes when enabling sound
+                        heroVideo.volume = 1.0; // Hero video at full volume
+                        miniVideo.volume = 0.2; // Mini video at reduced volume
+                        
+                        isMuted = false;
+                        console.log('Sound enabled after user interaction');
+                    }
+                }
+                
+                // Listen for first user interaction to enable sound
+                document.addEventListener('click', enableSoundOnInteraction, { once: true });
+                document.addEventListener('keydown', enableSoundOnInteraction, { once: true });
+                document.addEventListener('touchstart', enableSoundOnInteraction, { once: true });
+                
+            } catch (mutedError) {
+                console.log('All autoplay blocked:', mutedError);
+                // Show fallback background if video can't play at all
+                const fallbackBg = heroSection.querySelector('.hero-background');
+                if (fallbackBg) {
+                    fallbackBg.classList.add('show');
+                }
+            }
+        }
+    }
+    
+    // Start the video
+    startVideoWithSound();
+    
+    // Note: Sound toggle buttons are hidden, sound automatically enables on user interaction
+    
+    // Function to handle video loading with retry mechanism
+    function handleVideoLoadError(videoElement, isHeroVideo = false) {
+        videoLoadAttempts++;
+        
+        if (videoLoadAttempts < maxVideoLoadAttempts) {
+            // Try to reload the video
+            setTimeout(() => {
+                videoElement.load();
+            }, 1000);
+        } else {
+            if (isHeroVideo) {
+                // Show fallback background for hero video
+                const fallbackBg = heroSection.querySelector('.hero-background');
+                if (fallbackBg) {
+                    fallbackBg.classList.add('show');
+                }
+                videoElement.style.display = 'none';
+            }
+        }
+    }
     
     // Intersection Observer to detect when hero section is out of view
     const observer = new IntersectionObserver((entries) => {
@@ -240,6 +326,11 @@ function initVideoPlayer() {
         
         // Sync video time and play state
         miniVideo.currentTime = heroVideo.currentTime;
+        
+        // Reduce mini video volume to avoid double audio (keep hero video at full volume)
+        miniVideo.volume = 0.2; // Set mini video to 20% volume
+        miniVideo.muted = false; // Ensure it's not muted so volume control works
+        
         if (!heroVideo.paused) {
             miniVideo.play();
             miniPlayPause.textContent = '⏸️';
@@ -253,6 +344,9 @@ function initVideoPlayer() {
         miniVideoVisible = false;
         miniVideoContainer.classList.remove('show');
         miniVideo.pause();
+        
+        // Ensure hero video is at full volume when mini video is hidden
+        heroVideo.volume = 1.0;
     }
     
     // Mini video controls
@@ -266,6 +360,10 @@ function initVideoPlayer() {
             heroVideo.pause();
             this.textContent = '▶️';
         }
+        
+        // Maintain proper volume levels
+        heroVideo.volume = 1.0; // Keep hero at full volume
+        miniVideo.volume = 0.2; // Keep mini at reduced volume
     });
     
     miniClose.addEventListener('click', function() {
@@ -279,18 +377,31 @@ function initVideoPlayer() {
         if (miniVideoVisible && Math.abs(heroVideo.currentTime - miniVideo.currentTime) > 1) {
             heroVideo.currentTime = miniVideo.currentTime;
         }
+        
+        // Maintain proper volume levels (hero at full, mini at reduced)
+        if (miniVideoVisible) {
+            if (heroVideo.volume !== 1.0) heroVideo.volume = 1.0;
+            if (miniVideo.volume !== 0.2) miniVideo.volume = 0.2;
+        }
     });
     
     // Handle video errors gracefully
     heroVideo.addEventListener('error', function(e) {
-        console.log('Hero video error:', e);
-        // Show fallback background if video fails to load
-        heroSection.querySelector('.hero-background').style.display = 'block';
+        handleVideoLoadError(heroVideo, true);
     });
     
     miniVideo.addEventListener('error', function(e) {
-        console.log('Mini video error:', e);
+        handleVideoLoadError(miniVideo, false);
         hideMiniVideo();
+    });
+
+    // Add load event handlers
+    heroVideo.addEventListener('loadeddata', function() {
+        videoLoadAttempts = 0; // Reset retry counter on successful load
+    });
+    
+    miniVideo.addEventListener('loadeddata', function() {
+        videoLoadAttempts = 0; // Reset retry counter on successful load
     });
 }
 
