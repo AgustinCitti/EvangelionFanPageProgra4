@@ -339,6 +339,8 @@ function initCharacterGallery() {
     const infoDescription = document.getElementById('infoDescription');
     const infoAge = document.getElementById('infoAge');
     const infoRole = document.getElementById('infoRole');
+    const characterInfo = document.getElementById('characterInfo');
+    const characterInfoClose = document.getElementById('characterInfoClose');
     
     characterSlots.forEach(slot => {
         slot.addEventListener('click', function() {
@@ -359,6 +361,9 @@ function initCharacterGallery() {
                 infoAge.textContent = character.age;
                 infoRole.textContent = character.role;
                 
+                // Show the character info panel
+                characterInfo.classList.add('show');
+                
                 // Add typing effect
                 typeEffect(infoDescription, character.description);
             }
@@ -375,6 +380,14 @@ function initCharacterGallery() {
             }
         });
     });
+    
+    // Handle close button click
+    if (characterInfoClose) {
+        characterInfoClose.addEventListener('click', function() {
+            characterInfo.classList.remove('show');
+            characterSlots.forEach(s => s.classList.remove('active'));
+        });
+    }
 }
 
 function typeEffect(element, text) {
@@ -488,23 +501,26 @@ function initEpisodeCarousel() {
             typeEffect(episodeSynopsis, episodes[currentEpisode].synopsis);
         }
         
-        // 3D circular carousel positioning
-        const totalCards = episodeCards.length;
-        const radius = 300;
-        const centerAngle = (360 / totalCards) * currentEpisode;
+        // Regular horizontal carousel positioning - much larger spacing for bigger gaps
+        let cardWidth = 650; // Card width + much larger gap
+        if (window.innerWidth < 768) {
+            cardWidth = 350; // Larger gap for mobile
+        } else if (window.innerWidth < 1024) {
+            cardWidth = 480; // Larger gap for tablets
+        }
         
         episodeCards.forEach((card, index) => {
-            const angle = (360 / totalCards) * index - centerAngle;
-            const angleRad = (angle * Math.PI) / 180;
+            let position = index - currentEpisode;
+            const totalCards = episodeCards.length;
             
-            // Calculate 3D position
-            const x = Math.sin(angleRad) * radius;
-            const z = Math.cos(angleRad) * radius - radius;
-            const rotateY = -angle;
+            // Handle infinite loop wrapping
+            if (position > totalCards / 2) {
+                position -= totalCards;
+            } else if (position < -totalCards / 2) {
+                position += totalCards;
+            }
             
-            // Distance from center determines scale and opacity
-            const distance = Math.abs(angle % 360);
-            const normalizedDistance = Math.min(distance, 360 - distance) / 180;
+            const translateX = position * cardWidth;
             
             let scale, opacity, zIndex;
             
@@ -513,30 +529,30 @@ function initEpisodeCarousel() {
                 scale = 1.1;
                 opacity = 1;
                 zIndex = 10;
-            } else if (normalizedDistance < 0.3) {
-                // Cards close to active
+            } else if (Math.abs(position) === 1) {
+                // Adjacent cards
                 scale = 0.9;
                 opacity = 0.8;
-                zIndex = 5;
-            } else if (normalizedDistance < 0.6) {
-                // Medium distance cards
-                scale = 0.7;
+                zIndex = 8;
+            } else if (Math.abs(position) === 2) {
+                // Second level cards
+                scale = 0.75;
                 opacity = 0.6;
-                zIndex = 3;
+                zIndex = 6;
+            } else if (Math.abs(position) <= 3) {
+                // Third level cards
+                scale = 0.6;
+                opacity = 0.4;
+                zIndex = 4;
             } else {
-                // Far cards
+                // Far cards (hidden by shadow overlay)
                 scale = 0.5;
-                opacity = 0.3;
-                zIndex = 1;
+                opacity = 0.2;
+                zIndex = 2;
             }
             
             // Apply transforms
-            card.style.transform = `
-                translateX(${x}px) 
-                translateZ(${z}px) 
-                rotateY(${rotateY}deg) 
-                scale(${scale})
-            `;
+            card.style.transform = `translateX(${translateX}px) scale(${scale})`;
             card.style.opacity = opacity;
             card.style.zIndex = zIndex;
         });
@@ -562,6 +578,38 @@ function initEpisodeCarousel() {
     
     // Initialize carousel
     updateCarousel();
+    
+    // Auto-rotate carousel
+    let autoRotateInterval = setInterval(() => {
+        currentEpisode = (currentEpisode + 1) % episodes.length;
+        updateCarousel();
+    }, 4000); // Change every 4 seconds
+    
+    // Pause auto-rotation when user interacts
+    function pauseAutoRotation() {
+        clearInterval(autoRotateInterval);
+        // Restart auto-rotation after 8 seconds of inactivity
+        setTimeout(() => {
+            autoRotateInterval = setInterval(() => {
+                currentEpisode = (currentEpisode + 1) % episodes.length;
+                updateCarousel();
+            }, 4000);
+        }, 8000);
+    }
+    
+    // Pause auto-rotation on button clicks
+    prevBtn.addEventListener('click', pauseAutoRotation);
+    nextBtn.addEventListener('click', pauseAutoRotation);
+    
+    // Pause auto-rotation on card clicks
+    episodeCards.forEach(card => {
+        card.addEventListener('click', pauseAutoRotation);
+    });
+    
+    // Update carousel on window resize for responsive radius
+    window.addEventListener('resize', function() {
+        updateCarousel();
+    });
 }
 
 // ===== CONTACT FORM =====
