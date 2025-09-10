@@ -1,0 +1,708 @@
+/* ===== EPISODES CAROUSEL ===== */
+.episodes-section {
+    padding: 50px 0;
+    background: var(--background-darker);
+    position: relative;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto 2rem;
+    overflow: hidden;
+}
+
+.carousel {
+    position: relative;
+    height: 500px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.carousel::before,
+.carousel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 200px;
+    z-index: 15;
+    pointer-events: none;
+}
+
+.carousel::before {
+    left: 0;
+    background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.95) 0%,
+        rgba(0, 0, 0, 0.8) 10%,
+        rgba(0, 0, 0, 0.6) 25%,
+        rgba(0, 0, 0, 0.4) 45%,
+        rgba(0, 0, 0, 0.2) 65%,
+        rgba(0, 0, 0, 0.1) 80%,
+        rgba(0, 0, 0, 0.05) 90%,
+        transparent 100%
+    );
+}
+
+.carousel::after {
+    right: 0;
+    background: linear-gradient(
+        to left,
+        rgba(0, 0, 0, 0.95) 0%,
+        rgba(0, 0, 0, 0.8) 10%,
+        rgba(0, 0, 0, 0.6) 25%,
+        rgba(0, 0, 0, 0.4) 45%,
+        rgba(0, 0, 0, 0.2) 65%,
+        rgba(0, 0, 0, 0.1) 80%,
+        rgba(0, 0, 0, 0.05) 90%,
+        transparent 100%
+    );
+}
+
+.episode-card {
+    position: absolute;
+    width: 500px;
+    height: 320px;
+    transition: all 0.6s ease;
+    cursor: pointer;
+    left: 50%;
+    top: 50%;
+    transform-origin: center;
+    margin-left: -250px;
+    margin-top: -160px;
+}
+
+.episode-card.active {
+    z-index: 10;
+}
+
+.episode-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--primary-red);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 
+        0 0 20px rgba(255, 0, 0, 0.3),
+        0 10px 30px rgba(0, 0, 0, 0.5);
+    background: var(--background-dark);
+}
+
+.episode-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.8) contrast(1.1);
+    transition: filter 0.3s ease;
+}
+
+.episode-card.active .episode-image img {
+    filter: brightness(1) contrast(1.2);
+}
+
+.episode-card.active .episode-image {
+    border-color: var(--terminal-green);
+    box-shadow: 
+        0 0 30px rgba(0, 255, 0, 0.5),
+        0 15px 40px rgba(0, 0, 0, 0.7);
+}
+
+.episode-number {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, rgba(0, 255, 0, 0.9), rgba(0, 200, 0, 1));
+    color: var(--background-dark);
+    padding: 10px 20px;
+    font-family: 'Orbitron', monospace;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    box-shadow: 
+        0 0 20px rgba(0, 255, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    z-index: 15;
+    transition: all 0.3s ease;
+}
+
+.episode-card.active .episode-number {
+    background: linear-gradient(135deg, rgba(255, 0, 0, 0.9), rgba(200, 0, 0, 1));
+    color: white;
+    box-shadow: 
+        0 0 25px rgba(255, 0, 0, 0.9),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    font-size: 1.3rem;
+    padding: 12px 24px;
+}
+
+.carousel-controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1.5rem;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.carousel-btn {
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--terminal-green);
+    color: var(--terminal-green);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    pointer-events: auto;
+    z-index: 200;
+}
+
+.carousel-btn:hover {
+    background: var(--terminal-green);
+    color: var(--background-dark);
+    border-color: var(--terminal-green);
+    opacity: 0.9;
+}
+
+.episode-info {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.episode-info h3 {
+    font-family: 'Orbitron', monospace;
+    color: var(--terminal-green);
+    font-size: 1.4rem;
+}
+
+.episode-info p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+/* ===== EPISODES LIBRARY STYLES ===== */
+.episodes-library-page {
+    background: var(--background-dark);
+    min-height: 100vh;
+}
+
+.episodes-library-header {
+    background: linear-gradient(135deg, var(--background-dark), var(--background-darker));
+    padding: 120px 0 60px;
+    border-bottom: 2px solid var(--primary-red);
+    position: relative;
+    overflow: hidden;
+}
+
+.episodes-library-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23ff0000" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>') repeat;
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+.library-header-content {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.library-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--primary-red);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    text-shadow: 0 0 30px var(--primary-red), 0 0 60px var(--primary-red);
+    animation: pulse-glow 2s ease-in-out infinite alternate;
+}
+
+.library-subtitle {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.2rem;
+    color: var(--terminal-green);
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.library-stats {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.stat-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat-value {
+    font-family: 'Orbitron', monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--neon-orange);
+    text-shadow: 0 0 10px var(--neon-orange);
+}
+
+/* Episodes Grid */
+.episodes-library {
+    padding: 60px 0;
+    background: var(--background-darker);
+    position: relative;
+}
+
+.episodes-content {
+    display: flex;
+    transition: transform 0.4s ease;
+}
+
+.episodes-grid-container {
+    flex: 1;
+    transition: margin-right 0.4s ease;
+}
+
+.episodes-grid-container.shifted {
+    margin-right: 400px;
+}
+
+.episodes-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.episode-item {
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--background-dark);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid var(--grid-color);
+    aspect-ratio: 16/9;
+}
+
+.episode-item:hover:not(.locked) {
+    transform: translateY(-5px) scale(1.02);
+    border-color: var(--primary-red);
+    box-shadow: 0 8px 25px rgba(255, 0, 0, 0.3);
+}
+
+.episode-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
+
+.episode-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.episode-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter 0.3s ease;
+}
+
+.episode-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, transparent 30%, rgba(0, 0, 0, 0.7));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.episode-item:hover .episode-overlay {
+    opacity: 1;
+}
+
+/* Episode Number */
+.episode-number {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: linear-gradient(135deg, var(--terminal-green), rgba(0, 255, 0, 0.8));
+    color: var(--background-dark);
+    padding: 6px 12px;
+    font-family: 'Orbitron', monospace;
+    font-weight: bold;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 255, 0, 0.3);
+    z-index: 5;
+}
+
+/* CLASSIFIED Overlay */
+.classified-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        repeating-linear-gradient(
+            45deg,
+            rgba(255, 0, 0, 0.15),
+            rgba(255, 0, 0, 0.15) 8px,
+            transparent 8px,
+            transparent 16px
+        ),
+        linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(255, 0, 0, 0.2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.classified-text {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--primary-red);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-shadow: 
+        0 0 15px var(--primary-red),
+        2px 2px 0 var(--background-darker);
+    animation: classified-pulse 2s ease-in-out infinite;
+}
+
+.classified-bars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 6px,
+            rgba(255, 0, 0, 0.2) 6px,
+            rgba(255, 0, 0, 0.2) 8px
+        );
+    animation: scan-bars 3s linear infinite;
+}
+
+@keyframes classified-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.02); }
+}
+
+@keyframes scan-bars {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+}
+
+/* Watch Toggle Button */
+.watch-toggle {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid var(--terminal-green);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 15;
+}
+
+.watch-toggle:hover:not(.disabled) {
+    background: var(--terminal-green);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+    transform: scale(1.1);
+}
+
+.watch-toggle.disabled {
+    border-color: var(--text-muted);
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.watch-icon {
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+/* Episode Side Dialog */
+.episode-dialog {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 400px;
+    height: 100vh;
+    background: linear-gradient(135deg, var(--background-dark), var(--background-darker));
+    border-left: 2px solid var(--primary-red);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+    transition: right 0.4s ease;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.episode-dialog.active {
+    right: 0;
+}
+
+.episode-dialog-header {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    border-bottom: 2px solid var(--primary-red);
+}
+
+.episode-dialog-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.7);
+}
+
+.episode-dialog-number {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: linear-gradient(135deg, var(--primary-red), rgba(255, 0, 0, 0.8));
+    color: white;
+    padding: 8px 16px;
+    font-family: 'Orbitron', monospace;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(255, 0, 0, 0.4);
+}
+
+.episode-dialog-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid var(--primary-red);
+    color: var(--primary-red);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.episode-dialog-close:hover {
+    background: var(--primary-red);
+    color: white;
+    transform: scale(1.1);
+}
+
+.episode-dialog-content {
+    padding: 30px;
+}
+
+.episode-dialog-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.3;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.episode-dialog-synopsis {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 1rem;
+    margin-bottom: 30px;
+}
+
+.episode-dialog-actions {
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+}
+
+.episode-dialog-watch-btn {
+    background: linear-gradient(135deg, var(--terminal-green), rgba(0, 255, 0, 0.8));
+    color: var(--background-dark);
+    border: none;
+    padding: 12px 20px;
+    font-family: 'Orbitron', monospace;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.episode-dialog-watch-btn:hover {
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+    transform: translateY(-2px);
+}
+
+.episode-dialog-watch-btn.disabled {
+    background: linear-gradient(135deg, #666, #555);
+    color: var(--text-muted);
+    cursor: not-allowed;
+}
+
+.episode-dialog-watch-btn.disabled:hover {
+    box-shadow: none;
+    transform: none;
+}
+
+/* Episode States */
+/* Locked/Classified Episodes */
+.episode-item.locked {
+    opacity: 0.8;
+    cursor: not-allowed;
+}
+
+.episode-item.locked:hover {
+    transform: none;
+    border-color: var(--grid-color);
+}
+
+.episode-item.locked .episode-image img {
+    filter: grayscale(100%) brightness(0.4);
+}
+
+.episode-item.locked .episode-number {
+    background: linear-gradient(135deg, #666, #555);
+    color: var(--text-muted);
+    box-shadow: none;
+}
+
+/* Unlocked Episodes */
+.episode-item.unlocked .classified-overlay {
+    display: none;
+}
+
+.episode-item.unlocked .episode-number {
+    background: linear-gradient(135deg, var(--primary-red), rgba(255, 0, 0, 0.8));
+    color: white;
+    box-shadow: 0 2px 8px rgba(255, 0, 0, 0.3);
+}
+
+/* Watched Episodes */
+.episode-item.watched {
+    border-color: var(--terminal-green);
+    background: linear-gradient(135deg, rgba(0, 255, 0, 0.05), var(--background-dark));
+}
+
+.episode-item.watched .episode-number {
+    background: linear-gradient(135deg, var(--terminal-green), rgba(0, 255, 0, 0.8));
+    color: var(--background-dark);
+    box-shadow: 0 2px 8px rgba(0, 255, 0, 0.4);
+}
+
+.episode-item.watched .watch-toggle {
+    border-color: var(--terminal-green);
+    background: var(--terminal-green);
+    color: var(--background-dark);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+.episode-item.watched:hover {
+    border-color: var(--terminal-green);
+    box-shadow: 0 5px 20px rgba(0, 255, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+    .episodes-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 1000px) {
+    .episodes-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+    
+    .episode-dialog {
+        width: 350px;
+    }
+    
+    .episodes-grid-container.shifted {
+        margin-right: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .episodes-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 0 16px;
+    }
+    
+    .episode-dialog {
+        width: 100%;
+        right: -100%;
+    }
+    
+    .episodes-grid-container.shifted {
+        margin-right: 0;
+        transform: translateX(-100%);
+    }
+}
+
+@media (max-width: 480px) {
+    .episodes-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}

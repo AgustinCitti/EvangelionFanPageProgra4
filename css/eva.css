@@ -1,0 +1,235 @@
+/* ===== EVA SECTION ===== */
+.eva-section {
+    padding: 50px 0;
+    background: 
+        radial-gradient(ellipse at 30% 30%, rgba(153, 51, 255, 0.1) 0%, transparent 70%),
+        radial-gradient(ellipse at 70% 70%, rgba(255, 102, 0, 0.1) 0%, transparent 70%),
+        var(--background-dark);
+}
+
+.eva-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.eva-card {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.eva-card:hover {
+    border-color: var(--primary-red);
+    transform: scale(1.02);
+}
+
+.eva-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.eva-image img {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+.eva-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 5px 5px, rgba(255, 51, 0, 0.8) 1px, transparent 1px),
+        radial-gradient(circle at 15px 15px, rgba(255, 51, 0, 0.6) 1px, transparent 1px),
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 8px,
+            rgba(255, 51, 0, 0.1) 8px,
+            rgba(255, 51, 0, 0.1) 9px
+        ),
+        linear-gradient(
+            45deg,
+            rgba(0, 0, 0, 0.85) 0%,
+            rgba(0, 0, 0, 0.9) 50%,
+            rgba(0, 0, 0, 0.85) 100%
+        );
+    background-size: 20px 20px, 30px 30px, 100% 100%, 100% 100%;
+    transition: all 0.3s ease;
+}
+
+.eva-classified {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+    color: var(--primary-red);
+    font-family: 'Orbitron', monospace;
+    font-size: 1.4rem;
+    font-weight: 900;
+    text-shadow: 
+        0 0 10px var(--primary-red),
+        0 0 20px var(--primary-red),
+        2px 2px 0 rgba(0, 0, 0, 0.8);
+    letter-spacing: 0.2em;
+    opacity: 0.9;
+    z-index: 3;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.eva-card:hover .eva-overlay {
+    background: 
+        linear-gradient(
+            45deg,
+            rgba(0, 0, 0, 0.3) 0%,
+            rgba(0, 0, 0, 0.4) 50%,
+            rgba(0, 0, 0, 0.3) 100%
+        );
+}
+
+.eva-card:hover .eva-classified {
+    opacity: 0;
+}
+
+/* ===== EVA SPECIFICATIONS ===== */
+.eva-specifications {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 4;
+    padding: 1rem;
+}
+
+.eva-card:hover .eva-specifications {
+    opacity: 1;
+}
+
+.specs-header {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--terminal-green);
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0.8rem;
+    text-shadow: 
+        0 0 8px var(--terminal-green),
+        0 0 16px var(--terminal-green),
+        2px 2px 4px rgba(0, 0, 0, 0.9),
+        -2px -2px 4px rgba(0, 0, 0, 0.9),
+        2px -2px 4px rgba(0, 0, 0, 0.9),
+        -2px 2px 4px rgba(0, 0, 0, 0.9);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--terminal-green);
+    padding-bottom: 0.5rem;
+}
+
+.specs-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.spec-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.3rem 0.5rem;
+    border-left: 2px solid var(--primary-red);
+    position: relative;
+    overflow: hidden;
+}
+
+.spec-line::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--terminal-green),
+        transparent
+    );
+    animation: scanline 2s linear infinite;
+}
+
+@keyframes scanline {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.spec-key {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--terminal-green);
+    font-size: 0.7rem;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    text-shadow: 
+        0 0 8px var(--terminal-green),
+        0 0 16px var(--terminal-green),
+        2px 2px 4px rgba(0, 0, 0, 0.9),
+        -2px -2px 4px rgba(0, 0, 0, 0.9),
+        2px -2px 4px rgba(0, 0, 0, 0.9),
+        -2px 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+.spec-value {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--primary-red);
+    font-size: 0.7rem;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    text-shadow: 
+        0 0 8px var(--primary-red),
+        0 0 16px var(--primary-red),
+        2px 2px 4px rgba(0, 0, 0, 0.9),
+        -2px -2px 4px rgba(0, 0, 0, 0.9),
+        2px -2px 4px rgba(0, 0, 0, 0.9),
+        -2px 2px 4px rgba(0, 0, 0, 0.9);
+    position: relative;
+}
+
+.spec-value::after {
+    content: '';
+    position: absolute;
+    right: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    background: var(--primary-red);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--primary-red);
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.eva-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    color: var(--terminal-green);
+    font-family: 'Orbitron', monospace;
+    font-weight: bold;
+    padding: 0.8rem;
+    text-align: center;
+    font-size: 1rem;
+    text-shadow: 0 0 10px var(--primary-green);
+}

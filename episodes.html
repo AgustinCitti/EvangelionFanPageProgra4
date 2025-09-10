@@ -5,7 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Episode Archive - Neon Genesis Evangelion</title>
     <link rel="icon" type="image/x-icon" href="Media/favicon.ico">
-    <link rel="stylesheet" href="style.css">
+    <!-- Core CSS Files -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/animations.css">
+    
+    <!-- Component CSS Files -->
+    <link rel="stylesheet" href="css/navigation.css">
+    <link rel="stylesheet" href="css/sections.css">
+    <link rel="stylesheet" href="css/episodes.css">
+    <link rel="stylesheet" href="css/footer.css">
+    
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
 <body class="episodes-library-page">
@@ -59,24 +71,19 @@
     <!-- Episodes Grid Library -->
     <section class="episodes-library" id="episodes">
         <div class="container">
-            <div class="episodes-grid">
+            <div class="episodes-content">
+                <div class="episodes-grid-container">
+                    <div class="episodes-grid">
                 <!-- Episode 1 -->
                 <div class="episode-item unlocked" data-episode="1">
                     <div class="episode-card">
                         <div class="episode-image">
                             <img src="Media/episodes/one.webp" alt="Episode 1">
                             <div class="episode-overlay"></div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">01</div>
-                                <button class="watch-toggle" data-episode="1" title="Mark as watched">
-                                    <span class="watch-icon">👁️</span>
-                                </button>
-                            </div>
-                            <h3 class="episode-title">Angel Attack</h3>
-                            <p class="episode-synopsis">Fifteen years after the Second Impact, Shinji Ikari is summoned to Tokyo-3 by his estranged father to pilot a giant bio-mechanical robot called Evangelion to combat beings known as Angels.</p>
-                        </div>
+                            <div class="episode-number">01</div>
+                            <button class="watch-toggle" data-episode="1" title="Mark as watched">
+                                <span class="watch-icon">👁️</span>
+                            </button>
                     </div>
                 </div>
 
@@ -89,18 +96,10 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">02</div>
-                                <button class="watch-toggle disabled" data-episode="2" title="Episode locked">
-                                    <span class="watch-icon">🔒</span>
-                                </button>
-                            </div>
-                            <h3 class="episode-title">The Beast</h3>
-                            <p class="episode-synopsis">Shinji wakes up in the hospital and is immediately ordered to pilot Eva Unit-01 again. He meets his fellow pilot Rei Ayanami and begins to understand the weight of his responsibilities.</p>
-                        </div>
+                            <div class="episode-number">02</div>
+                            <button class="watch-toggle disabled" data-episode="2" title="Episode locked">
+                                <span class="watch-icon">🔒</span>
+                            </button>
                     </div>
                 </div>
 
@@ -113,18 +112,10 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">03</div>
-                                <button class="watch-toggle disabled" data-episode="3" title="Episode locked">
-                                    <span class="watch-icon">🔒</span>
-                                </button>
-                            </div>
-                            <h3 class="episode-title">A Transfer</h3>
-                            <p class="episode-synopsis">A new student transfers to Shinji's school, and the mysterious Third Angel appears. Shinji must overcome his fears to protect those he cares about.</p>
-                        </div>
+                            <div class="episode-number">03</div>
+                            <button class="watch-toggle disabled" data-episode="3" title="Episode locked">
+                                <span class="watch-icon">🔒</span>
+                            </button>
                     </div>
                 </div>
 
@@ -137,18 +128,10 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">04</div>
-                                <button class="watch-toggle disabled" data-episode="4" title="Episode locked">
-                                    <span class="watch-icon">🔒</span>
-                                </button>
-                            </div>
-                            <h3 class="episode-title">Hedgehog's Dilemma</h3>
-                            <p class="episode-synopsis">Shinji moves in with Misato and starts attending school. He struggles with connecting to others while learning about the Hedgehog's Dilemma.</p>
-                        </div>
+                            <div class="episode-number">04</div>
+                            <button class="watch-toggle disabled" data-episode="4" title="Episode locked">
+                                <span class="watch-icon">🔒</span>
+                            </button>
                     </div>
                 </div>
 
@@ -161,18 +144,10 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">05</div>
-                                <button class="watch-toggle disabled" data-episode="5" title="Episode locked">
-                                    <span class="watch-icon">🔒</span>
-                                </button>
-                            </div>
-                            <h3 class="episode-title">Rei I</h3>
-                            <p class="episode-synopsis">Shinji tries to get to know Rei better, while a new Angel attacks. We learn more about Rei's mysterious connection to Gendo.</p>
-                        </div>
+                            <div class="episode-number">05</div>
+                            <button class="watch-toggle disabled" data-episode="5" title="Episode locked">
+                                <span class="watch-icon">🔒</span>
+                            </button>
                     </div>
                 </div>
 
@@ -185,18 +160,10 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">06</div>
-                                <button class="watch-toggle disabled" data-episode="6" title="Episode locked">
-                                    <span class="watch-icon">🔒</span>
-                                </button>
-                            </div>
-                            <h3 class="episode-title">Rei II</h3>
-                            <p class="episode-synopsis">The sixth Angel attacks Tokyo-3, forcing Shinji and Rei to work together in a synchronized operation to defeat it.</p>
-                        </div>
+                            <div class="episode-number">06</div>
+                            <button class="watch-toggle disabled" data-episode="6" title="Episode locked">
+                                <span class="watch-icon">🔒</span>
+                            </button>
                     </div>
                 </div>
 
@@ -209,18 +176,12 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">07</div>
+                            <div class="episode-number">07</div>
                                 <button class="watch-toggle disabled" data-episode="7" title="Episode locked">
                                     <span class="watch-icon">🔒</span>
                                 </button>
-                            </div>
-                            <h3 class="episode-title">A Human Work</h3>
-                            <p class="episode-synopsis">NERV faces a human threat as a prototype giant robot built by the Japanese government challenges the Evangelions.</p>
-                        </div>
+                            </button>A Human Work</h3>
+NERV faces a human threat as a prototype giant robot built by the Japanese government challenges the Evangelions.</p>
                     </div>
                 </div>
 
@@ -233,18 +194,12 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">08</div>
+                            <div class="episode-number">08</div>
                                 <button class="watch-toggle disabled" data-episode="8" title="Episode locked">
                                     <span class="watch-icon">🔒</span>
                                 </button>
-                            </div>
-                            <h3 class="episode-title">Asuka Strikes!</h3>
-                            <p class="episode-synopsis">The fiery Asuka Langley arrives from Germany with Eva Unit-02, immediately clashing with Shinji while fighting the eighth Angel.</p>
-                        </div>
+                            </button>Asuka Strikes!</h3>
+The fiery Asuka Langley arrives from Germany with Eva Unit-02, immediately clashing with Shinji while fighting the eighth Angel.</p>
                     </div>
                 </div>
 
@@ -257,18 +212,12 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">09</div>
+                            <div class="episode-number">09</div>
                                 <button class="watch-toggle disabled" data-episode="9" title="Episode locked">
                                     <span class="watch-icon">🔒</span>
                                 </button>
-                            </div>
-                            <h3 class="episode-title">Both of You, Dance Like You Want to Win!</h3>
-                            <p class="episode-synopsis">Shinji and Asuka must learn to synchronize their movements to defeat an Angel that has split into two parts.</p>
-                        </div>
+                            </button>Both of You, Dance Like You Want to Win!</h3>
+Shinji and Asuka must learn to synchronize their movements to defeat an Angel that has split into two parts.</p>
                     </div>
                 </div>
 
@@ -281,18 +230,12 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">10</div>
+                            <div class="episode-number">10</div>
                                 <button class="watch-toggle disabled" data-episode="10" title="Episode locked">
                                     <span class="watch-icon">🔒</span>
                                 </button>
-                            </div>
-                            <h3 class="episode-title">Magma Diver</h3>
-                            <p class="episode-synopsis">Asuka pilots Eva Unit-02 in a dangerous mission to capture an Angel hiding in an active volcano.</p>
-                        </div>
+                            </button>Magma Diver</h3>
+Asuka pilots Eva Unit-02 in a dangerous mission to capture an Angel hiding in an active volcano.</p>
                     </div>
                 </div>
 
@@ -305,18 +248,12 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">11</div>
+                            <div class="episode-number">11</div>
                                 <button class="watch-toggle disabled" data-episode="11" title="Episode locked">
                                     <span class="watch-icon">🔒</span>
                                 </button>
-                            </div>
-                            <h3 class="episode-title">The Day Tokyo-3 Stood Still</h3>
-                            <p class="episode-synopsis">A massive blackout hits Tokyo-3 just as an Angel attacks, forcing the Eva pilots to fight without power support.</p>
-                        </div>
+                            </button>The Day Tokyo-3 Stood Still</h3>
+A massive blackout hits Tokyo-3 just as an Angel attacks, forcing the Eva pilots to fight without power support.</p>
                     </div>
                 </div>
 
@@ -329,18 +266,12 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">12</div>
+                            <div class="episode-number">12</div>
                                 <button class="watch-toggle disabled" data-episode="12" title="Episode locked">
                                     <span class="watch-icon">🔒</span>
                                 </button>
-                            </div>
-                            <h3 class="episode-title">She said, 'Don't make others suffer for your personal hatred.'</h3>
-                            <p class="episode-synopsis">As the twelfth Angel infiltrates NERV headquarters, Shinji must navigate through the facility to reach his Eva.</p>
-                        </div>
+                            </button>She said, 'Don't make others suffer for your personal hatred.'</h3>
+As the twelfth Angel infiltrates NERV headquarters, Shinji must navigate through the facility to reach his Eva.</p>
                     </div>
                 </div>
 
@@ -353,18 +284,12 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">13</div>
+                            <div class="episode-number">13</div>
                                 <button class="watch-toggle disabled" data-episode="13" title="Episode locked">
                                     <span class="watch-icon">🔒</span>
                                 </button>
-                            </div>
-                            <h3 class="episode-title">Lilliputian Hitcher</h3>
-                            <p class="episode-synopsis">A microscopic Angel infects Eva Unit-00 and threatens to take control of it, forcing the pilots to enter a computer simulation.</p>
-                        </div>
+                            </button>Lilliputian Hitcher</h3>
+A microscopic Angel infects Eva Unit-00 and threatens to take control of it, forcing the pilots to enter a computer simulation.</p>
                     </div>
                 </div>
 
@@ -377,18 +302,12 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">14</div>
+                            <div class="episode-number">14</div>
                                 <button class="watch-toggle disabled" data-episode="14" title="Episode locked">
                                     <span class="watch-icon">🔒</span>
                                 </button>
-                            </div>
-                            <h3 class="episode-title">Weaving a Story</h3>
-                            <p class="episode-synopsis">Tokyo-3 faces a powerful Angel that can learn and adapt to any attack, pushing the Evas to their limits.</p>
-                        </div>
+                            </button>Weaving a Story</h3>
+Tokyo-3 faces a powerful Angel that can learn and adapt to any attack, pushing the Evas to their limits.</p>
                     </div>
                 </div>
 
@@ -401,18 +320,12 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">15</div>
+                            <div class="episode-number">15</div>
                                 <button class="watch-toggle disabled" data-episode="15" title="Episode locked">
                                     <span class="watch-icon">🔒</span>
                                 </button>
-                            </div>
-                            <h3 class="episode-title">Those women longed for the touch of others' lips, and thus invited their kisses.</h3>
-                            <p class="episode-synopsis">The fifteenth Angel attacks during a total solar eclipse, leading to revelations about the Angels' true nature.</p>
-                        </div>
+                            </button>Those women longed for the touch of others' lips, and thus invited their kisses.</h3>
+The fifteenth Angel attacks during a total solar eclipse, leading to revelations about the Angels' true nature.</p>
                     </div>
                 </div>
 
@@ -425,18 +338,12 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">16</div>
+                            <div class="episode-number">16</div>
                                 <button class="watch-toggle disabled" data-episode="16" title="Episode locked">
                                     <span class="watch-icon">🔒</span>
                                 </button>
-                            </div>
-                            <h3 class="episode-title">Splitting of the Breast</h3>
-                            <p class="episode-synopsis">Shinji's sync ratio reaches dangerous levels as he faces psychological breakdown and questions his own identity.</p>
-                        </div>
+                            </button>Splitting of the Breast</h3>
+Shinji's sync ratio reaches dangerous levels as he faces psychological breakdown and questions his own identity.</p>
                     </div>
                 </div>
 
@@ -449,18 +356,12 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">17</div>
+                            <div class="episode-number">17</div>
                                 <button class="watch-toggle disabled" data-episode="17" title="Episode locked">
                                     <span class="watch-icon">🔒</span>
                                 </button>
-                            </div>
-                            <h3 class="episode-title">Fourth Child</h3>
-                            <p class="episode-synopsis">The selection of the Fourth Child creates tension at NERV, while Unit-03 becomes possessed by an Angel.</p>
-                        </div>
+                            </button>Fourth Child</h3>
+The selection of the Fourth Child creates tension at NERV, while Unit-03 becomes possessed by an Angel.</p>
                     </div>
                 </div>
 
@@ -473,18 +374,12 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">18</div>
+                            <div class="episode-number">18</div>
                                 <button class="watch-toggle disabled" data-episode="18" title="Episode locked">
                                     <span class="watch-icon">🔒</span>
                                 </button>
-                            </div>
-                            <h3 class="episode-title">Ambivalence</h3>
-                            <p class="episode-synopsis">Shinji pilots Eva Unit-01 against the Angel-possessed Unit-03, not knowing who the pilot inside is.</p>
-                        </div>
+                            </button>Ambivalence</h3>
+Shinji pilots Eva Unit-01 against the Angel-possessed Unit-03, not knowing who the pilot inside is.</p>
                     </div>
                 </div>
 
@@ -497,18 +392,12 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">19</div>
+                            <div class="episode-number">19</div>
                                 <button class="watch-toggle disabled" data-episode="19" title="Episode locked">
                                     <span class="watch-icon">🔒</span>
                                 </button>
-                            </div>
-                            <h3 class="episode-title">Introjection</h3>
-                            <p class="episode-synopsis">The most powerful Angel yet appears and begins a psychological attack on the Eva pilots' minds.</p>
-                        </div>
+                            </button>Introjection</h3>
+The most powerful Angel yet appears and begins a psychological attack on the Eva pilots' minds.</p>
                     </div>
                 </div>
 
@@ -521,18 +410,12 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">20</div>
+                            <div class="episode-number">20</div>
                                 <button class="watch-toggle disabled" data-episode="20" title="Episode locked">
                                     <span class="watch-icon">🔒</span>
                                 </button>
-                            </div>
-                            <h3 class="episode-title">Weaving a Story 2: oral stage</h3>
-                            <p class="episode-synopsis">Shinji's psychological state deteriorates further as the twentieth Angel continues its mental assault.</p>
-                        </div>
+                            </button>Weaving a Story 2: oral stage</h3>
+Shinji's psychological state deteriorates further as the twentieth Angel continues its mental assault.</p>
                     </div>
                 </div>
 
@@ -545,18 +428,12 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">21</div>
+                            <div class="episode-number">21</div>
                                 <button class="watch-toggle disabled" data-episode="21" title="Episode locked">
                                     <span class="watch-icon">🔒</span>
                                 </button>
-                            </div>
-                            <h3 class="episode-title">He was aware that he was still a child.</h3>
-                            <p class="episode-synopsis">Kaji's investigation into NERV's true agenda reaches its climax, while relationships between characters become strained.</p>
-                        </div>
+                            </button>He was aware that he was still a child.</h3>
+Kaji's investigation into NERV's true agenda reaches its climax, while relationships between characters become strained.</p>
                     </div>
                 </div>
 
@@ -569,18 +446,12 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">22</div>
+                            <div class="episode-number">22</div>
                                 <button class="watch-toggle disabled" data-episode="22" title="Episode locked">
                                     <span class="watch-icon">🔒</span>
                                 </button>
-                            </div>
-                            <h3 class="episode-title">Don't Be.</h3>
-                            <p class="episode-synopsis">The twenty-second Angel attacks and Asuka faces her traumatic past, leading to a devastating defeat.</p>
-                        </div>
+                            </button>Don't Be.</h3>
+The twenty-second Angel attacks and Asuka faces her traumatic past, leading to a devastating defeat.</p>
                     </div>
                 </div>
 
@@ -593,18 +464,12 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">23</div>
+                            <div class="episode-number">23</div>
                                 <button class="watch-toggle disabled" data-episode="23" title="Episode locked">
                                     <span class="watch-icon">🔒</span>
                                 </button>
-                            </div>
-                            <h3 class="episode-title">Rei III</h3>
-                            <p class="episode-synopsis">Rei faces her own existential crisis as Armisael, the twenty-third Angel, attacks by trying to merge with Eva Unit-00.</p>
-                        </div>
+                            </button>Rei III</h3>
+Rei faces her own existential crisis as Armisael, the twenty-third Angel, attacks by trying to merge with Eva Unit-00.</p>
                     </div>
                 </div>
 
@@ -617,18 +482,12 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">24</div>
+                            <div class="episode-number">24</div>
                                 <button class="watch-toggle disabled" data-episode="24" title="Episode locked">
                                     <span class="watch-icon">🔒</span>
                                 </button>
-                            </div>
-                            <h3 class="episode-title">The Beginning and the End, or 'Knockin' on Heaven's Door'</h3>
-                            <p class="episode-synopsis">Kaworu Nagisa arrives as the final Angel and pilot, forming a deep connection with Shinji before revealing his true nature.</p>
-                        </div>
+                            </button>The Beginning and the End, or 'Knockin' on Heaven's Door'</h3>
+Kaworu Nagisa arrives as the final Angel and pilot, forming a deep connection with Shinji before revealing his true nature.</p>
                     </div>
                 </div>
 
@@ -641,18 +500,12 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">25</div>
+                            <div class="episode-number">25</div>
                                 <button class="watch-toggle disabled" data-episode="25" title="Episode locked">
                                     <span class="watch-icon">🔒</span>
                                 </button>
-                            </div>
-                            <h3 class="episode-title">Do you love me?</h3>
-                            <p class="episode-synopsis">Shinji must make an impossible choice regarding Kaworu, leading to the series' psychological exploration.</p>
-                        </div>
+                            </button>Do you love me?</h3>
+Shinji must make an impossible choice regarding Kaworu, leading to the series' psychological exploration.</p>
                     </div>
                 </div>
 
@@ -665,18 +518,12 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">26</div>
+                            <div class="episode-number">26</div>
                                 <button class="watch-toggle disabled" data-episode="26" title="Episode locked">
                                     <span class="watch-icon">🔒</span>
                                 </button>
-                            </div>
-                            <h3 class="episode-title">Take care of yourself.</h3>
-                            <p class="episode-synopsis">The final TV episode delves deep into the minds of the characters during the Human Instrumentality Project.</p>
-                        </div>
+                            </button>Take care of yourself.</h3>
+The final TV episode delves deep into the minds of the characters during the Human Instrumentality Project.</p>
                     </div>
                 </div>
 
@@ -689,18 +536,30 @@
                             <div class="classified-overlay">
                                 <div class="classified-text">CLASSIFIED</div>
                                 <div class="classified-bars"></div>
-                            </div>
-                        </div>
-                        <div class="episode-info">
-                            <div class="episode-header">
-                                <div class="episode-number">EOE</div>
-                                <button class="watch-toggle disabled" data-episode="27" title="Episode locked">
-                                    <span class="watch-icon">🔒</span>
-                                </button>
-                            </div>
-                            <h3 class="episode-title">The End of Evangelion</h3>
-                            <p class="episode-synopsis">The feature film conclusion to the series. As the Third Impact begins, Shinji must make the ultimate choice for humanity's future while confronting his deepest fears and desires.</p>
-                        </div>
+                            <div class="episode-number">EOE</div>
+                            <button class="watch-toggle disabled" data-episode="27" title="Episode locked">
+                                <span class="watch-icon">🔒</span>
+                            </button>
+                    </div>
+                </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Episode Details Dialog -->
+            <div class="episode-dialog" id="episodeDialog">
+                <div class="episode-dialog-header">
+                    <img class="episode-dialog-image" id="dialogImage" src="" alt="">
+                    <div class="episode-dialog-number" id="dialogNumber"></div>
+                    <button class="episode-dialog-close" id="dialogClose">&times;</button>
+                </div>
+                <div class="episode-dialog-content">
+                    <h2 class="episode-dialog-title" id="dialogTitle"></h2>
+                    <p class="episode-dialog-synopsis" id="dialogSynopsis"></p>
+                    <div class="episode-dialog-actions">
+                        <button class="episode-dialog-watch-btn" id="dialogWatchBtn">
+                            <span id="dialogWatchText">Mark as Watched</span>
+                        </button>
                     </div>
                 </div>
             </div>

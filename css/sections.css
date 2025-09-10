@@ -1,0 +1,36 @@
+/* ===== SECTION HEADERS ===== */
+.section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.section-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-red);
+    text-shadow: 0 0 10px var(--primary-red);
+    margin-bottom: 0.8rem;
+}
+
+.section-border {
+    width: 200px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary-red), transparent);
+    margin: 0 auto;
+    position: relative;
+}
+
+.section-border::before,
+.section-border::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    width: 6px;
+    height: 6px;
+    background: var(--primary-red);
+    box-shadow: 0 0 10px var(--primary-red);
+}
+
+.section-border::before { left: 0; }
+.section-border::after { right: 0; }

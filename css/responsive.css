@@ -1,0 +1,476 @@
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1024px) {
+    .section-title {
+        font-size: 1.6rem;
+    }
+    
+    .synopsis-content {
+        gap: 2rem;
+    }
+    
+    .world-content {
+        gap: 2rem;
+    }
+    
+    .arcade-grid {
+        gap: 1rem;
+    }
+    
+    .eva-grid {
+        gap: 1rem;
+    }
+    
+    /* Navigation responsive styles */
+    .nav-container {
+        padding: 0 15px;
+        height: 60px;
+    }
+    
+    .nav-links {
+        gap: 1.5rem;
+    }
+    
+    .nav-link {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+    
+    .nav-logo-image {
+        height: 35px;
+    }
+    
+    .nav-logo-pulse {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .episodes-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+        max-width: 900px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-title .subtitle {
+        font-size: 1.4rem;
+    }
+    
+    .section-title {
+        font-size: 1.4rem;
+    }
+    
+    .synopsis-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .arcade-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .character-frame img {
+        height: 120px;
+    }
+    
+    .eva-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .eva-image img {
+        height: 300px;
+    }
+    
+    .eva-classified {
+        font-size: 1.2rem;
+    }
+    
+    .world-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    /* Navigation mobile styles */
+    .nav-container {
+        height: 55px;
+        padding: 0 10px;
+    }
+    
+    .nav-links {
+        gap: 1rem;
+    }
+    
+    .nav-link {
+        font-size: 0.75rem;
+        padding: 5px 8px;
+    }
+    
+    .nav-logo-image {
+        height: 30px;
+    }
+    
+    .nav-logo-pulse {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .nav-indicator {
+        opacity: 0.5;
+    }
+    
+    .nav-indicator-line {
+        width: 20px;
+    }
+    
+    .carousel {
+        height: 400px;
+    }
+    
+    .carousel::before,
+    .carousel::after {
+        width: 150px;
+    }
+    
+    .episode-card {
+        width: 380px;
+        height: 240px;
+        margin-left: -190px;
+        margin-top: -120px;
+    }
+    
+    .episode-info h3 {
+        font-size: 1.2rem;
+    }
+    
+    .episode-info p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 750px) {
+    .episodes-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        max-width: 600px;
+    }
+    
+    .episode-info {
+        padding: 15px;
+        min-height: 160px;
+    }
+    
+    .episode-title {
+        font-size: 1rem;
+    }
+    
+    .episode-synopsis {
+        font-size: 0.8rem;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+    }
+}
+
+/* Mobile styles for character info */
+@media (max-width: 768px) {
+    .character-info {
+        bottom: 15px;
+        right: 15px;
+        width: 350px;
+        height: 110px;
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    .info-panel h3 {
+        font-size: 1rem;
+        margin-bottom: 0.2rem;
+    }
+    
+    .info-panel p {
+        font-size: 0.75rem;
+        margin-bottom: 0.4rem;
+    }
+    
+    .stat {
+        font-size: 0.7rem;
+        padding: 0.25rem 0.4rem;
+    }
+}
+
+@media (max-width: 550px) {
+    .library-title {
+        font-size: 2.5rem;
+        letter-spacing: 4px;
+    }
+    
+    .library-stats {
+        gap: 20px;
+    }
+    
+    .episodes-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 0 15px;
+        max-width: 400px;
+    }
+    
+    .classified-text {
+        font-size: 1.5rem;
+        letter-spacing: 4px;
+    }
+    
+    .episode-info {
+        padding: 15px;
+        min-height: 140px;
+    }
+    
+    .episode-title {
+        font-size: 0.95rem;
+    }
+    
+    .episode-synopsis {
+        font-size: 0.75rem;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+    }
+    
+    .episode-image {
+        min-height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .hero-title {
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
+    }
+    
+    .hero-title .subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .cta-button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    
+    .section-title {
+        font-size: 1.2rem;
+    }
+    
+    .section-header {
+        margin-bottom: 1.5rem;
+    }
+    
+    .synopsis-text {
+        font-size: 1rem;
+        padding-left: 1.5rem;
+    }
+    
+    .arcade-grid {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+    
+    .character-frame img {
+        height: 100px;
+    }
+    
+    .character-name {
+        font-size: 0.7rem;
+    }
+    
+    .character-status {
+        font-size: 0.6rem;
+    }
+    
+    .character-info {
+        bottom: 10px;
+        right: 10px;
+        width: 280px;
+        height: 90px;
+        padding: 0.6rem;
+        font-size: 0.8rem;
+    }
+    
+    /* Navigation ultra-mobile styles */
+    .nav-container {
+        height: 50px;
+        padding: 0 8px;
+    }
+    
+    .nav-links {
+        gap: 0.5rem;
+    }
+    
+    .nav-link {
+        font-size: 0.65rem;
+        padding: 4px 6px;
+        letter-spacing: 0.02em;
+    }
+    
+    .nav-logo-image {
+        height: 25px;
+    }
+    
+    .nav-logo-pulse {
+        width: 25px;
+        height: 25px;
+        border-width: 1px;
+    }
+    
+    .nav-indicator {
+        display: none; /* Hide indicator on very small screens */
+    }
+    
+    .info-panel h3 {
+        font-size: 0.9rem;
+        margin-bottom: 0.2rem;
+    }
+    
+    .info-panel p {
+        font-size: 0.7rem;
+        margin-bottom: 0.3rem;
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
+    }
+    
+    .stat {
+        font-size: 0.65rem;
+        padding: 0.2rem 0.3rem;
+    }
+    
+    .info-stats {
+        gap: 0.3rem;
+    }
+    
+    .eva-image img {
+        height: 250px;
+    }
+    
+    .eva-classified {
+        font-size: 1rem;
+    }
+    
+    .eva-specifications {
+        width: 95%;
+        padding: 0.8rem;
+    }
+    
+    .specs-header {
+        font-size: 0.8rem;
+        margin-bottom: 0.6rem;
+    }
+    
+    .spec-key,
+    .spec-value {
+        font-size: 0.65rem;
+    }
+    
+    .carousel {
+        height: 350px;
+    }
+    
+    .carousel::before,
+    .carousel::after {
+        width: 120px;
+    }
+    
+    .episode-card {
+        width: 280px;
+        height: 180px;
+        margin-left: -140px;
+        margin-top: -90px;
+    }
+    
+    .episode-info h3 {
+        font-size: 1rem;
+    }
+    
+    .episode-info p {
+        font-size: 0.85rem;
+    }
+    
+    .world-info h3 {
+        font-size: 1.2rem;
+    }
+    
+    .feature-item h4 {
+        font-size: 0.9rem;
+    }
+    
+    .feature-item p {
+        font-size: 0.85rem;
+    }
+    
+    /* Mini video adjustments for mobile */
+    .mini-video-container {
+        width: 200px;
+        height: 110px;
+        bottom: 10px;
+        left: 10px;
+    }
+    
+    .mini-control-btn {
+        width: 25px;
+        height: 25px;
+        font-size: 12px;
+    }
+    
+    /* Contact form adjustments */
+    .contact-content {
+        padding: 0 10px;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    .submit-btn {
+        padding: 0.8rem;
+        font-size: 1rem;
+    }
+    
+    /* Eva specifications mobile adjustments */
+    .eva-specifications {
+        width: 98%;
+        padding: 0.6rem;
+    }
+    
+    .specs-header {
+        font-size: 0.7rem;
+        margin-bottom: 0.5rem;
+        padding-bottom: 0.3rem;
+    }
+    
+    .spec-line {
+        padding: 0.2rem 0.3rem;
+        gap: 0.3rem;
+    }
+    
+    .spec-key,
+    .spec-value {
+        font-size: 0.6rem;
+    }
+}

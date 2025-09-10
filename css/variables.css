@@ -1,0 +1,25 @@
+/* ===== CSS VARIABLES & RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-red: #ff3300;
+    --secondary-red: #cc2200;
+    --dark-red: #440000;
+    --neon-orange: #ff6600;
+    --terminal-green: #00ff41;
+    --muted-green: #00cc33;
+    --eva-purple: #6633cc;
+    --warning-yellow: #ffcc00;
+    --background-dark: #000000;
+    --background-darker: #000000;
+    --grid-color: #330000;
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --text-warning: #ffcc00;
+    --terminal-border: #ff3300;
+    --hexagon-red: #ff0000;
+}

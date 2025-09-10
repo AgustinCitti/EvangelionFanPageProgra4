@@ -380,9 +380,14 @@ function initPageNavigation() {
     // Handle navigation link clicks
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetSection = this.getAttribute('href');
-            smoothScrollTo(targetSection);
+            const href = this.getAttribute('href');
+            
+            // Only prevent default for hash links (internal sections)
+            if (href && href.startsWith('#')) {
+                e.preventDefault();
+                smoothScrollTo(href);
+            }
+            // For external links (like episodes.html), let the default behavior happen
             
             // Add terminal click effect
             addTerminalClickEffect(this);
@@ -707,16 +712,8 @@ function showSubmissionEffect() {
 
 // ===== SCROLL EFFECTS =====
 function initScrollEffects() {
-    // Smooth scrolling for navigation
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                smoothScrollTo(this.getAttribute('href'));
-            }
-        });
-    });
+    // Smooth scrolling for hash links only (this is now handled in initPageNavigation)
+    // Remove duplicate event handler to prevent conflicts
     
     // Function to check if element is in viewport
     function isInViewport(element) {

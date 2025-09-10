@@ -35,14 +35,20 @@ const episodes = [
 class EpisodeLibrary {
     constructor() {
         this.watchedEpisodes = new Set();
+        this.currentEpisode = null;
+        this.dialog = null;
+        this.gridContainer = null;
         this.loadWatchedEpisodes();
         this.init();
     }
 
     init() {
+        this.dialog = document.getElementById('episodeDialog');
+        this.gridContainer = document.querySelector('.episodes-grid-container');
         this.updateUI();
         this.bindEvents();
         this.addTerminalEffects();
+        this.bindDialogEvents();
     }
 
     loadWatchedEpisodes() {
@@ -152,6 +158,10 @@ class EpisodeLibrary {
                 
                 if (success) {
                     this.addWatchToggleEffect(toggle);
+                    // Update dialog if it's open for this episode
+                    if (this.currentEpisode === episodeNum) {
+                        this.updateDialogWatchStatus();
+                    }
                 } else {
                     this.addLockedEffect(toggle);
                 }
@@ -161,11 +171,14 @@ class EpisodeLibrary {
         // Episode card click events
         const episodeItems = document.querySelectorAll('.episode-item');
         episodeItems.forEach((item, index) => {
-            item.addEventListener('click', () => {
+            item.addEventListener('click', (e) => {
+                // Don't trigger if clicking on watch toggle
+                if (e.target.closest('.watch-toggle')) return;
+                
                 const episodeNum = index + 1;
                 
                 if (this.isEpisodeUnlocked(episodeNum)) {
-                    this.showEpisodeDetails(episodeNum);
+                    this.openEpisodeDialog(episodeNum);
                 } else {
                     this.addLockedEffect(item);
                 }
@@ -173,14 +186,108 @@ class EpisodeLibrary {
         });
     }
 
-    showEpisodeDetails(episodeNum) {
+    bindDialogEvents() {
+        // Close button
+        const closeBtn = document.getElementById('dialogClose');
+        closeBtn.addEventListener('click', () => {
+            this.closeEpisodeDialog();
+        });
+
+        // Dialog watch button
+        const watchBtn = document.getElementById('dialogWatchBtn');
+        watchBtn.addEventListener('click', () => {
+            if (this.currentEpisode && this.isEpisodeUnlocked(this.currentEpisode)) {
+                this.toggleWatchStatus(this.currentEpisode);
+                this.updateDialogWatchStatus();
+            }
+        });
+
+        // Close dialog when clicking outside
+        this.dialog.addEventListener('click', (e) => {
+            if (e.target === this.dialog) {
+                this.closeEpisodeDialog();
+            }
+        });
+
+        // Close with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.dialog.classList.contains('active')) {
+                this.closeEpisodeDialog();
+            }
+        });
+    }
+
+    openEpisodeDialog(episodeNum) {
+        this.currentEpisode = episodeNum;
         const episode = episodes[episodeNum - 1];
-        const isWatched = this.watchedEpisodes.has(episodeNum);
         
-        const title = episodeNum === 27 ? 'End of Evangelion' : `Episode ${episodeNum}: ${episode.title}`;
-        const watchStatus = isWatched ? 'WATCHED' : 'UNWATCHED';
+        // Update dialog content
+        const dialogImage = document.getElementById('dialogImage');
+        const dialogNumber = document.getElementById('dialogNumber');
+        const dialogTitle = document.getElementById('dialogTitle');
+        const dialogSynopsis = document.getElementById('dialogSynopsis');
         
-        alert(`${title}\n\nStatus: ${watchStatus}\n\nSynopsis: ${episode.synopsis}\n\n[This would open a video player in a real implementation]`);
+        // Set episode image
+        const imageSrc = episodeNum === 27 ? 'Media/episodes/endofevangelion.jpeg' : 
+                        `Media/episodes/${this.getEpisodeImageName(episodeNum)}.webp`;
+        dialogImage.src = imageSrc;
+        
+        // Set episode number
+        dialogNumber.textContent = episodeNum === 27 ? 'EOE' : episodeNum.toString().padStart(2, '0');
+        
+        // Set title
+        const title = episodeNum === 27 ? 'The End of Evangelion' : `Episode ${episodeNum}: ${episode.title}`;
+        dialogTitle.textContent = title;
+        
+        // Set synopsis
+        dialogSynopsis.textContent = episode.synopsis;
+        
+        // Update watch button
+        this.updateDialogWatchStatus();
+        
+        // Show dialog and push grid
+        this.dialog.classList.add('active');
+        this.gridContainer.classList.add('shifted');
+    }
+
+    closeEpisodeDialog() {
+        this.dialog.classList.remove('active');
+        this.gridContainer.classList.remove('shifted');
+        this.currentEpisode = null;
+    }
+
+    updateDialogWatchStatus() {
+        if (!this.currentEpisode) return;
+        
+        const watchBtn = document.getElementById('dialogWatchBtn');
+        const watchText = document.getElementById('dialogWatchText');
+        const isWatched = this.watchedEpisodes.has(this.currentEpisode);
+        const isUnlocked = this.isEpisodeUnlocked(this.currentEpisode);
+        
+        if (!isUnlocked) {
+            watchBtn.classList.add('disabled');
+            watchText.textContent = 'Episode Locked';
+            watchBtn.disabled = true;
+        } else {
+            watchBtn.classList.remove('disabled');
+            watchBtn.disabled = false;
+            if (isWatched) {
+                watchText.textContent = 'Mark as Unwatched';
+                watchBtn.style.background = 'linear-gradient(135deg, var(--primary-red), rgba(255, 0, 0, 0.8))';
+            } else {
+                watchText.textContent = 'Mark as Watched';
+                watchBtn.style.background = 'linear-gradient(135deg, var(--terminal-green), rgba(0, 255, 0, 0.8))';
+            }
+        }
+    }
+
+    getEpisodeImageName(episodeNum) {
+        const imageNames = [
+            'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
+            'eleven', 'twelve', 'thirdteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty',
+            'twentyone', 'twentytwo', 'twentythree', 'twentyfour', 'twentyfive', 'twentysix'
+        ];
+        return imageNames[episodeNum - 1];
     }
 
     addWatchToggleEffect(button) {
@@ -275,12 +382,8 @@ function addNavigationEffects() {
                 this.style.transform = '';
             }, 200);
             
-            // Handle navigation between pages
-            const targetPage = this.getAttribute('data-page');
-            if (targetPage === 'index' && this.getAttribute('href').startsWith('index.html')) {
-                // Let the default navigation happen
-                return;
-            }
+            // Let all navigation happen naturally - don't prevent default
+            // This allows both hash links and external page links to work properly
         });
         
         // Add hover effects
