@@ -1,115 +1,4 @@
 // ===== GLOBAL VARIABLES =====
-let currentEpisode = 0;
-const episodes = [
-    {
-        title: "Angel Attack",
-        synopsis: "Fifteen years after the Second Impact, Shinji Ikari is summoned to Tokyo-3 by his estranged father to pilot a giant bio-mechanical robot called Evangelion to combat beings known as Angels."
-    },
-    {
-        title: "The Beast",
-        synopsis: "Shinji wakes up in the hospital and is immediately ordered to pilot Eva Unit-01 again. He meets his fellow pilot Rei Ayanami and begins to understand the weight of his responsibilities."
-    },
-    {
-        title: "A Transfer",
-        synopsis: "A new student transfers to Shinji's school, and the mysterious Third Angel appears. Shinji must overcome his fears to protect those he cares about."
-    },
-    {
-        title: "Hedgehog's Dilemma",
-        synopsis: "Shinji moves in with Misato and starts attending school. He struggles with connecting to others while learning about the Hedgehog's Dilemma."
-    },
-    {
-        title: "Rei I",
-        synopsis: "Shinji tries to get to know Rei better, while a new Angel attacks. We learn more about Rei's mysterious connection to Gendo."
-    },
-    {
-        title: "Rei II",
-        synopsis: "The sixth Angel attacks Tokyo-3, forcing Shinji and Rei to work together in a synchronized operation to defeat it."
-    },
-    {
-        title: "A Human Work",
-        synopsis: "NERV faces a human threat as a prototype giant robot built by the Japanese government challenges the Evangelions."
-    },
-    {
-        title: "Asuka Strikes!",
-        synopsis: "The fiery Asuka Langley arrives from Germany with Eva Unit-02, immediately clashing with Shinji while fighting the eighth Angel."
-    },
-    {
-        title: "Both of You, Dance Like You Want to Win!",
-        synopsis: "Shinji and Asuka must learn to synchronize their movements to defeat an Angel that has split into two parts."
-    },
-    {
-        title: "Magma Diver",
-        synopsis: "Asuka pilots Eva Unit-02 in a dangerous mission to capture an Angel hiding in an active volcano."
-    },
-    {
-        title: "The Day Tokyo-3 Stood Still",
-        synopsis: "A massive blackout hits Tokyo-3 just as an Angel attacks, forcing the Eva pilots to fight without power support."
-    },
-    {
-        title: "She said, 'Don't make others suffer for your personal hatred.'",
-        synopsis: "As the twelfth Angel infiltrates NERV headquarters, Shinji must navigate through the facility to reach his Eva."
-    },
-    {
-        title: "Lilliputian Hitcher",
-        synopsis: "A microscopic Angel infects Eva Unit-00 and threatens to take control of it, forcing the pilots to enter a computer simulation."
-    },
-    {
-        title: "Weaving a Story",
-        synopsis: "Tokyo-3 faces a powerful Angel that can learn and adapt to any attack, pushing the Evas to their limits."
-    },
-    {
-        title: "Those women longed for the touch of others' lips, and thus invited their kisses.",
-        synopsis: "The fifteenth Angel attacks during a total solar eclipse, leading to revelations about the Angels' true nature."
-    },
-    {
-        title: "Splitting of the Breast",
-        synopsis: "Shinji's sync ratio reaches dangerous levels as he faces psychological breakdown and questions his own identity."
-    },
-    {
-        title: "Fourth Child",
-        synopsis: "The selection of the Fourth Child creates tension at NERV, while Unit-03 becomes possessed by an Angel."
-    },
-    {
-        title: "Ambivalence",
-        synopsis: "Shinji pilots Eva Unit-01 against the Angel-possessed Unit-03, not knowing who the pilot inside is."
-    },
-    {
-        title: "Introjection",
-        synopsis: "The most powerful Angel yet appears and begins a psychological attack on the Eva pilots' minds."
-    },
-    {
-        title: "Weaving a Story 2: oral stage",
-        synopsis: "Shinji's psychological state deteriorates further as the twentieth Angel continues its mental assault."
-    },
-    {
-        title: "He was aware that he was still a child.",
-        synopsis: "Kaji's investigation into NERV's true agenda reaches its climax, while relationships between characters become strained."
-    },
-    {
-        title: "Don't Be.",
-        synopsis: "The twenty-second Angel attacks and Asuka faces her traumatic past, leading to a devastating defeat."
-    },
-    {
-        title: "Rei III",
-        synopsis: "Rei faces her own existential crisis as Armisael, the twenty-third Angel, attacks by trying to merge with Eva Unit-00."
-    },
-    {
-        title: "The Beginning and the End, or 'Knockin' on Heaven's Door'",
-        synopsis: "Kaworu Nagisa arrives as the final Angel and pilot, forming a deep connection with Shinji before revealing his true nature."
-    },
-    {
-        title: "Do you love me?",
-        synopsis: "Shinji must make an impossible choice regarding Kaworu, leading to the series' psychological exploration."
-    },
-    {
-        title: "Take care of yourself.",
-        synopsis: "The final TV episode delves deep into the minds of the characters during the Human Instrumentality Project."
-    },
-    {
-        title: "The End of Evangelion",
-        synopsis: "The feature film conclusion to the series. As the Third Impact begins, Shinji must make the ultimate choice for humanity's future while confronting his deepest fears and desires."
-    }
-];
 
 const characters = {
     shinji: {
@@ -169,11 +58,11 @@ document.addEventListener('DOMContentLoaded', function() {
     initVideoPlayer();
     initCharacterGallery();
     initEvaSection();
-    initEpisodeCarousel();
     initContactForm();
     initScrollEffects();
     initImageErrorHandling();
     initPageNavigation();
+    initLogoNavigation();
 });
 
 // ===== IMAGE ERROR HANDLING =====
@@ -568,6 +457,33 @@ function addTerminalClickEffect(element) {
     }, 200);
 }
 
+// Add logo navigation functionality
+function initLogoNavigation() {
+    const navLogo = document.querySelector('.nav-logo');
+    if (navLogo) {
+        navLogo.style.cursor = 'pointer';
+        navLogo.addEventListener('click', function() {
+            // If we're not on index page, go to index
+            if (window.location.pathname.includes('episodes.html')) {
+                window.location.href = 'index.html';
+            } else {
+                // If we're on index page, scroll to top
+                smoothScrollTo('#hero');
+            }
+        });
+        
+        navLogo.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.1)';
+            this.style.filter = 'brightness(1.3)';
+        });
+        
+        navLogo.addEventListener('mouseleave', function() {
+            this.style.transform = '';
+            this.style.filter = '';
+        });
+    }
+}
+
 function typeText(element, text, speed) {
     // For HTML content, we need to handle it differently
     if (text.includes('<')) {
@@ -732,141 +648,6 @@ function initMouseParallax(card, specsElement) {
     card.addEventListener('mouseleave', removeMouseMove, { once: true });
 }
 
-// ===== EPISODE CAROUSEL =====
-function initEpisodeCarousel() {
-    const carousel = document.getElementById('episodeCarousel');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const episodeTitle = document.getElementById('episodeTitle');
-    const episodeSynopsis = document.getElementById('episodeSynopsis');
-    const episodeCards = document.querySelectorAll('.episode-card');
-    
-    function updateCarousel() {
-        episodeCards.forEach((card, index) => {
-            card.classList.remove('active');
-            
-            if (index === currentEpisode) {
-                card.classList.add('active');
-            }
-        });
-        
-        // Update episode info
-        if (episodes[currentEpisode]) {
-            episodeTitle.textContent = episodes[currentEpisode].title;
-            typeEffect(episodeSynopsis, episodes[currentEpisode].synopsis);
-        }
-        
-        // Regular horizontal carousel positioning - much larger spacing for bigger gaps
-        let cardWidth = 650; // Card width + much larger gap
-        if (window.innerWidth < 768) {
-            cardWidth = 350; // Larger gap for mobile
-        } else if (window.innerWidth < 1024) {
-            cardWidth = 480; // Larger gap for tablets
-        }
-        
-        episodeCards.forEach((card, index) => {
-            let position = index - currentEpisode;
-            const totalCards = episodeCards.length;
-            
-            // Handle infinite loop wrapping
-            if (position > totalCards / 2) {
-                position -= totalCards;
-            } else if (position < -totalCards / 2) {
-                position += totalCards;
-            }
-            
-            const translateX = position * cardWidth;
-            
-            let scale, opacity, zIndex;
-            
-            if (index === currentEpisode) {
-                // Active card
-                scale = 1.1;
-                opacity = 1;
-                zIndex = 10;
-            } else if (Math.abs(position) === 1) {
-                // Adjacent cards
-                scale = 0.9;
-                opacity = 0.8;
-                zIndex = 8;
-            } else if (Math.abs(position) === 2) {
-                // Second level cards
-                scale = 0.75;
-                opacity = 0.6;
-                zIndex = 6;
-            } else if (Math.abs(position) <= 3) {
-                // Third level cards
-                scale = 0.6;
-                opacity = 0.4;
-                zIndex = 4;
-            } else {
-                // Far cards (hidden by shadow overlay)
-                scale = 0.5;
-                opacity = 0.2;
-                zIndex = 2;
-            }
-            
-            // Apply transforms
-            card.style.transform = `translateX(${translateX}px) scale(${scale})`;
-            card.style.opacity = opacity;
-            card.style.zIndex = zIndex;
-        });
-    }
-    
-    prevBtn.addEventListener('click', function() {
-        currentEpisode = (currentEpisode - 1 + episodes.length) % episodes.length;
-        updateCarousel();
-    });
-    
-    nextBtn.addEventListener('click', function() {
-        currentEpisode = (currentEpisode + 1) % episodes.length;
-        updateCarousel();
-    });
-    
-    // Add click functionality to episode cards
-    episodeCards.forEach((card, index) => {
-        card.addEventListener('click', function() {
-            currentEpisode = index;
-            updateCarousel();
-        });
-    });
-    
-    // Initialize carousel
-    updateCarousel();
-    
-    // Auto-rotate carousel
-    let autoRotateInterval = setInterval(() => {
-        currentEpisode = (currentEpisode + 1) % episodes.length;
-        updateCarousel();
-    }, 5000); // Change every 5 seconds
-    
-    // Pause auto-rotation when user interacts
-    function pauseAutoRotation() {
-        clearInterval(autoRotateInterval);
-        // Restart auto-rotation after 8 seconds of inactivity
-        setTimeout(() => {
-            autoRotateInterval = setInterval(() => {
-                currentEpisode = (currentEpisode + 1) % episodes.length;
-                updateCarousel();
-            }, 5000);
-        }, 8000);
-    }
-    
-    // Pause auto-rotation on button clicks
-    prevBtn.addEventListener('click', pauseAutoRotation);
-    nextBtn.addEventListener('click', pauseAutoRotation);
-    
-    // Pause auto-rotation on card clicks
-    episodeCards.forEach(card => {
-        card.addEventListener('click', pauseAutoRotation);
-    });
-    
-    // Update carousel on window resize for responsive radius
-    window.addEventListener('resize', function() {
-        updateCarousel();
-    });
-}
-
 // ===== CONTACT FORM =====
 function initContactForm() {
     const reviewForm = document.getElementById('reviewForm');
@@ -961,6 +742,30 @@ function initScrollEffects() {
         });
     }
     
+    // Function to check if user scrolled to synopsis section before video reaches 24 seconds
+    function checkEarlyScrollToNav() {
+        const heroVideo = document.getElementById('heroVideo');
+        const synopsisSection = document.getElementById('synopsis');
+        const pageNav = document.getElementById('pageNav');
+        
+        if (!heroVideo || !synopsisSection || !pageNav) return;
+        
+        // Check if synopsis section is in viewport (user scrolled to it)
+        const synopsisRect = synopsisSection.getBoundingClientRect();
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        const synopsisInView = synopsisRect.top < windowHeight && synopsisRect.bottom > 0;
+        
+        // Check if video hasn't reached 24 seconds yet
+        const videoCurrentTime = heroVideo.currentTime || 0;
+        const hasReached24Seconds = videoCurrentTime >= 24;
+        
+        // Show navigation if user scrolled to synopsis before video reaches 24 seconds
+        if (synopsisInView && !hasReached24Seconds && !pageNav.classList.contains('show')) {
+            showPageNavigation();
+            console.log('Navigation shown due to early scroll at video time:', videoCurrentTime);
+        }
+    }
+    
     // Parallax effects and scroll animations
     function handleScroll() {
         const scrolled = window.pageYOffset;
@@ -971,6 +776,9 @@ function initScrollEffects() {
         if (heroBackground) {
             heroBackground.style.transform = `translateY(${rate}px)`;
         }
+        
+        // Check for early scroll to navigation
+        checkEarlyScrollToNav();
         
         // Animate elements as they come into view
         animateVisibleElements();
@@ -1048,13 +856,6 @@ function initMapInteraction() {
 
 // ===== KEYBOARD SHORTCUTS =====
 document.addEventListener('keydown', function(e) {
-    // Arrow keys for carousel navigation
-    if (e.key === 'ArrowLeft') {
-        document.getElementById('prevBtn').click();
-    } else if (e.key === 'ArrowRight') {
-        document.getElementById('nextBtn').click();
-    }
-    
     // Escape key to scroll to top
     if (e.key === 'Escape') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
