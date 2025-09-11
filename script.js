@@ -781,18 +781,6 @@ function addTerminalGlitch() {
     });
 }
 
-// ===== TOKYO-3 MAP INTERACTION =====
-function initMapInteraction() {
-    const tokyo3Marker = document.querySelector('.tokyo3-marker');
-    
-    if (tokyo3Marker) {
-        tokyo3Marker.addEventListener('click', function() {
-            alert('TOKYO-3: Fortress City\nPopulation: Classified\nStatus: Under Angel Attack Protocol\nNERV Headquarters: Active');
-        });
-        
-        tokyo3Marker.style.cursor = 'pointer';
-    }
-}
 
 // ===== KEYBOARD SHORTCUTS =====
 document.addEventListener('keydown', function(e) {
@@ -806,5 +794,4 @@ document.addEventListener('keydown', function(e) {
 // ===== INITIALIZE ADDITIONAL EFFECTS =====
 setTimeout(() => {
     addTerminalGlitch();
-    initMapInteraction();
 }, 1000);

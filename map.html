@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOKYO-3 MAP - Neon Genesis Evangelion</title>
+    <link rel="icon" href="Media/favicon.ico" type="image/x-icon">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <!-- Mapbox GL JS -->
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/navigation.css">
+    <link rel="stylesheet" href="css/sections.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/map.css">
+</head>
+<body>
+    <!-- Page Navigation -->
+    <nav class="page-nav" id="pageNav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="Media/nav.png" alt="NGE Logo" class="nav-logo-image">
+                <div class="nav-logo-pulse"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#hero" class="nav-link" data-section="hero" data-page="index">INTRO</a></li>
+                <li><a href="index.html#synopsis" class="nav-link" data-section="synopsis" data-page="index">OVERVIEW</a></li>
+                <li><a href="index.html#characters" class="nav-link" data-section="characters" data-page="index">PILOTS</a></li>
+                <li><a href="index.html#evas" class="nav-link" data-section="evas" data-page="index">UNITS</a></li>
+                <li><a href="episodes.html" class="nav-link" data-page="episodes">ARCHIVE</a></li>
+                <li><a href="map.html" class="nav-link active" data-page="map">TOKYO-3</a></li>
+                <li><a href="report.html" class="nav-link" data-page="report">REPORT</a></li>
+            </ul>
+            <div class="nav-indicator">
+                <div class="nav-indicator-line"></div>
+                <div class="nav-indicator-dot"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Map Section -->
+    <section class="map-section" id="mapSection">
+        <div class="map-container">
+            <div class="map-header">
+                <h1 class="map-title">TOKYO-3 FORTRESS CITY</h1>
+                <div class="map-subtitle">TACTICAL MAP SYSTEM</div>
+                <div class="section-border"></div>
+            </div>
+            
+            <div class="map-controls-top">
+                <h4>MAP CONTROLS</h4>
+                <div class="control-buttons">
+                    <button class="control-btn" id="resetView">RESET VIEW</button>
+                    <button class="control-btn" id="toggleSatellite">SATELLITE</button>
+                    <button class="control-btn" id="toggleTerrain">TERRAIN</button>
+                    <button class="control-btn" id="toggleLabels">LABELS</button>
+                </div>
+            </div>
+
+            <div class="map-content">
+                <div class="map-display">
+                    <div id="mapboxMap" class="mapbox-container"></div>
+                    <div class="map-overlay">
+                        <div class="radar-grid"></div>
+                        <div class="map-hud">
+                            <div class="hud-element coordinates">
+                                <span class="hud-label">COORDINATES:</span>
+                                <span id="coordinates">35.2606°N, 139.0909°E</span>
+                            </div>
+                            <div class="hud-element zoom-level">
+                                <span class="hud-label">ZOOM:</span>
+                                <span id="zoomLevel">10</span>
+                            </div>
+                            <div class="hud-element status">
+                                <span class="hud-label">STATUS:</span>
+                                <span id="mapStatus">ACTIVE</span>
+                            </div>
+                        </div>
+                        <div class="terminal-borders">
+                            <div class="corner top-left"></div>
+                            <div class="corner top-right"></div>
+                            <div class="corner bottom-left"></div>
+                            <div class="corner bottom-right"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="map-info">
+                    <div class="info-panel">
+                        <h3>TACTICAL OVERVIEW</h3>
+                        <p>After the catastrophic Second Impact in 2000, the world was forever changed. Sea levels rose dramatically, eliminating half of the Earth's population. Tokyo-3, built in the ruins of Hakone, serves as humanity's last fortress against the Angels.</p>
+                        
+                        <div class="location-features">
+                            <div class="feature-item">
+                                <h4>NERV HEADQUARTERS</h4>
+                                <p>Hidden deep beneath Tokyo-3, the massive underground fortress houses the Evangelion units and the mysterious Central Dogma.</p>
+                            </div>
+                            <div class="feature-item">
+                                <h4>RETRACTABLE CITY</h4>
+                                <p>Tokyo-3's buildings can retract into the ground during Angel attacks, transforming the city into a battlefield for the Evangelions.</p>
+                            </div>
+                            <div class="feature-item">
+                                <h4>AT FIELD BARRIERS</h4>
+                                <p>The city is protected by powerful AT Field barriers, but only Evangelions can penetrate the Angels' own AT Fields.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>NERV CLASSIFICATION</h4>
+                    <p>This information is classified under NERV security protocols. Unauthorized access is prohibited.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>EVANGELION PROJECT</h4>
+                    <p>© GAINAX/Project Eva. All rights reserved.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 NERV. All systems operational.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="map.js"></script>
+</body>
+</html>

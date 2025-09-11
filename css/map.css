@@ -1,0 +1,450 @@
+/* ===== MAP PAGE STYLES ===== */
+.map-section {
+    min-height: 100vh;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(0, 255, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 51, 0, 0.05) 0%, transparent 40%),
+        var(--background-dark);
+    padding: 80px 0 50px;
+}
+
+.map-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.map-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.map-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--terminal-green);
+    text-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.1em;
+}
+
+.map-subtitle {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--primary-red);
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 1rem;
+}
+
+.section-border {
+    width: 200px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary-red), transparent);
+    margin: 0 auto;
+    position: relative;
+}
+
+.section-border::before,
+.section-border::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    width: 6px;
+    height: 6px;
+    background: var(--primary-red);
+    border-radius: 50%;
+}
+
+.section-border::before {
+    left: -3px;
+}
+
+.section-border::after {
+    right: -3px;
+}
+
+.map-controls-top {
+    background: rgba(255, 51, 0, 0.05);
+    border: 2px solid var(--primary-red);
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.map-controls-top h4 {
+    font-family: 'Orbitron', monospace;
+    color: var(--primary-red);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.map-controls-top .control-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.map-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.map-display {
+    position: relative;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid var(--primary-red);
+    overflow: hidden;
+}
+
+.mapbox-container {
+    width: 100%;
+    height: 600px;
+    position: relative;
+}
+
+.map-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.radar-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(rgba(0, 255, 0, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.3;
+}
+
+.map-hud {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.hud-element {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--terminal-green);
+    padding: 8px 12px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+}
+
+.hud-label {
+    color: var(--terminal-green);
+    font-weight: bold;
+}
+
+.hud-element span:last-child {
+    color: var(--text-primary);
+}
+
+.terminal-borders {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+.corner {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--primary-red);
+}
+
+.corner.top-left {
+    top: 10px;
+    left: 10px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.corner.top-right {
+    top: 10px;
+    right: 10px;
+    border-left: none;
+    border-bottom: none;
+}
+
+.corner.bottom-left {
+    bottom: 10px;
+    left: 10px;
+    border-right: none;
+    border-top: none;
+}
+
+.corner.bottom-right {
+    bottom: 10px;
+    right: 10px;
+    border-left: none;
+    border-top: none;
+}
+
+.map-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.info-panel {
+    background: rgba(0, 255, 0, 0.05);
+    border: 2px solid var(--terminal-green);
+    padding: 2rem;
+    position: relative;
+}
+
+.info-panel h3 {
+    font-family: 'Orbitron', monospace;
+    color: var(--terminal-green);
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.info-panel > p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.location-features {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.feature-item {
+    background: rgba(0, 255, 0, 0.05);
+    border-left: 3px solid var(--terminal-green);
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+    background: rgba(0, 255, 0, 0.1);
+    transform: translateX(10px);
+}
+
+.feature-item h4 {
+    color: var(--terminal-green);
+    font-family: 'Orbitron', monospace;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.feature-item p {
+    color: var(--text-secondary);
+    line-height: 1.5;
+    font-size: 0.9rem;
+}
+
+
+.control-btn {
+    background: transparent;
+    border: 2px solid var(--primary-red);
+    color: var(--primary-red);
+    padding: 12px 20px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    min-width: 120px;
+}
+
+.control-btn:hover {
+    background: var(--primary-red);
+    color: var(--background-dark);
+    box-shadow: 0 0 15px rgba(255, 51, 0, 0.5);
+}
+
+.control-btn:active {
+    transform: scale(0.95);
+}
+
+.control-btn.active {
+    background: var(--primary-red);
+    color: var(--background-dark);
+}
+
+/* Mapbox customization */
+.mapboxgl-ctrl-bottom-left,
+.mapboxgl-ctrl-bottom-right {
+    display: none;
+}
+
+.mapboxgl-ctrl-top-left,
+.mapboxgl-ctrl-top-right {
+    margin: 10px;
+}
+
+.mapboxgl-ctrl-group {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--terminal-green);
+    border-radius: 0;
+}
+
+.mapboxgl-ctrl-group button {
+    background: transparent;
+    border: none;
+    color: var(--terminal-green);
+    font-size: 16px;
+}
+
+.mapboxgl-ctrl-group button:hover {
+    background: rgba(0, 255, 65, 0.1);
+}
+
+/* Popup customization */
+.mapboxgl-popup-content {
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid var(--primary-red);
+    border-radius: 0;
+    color: var(--text-primary);
+    font-family: 'Share Tech Mono', monospace;
+    padding: 15px;
+    box-shadow: 0 0 20px rgba(255, 51, 0, 0.5);
+}
+
+.mapboxgl-popup-tip {
+    border-top-color: var(--primary-red);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .map-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .mapbox-container {
+        height: 500px;
+    }
+    
+    .map-title {
+        font-size: 2.5rem;
+    }
+    
+    .map-controls-top .control-buttons {
+        gap: 10px;
+    }
+    
+    .control-btn {
+        min-width: 100px;
+        padding: 10px 15px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .map-container {
+        padding: 0 1rem;
+    }
+    
+    .mapbox-container {
+        height: 400px;
+    }
+    
+    .map-title {
+        font-size: 2rem;
+    }
+    
+    .map-subtitle {
+        font-size: 1rem;
+    }
+    
+    .map-controls-top {
+        padding: 1rem;
+    }
+    
+    .map-controls-top .control-buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .control-btn {
+        min-width: auto;
+        padding: 10px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .map-hud {
+        position: static;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 10px;
+        gap: 5px;
+    }
+    
+    .hud-element {
+        font-size: 0.75rem;
+        padding: 6px 10px;
+    }
+}
+
+/* Animation effects */
+@keyframes radarSweep {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.map-display::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px;
+    height: 50%;
+    background: linear-gradient(to bottom, var(--terminal-green), transparent);
+    transform-origin: bottom center;
+    animation: radarSweep 4s linear infinite;
+    z-index: 5;
+    opacity: 0.6;
+}
+
+/* Glitch effect for status */
+@keyframes glitch {
+    0%, 100% { transform: translateX(0); }
+    10% { transform: translateX(-2px); }
+    20% { transform: translateX(2px); }
+    30% { transform: translateX(-2px); }
+    40% { transform: translateX(2px); }
+    50% { transform: translateX(-2px); }
+    60% { transform: translateX(2px); }
+    70% { transform: translateX(-2px); }
+    80% { transform: translateX(2px); }
+    90% { transform: translateX(-2px); }
+}
+
+#mapStatus {
+    animation: glitch 0.3s ease-in-out infinite;
+}
