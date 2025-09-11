@@ -58,7 +58,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initVideoPlayer();
     initCharacterGallery();
     initEvaSection();
-    initContactForm();
     initScrollEffects();
     initImageErrorHandling();
     initPageNavigation();
@@ -653,62 +652,6 @@ function initMouseParallax(card, specsElement) {
     card.addEventListener('mouseleave', removeMouseMove, { once: true });
 }
 
-// ===== CONTACT FORM =====
-function initContactForm() {
-    const reviewForm = document.getElementById('reviewForm');
-    
-    reviewForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(this);
-        const reviewData = {
-            name: formData.get('reviewerName'),
-            rating: formData.get('reviewRating'),
-            review: formData.get('reviewText')
-        };
-        
-        // Simulate form submission
-        showSubmissionEffect();
-        
-        // Reset form after submission
-        setTimeout(() => {
-            this.reset();
-            alert('Review transmitted successfully to NERV Headquarters!');
-        }, 2000);
-    });
-    
-    // Add terminal-style input effects
-    const inputs = reviewForm.querySelectorAll('input, select, textarea');
-    inputs.forEach(input => {
-        input.addEventListener('focus', function() {
-            this.style.boxShadow = '0 0 15px rgba(0, 255, 0, 0.3)';
-        });
-        
-        input.addEventListener('blur', function() {
-            this.style.boxShadow = 'none';
-        });
-    });
-}
-
-function showSubmissionEffect() {
-    const submitBtn = document.querySelector('.submit-btn');
-    const originalText = submitBtn.textContent;
-    
-    submitBtn.textContent = 'TRANSMITTING...';
-    submitBtn.style.background = 'var(--neon-orange)';
-    submitBtn.style.animation = 'pulse 0.5s ease-in-out infinite';
-    
-    setTimeout(() => {
-        submitBtn.textContent = 'TRANSMISSION COMPLETE';
-        submitBtn.style.background = 'var(--terminal-green)';
-        submitBtn.style.animation = '';
-        
-        setTimeout(() => {
-            submitBtn.textContent = originalText;
-            submitBtn.style.background = 'transparent';
-        }, 1000);
-    }, 1500);
-}
 
 // ===== SCROLL EFFECTS =====
 function initScrollEffects() {

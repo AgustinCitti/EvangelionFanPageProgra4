@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Report - NERV Database</title>
+    <link rel="icon" type="image/x-icon" href="Media/favicon.ico">
+    <!-- Core CSS Files -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/animations.css">
+    
+    <!-- Component CSS Files -->
+    <link rel="stylesheet" href="css/navigation.css">
+    <link rel="stylesheet" href="css/sections.css">
+    <link rel="stylesheet" href="css/contact.css">
+    <link rel="stylesheet" href="css/report.css">
+    <link rel="stylesheet" href="css/footer.css">
+    
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body class="report-page">
+    <!-- Page Navigation -->
+    <nav class="page-nav show" id="pageNav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="Media/nav.png" alt="NGE Logo" class="nav-logo-image">
+                <div class="nav-logo-pulse"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link" data-page="index">INTRO</a></li>
+                <li><a href="index.html#synopsis" class="nav-link" data-page="index">OVERVIEW</a></li>
+                <li><a href="index.html#characters" class="nav-link" data-page="index">PILOTS</a></li>
+                <li><a href="index.html#evas" class="nav-link" data-page="index">UNITS</a></li>
+                <li><a href="episodes.html" class="nav-link" data-page="episodes">ARCHIVE</a></li>
+                <li><a href="index.html#world" class="nav-link" data-page="index">TOKYO-3</a></li>
+                <li><a href="#report" class="nav-link active" data-page="report">REPORT</a></li>
+            </ul>
+            <div class="nav-indicator">
+                <div class="nav-indicator-line"></div>
+                <div class="nav-indicator-dot"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Report Header -->
+    <section class="report-header">
+        <div class="container">
+            <div class="report-header-content">
+                <h1 class="report-title">MISSION REPORT</h1>
+                <p class="report-subtitle">CLASSIFIED NERV DATABASE</p>
+                <div class="report-warning">
+                    <div class="warning-icon">⚠️</div>
+                    <div class="warning-text">
+                        <strong>SECURITY LEVEL: RESTRICTED</strong><br>
+                        AUTHORIZED PERSONNEL ONLY
+                    </div>
+                </div>
+                <button class="admin-access-btn header-admin-btn" id="adminAccessBtn">
+                    <span class="btn-icon">🔐</span>
+                    <span class="btn-text">ENTER AS ADMINISTRATOR</span>
+                    <div class="btn-glow"></div>
+                </button>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-container">
+            <div class="nerv-terminal modal-terminal">
+                <div class="terminal-header">
+                    <div class="terminal-status">
+                        <span class="status-indicator active"></span>
+                        <span class="status-text">ADMIN SESSION ACTIVE</span>
+                    </div>
+                    <div class="terminal-id">TERMINAL_ID: MAGI-01</div>
+                    <button class="modal-close" id="modalClose">&times;</button>
+                </div>
+                
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">PILOT EVALUATION FORM</h3>
+                        <div class="access-granted">
+                            <span class="access-icon">✓</span>
+                            <span class="access-text">ACCESS GRANTED</span>
+                        </div>
+                    </div>
+                    
+                    <form class="review-form nerv-form" id="reviewForm">
+                        <div class="form-group">
+                            <label for="reviewerName">PILOT DESIGNATION</label>
+                            <input type="text" id="reviewerName" name="reviewerName" placeholder="Enter pilot name..." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reviewRating">SYNCHRONIZATION RATIO (1-10)</label>
+                            <select id="reviewRating" name="reviewRating" required>
+                                <option value="">Select Sync Ratio</option>
+                                <option value="10">10 - Perfect Synchronization</option>
+                                <option value="9">9 - Exceptional Performance</option>
+                                <option value="8">8 - Superior Compatibility</option>
+                                <option value="7">7 - Above Average Sync</option>
+                                <option value="6">6 - Acceptable Performance</option>
+                                <option value="5">5 - Standard Baseline</option>
+                                <option value="4">4 - Below Expectations</option>
+                                <option value="3">3 - Poor Synchronization</option>
+                                <option value="2">2 - Critical Issues</option>
+                                <option value="1">1 - System Rejection</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="reviewText">MISSION REPORT DETAILS</label>
+                            <textarea id="reviewText" name="reviewText" rows="6" placeholder="Enter detailed mission analysis and pilot evaluation..." required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn nerv-submit">
+                            <span class="btn-text">TRANSMIT TO MAGI SYSTEM</span>
+                            <div class="btn-loader"></div>
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="terminal-footer">
+                    <div class="terminal-info">
+                        <div class="info-item">
+                            <span class="info-label">CLASSIFICATION:</span>
+                            <span class="info-value">TOP SECRET</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">CLEARANCE:</span>
+                            <span class="info-value">LEVEL 7</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">LOCATION:</span>
+                            <span class="info-value">TOKYO-3</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>NEON GENESIS EVANGELION</h3>
+                    <p>A landmark series that redefined anime</p>
+                </div>
+                <div class="footer-section">
+                    <h3>DEVELOPER</h3>
+                    <p>Agustin Citti</p>
+                </div>
+                <div class="footer-section">
+                    <h3>ACADEMIC PROJECT</h3>
+                    <p>Programación 4</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Evangelion Landing Page. Created for educational purposes.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="report.js"></script>
+</body>
+</html>
