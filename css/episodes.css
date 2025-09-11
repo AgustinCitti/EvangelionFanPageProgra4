@@ -64,7 +64,7 @@
     );
 }
 
-.episode-card {
+.carousel .episode-card {
     position: absolute;
     width: 500px;
     height: 320px;
@@ -77,7 +77,7 @@
     margin-top: -160px;
 }
 
-.episode-card.active {
+.carousel .episode-card.active {
     z-index: 10;
 }
 
@@ -102,18 +102,18 @@
     transition: filter 0.3s ease;
 }
 
-.episode-card.active .episode-image img {
+.carousel .episode-card.active .episode-image img {
     filter: brightness(1) contrast(1.2);
 }
 
-.episode-card.active .episode-image {
+.carousel .episode-card.active .episode-image {
     border-color: var(--terminal-green);
     box-shadow: 
         0 0 30px rgba(0, 255, 0, 0.5),
         0 15px 40px rgba(0, 0, 0, 0.7);
 }
 
-.episode-number {
+.carousel .episode-number {
     position: absolute;
     top: 20px;
     right: 20px;
@@ -132,7 +132,7 @@
     transition: all 0.3s ease;
 }
 
-.episode-card.active .episode-number {
+.carousel .episode-card.active .episode-number {
     background: linear-gradient(135deg, rgba(255, 0, 0, 0.9), rgba(200, 0, 0, 1));
     color: white;
     box-shadow: 
@@ -303,7 +303,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 20px;
 }
@@ -361,8 +361,8 @@
     opacity: 1;
 }
 
-/* Episode Number */
-.episode-number {
+/* Episode Number - Grid Layout */
+.episodes-grid .episode-number {
     position: absolute;
     top: 12px;
     right: 12px;
@@ -410,6 +410,10 @@
         0 0 15px var(--primary-red),
         2px 2px 0 var(--background-darker);
     animation: classified-pulse 2s ease-in-out infinite;
+}
+
+.classified-text::before {
+    content: "CLASSIFIED";
 }
 
 .classified-bars {
@@ -615,34 +619,36 @@
     border-color: var(--grid-color);
 }
 
+/* Locked Episodes */
 .episode-item.locked .episode-image img {
     filter: grayscale(100%) brightness(0.4);
 }
 
-.episode-item.locked .episode-number {
+.episodes-grid .episode-item.locked .episode-number {
     background: linear-gradient(135deg, #666, #555);
     color: var(--text-muted);
     box-shadow: none;
 }
 
-/* Unlocked Episodes */
-.episode-item.unlocked .classified-overlay {
+/* Unlocked Episodes and Watched Episodes - no overlay */
+.episodes-grid .episode-item.unlocked .classified-overlay,
+.episodes-grid .episode-item.watched .classified-overlay {
     display: none;
 }
 
-.episode-item.unlocked .episode-number {
+.episodes-grid .episode-item.unlocked .episode-number {
     background: linear-gradient(135deg, var(--primary-red), rgba(255, 0, 0, 0.8));
     color: white;
     box-shadow: 0 2px 8px rgba(255, 0, 0, 0.3);
 }
 
 /* Watched Episodes */
-.episode-item.watched {
+.episodes-grid .episode-item.watched {
     border-color: var(--terminal-green);
     background: linear-gradient(135deg, rgba(0, 255, 0, 0.05), var(--background-dark));
 }
 
-.episode-item.watched .episode-number {
+.episodes-grid .episode-item.watched .episode-number {
     background: linear-gradient(135deg, var(--terminal-green), rgba(0, 255, 0, 0.8));
     color: var(--background-dark);
     box-shadow: 0 2px 8px rgba(0, 255, 0, 0.4);
@@ -661,15 +667,9 @@
 }
 
 /* Responsive Design */
-@media (max-width: 1400px) {
+@media (max-width: 1200px) {
     .episodes-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (max-width: 1000px) {
-    .episodes-grid {
-        grid-template-columns: repeat(2, 1fr);
+        max-width: 1200px;
         gap: 16px;
     }
     
@@ -682,9 +682,8 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .episodes-grid {
-        grid-template-columns: repeat(2, 1fr);
         gap: 12px;
         padding: 0 16px;
     }
@@ -697,12 +696,5 @@
     .episodes-grid-container.shifted {
         margin-right: 0;
         transform: translateX(-100%);
-    }
-}
-
-@media (max-width: 480px) {
-    .episodes-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
     }
 }

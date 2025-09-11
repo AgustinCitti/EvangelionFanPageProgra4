@@ -65,8 +65,13 @@ class EpisodeLibrary {
     isEpisodeUnlocked(episodeNum) {
         if (episodeNum === 1) return true; // Episode 1 is always unlocked
         
-        // Episode is unlocked if the previous episode has been watched
-        return this.watchedEpisodes.has(episodeNum - 1);
+        // Check if episodes are unlocked sequentially up to this point
+        for (let i = 1; i < episodeNum; i++) {
+            if (!this.watchedEpisodes.has(i)) {
+                return false; // Previous episode not watched, so this one is locked
+            }
+        }
+        return true; // All previous episodes have been watched
     }
 
     toggleWatchStatus(episodeNum) {
@@ -127,6 +132,7 @@ class EpisodeLibrary {
             item.classList.remove('locked', 'unlocked', 'watched');
             
             if (isWatched) {
+                // Watched episodes appear like unlocked episodes (no overlay)
                 item.classList.add('watched');
                 watchIcon.textContent = '✅';
                 watchToggle.setAttribute('title', 'Mark as unwatched');
