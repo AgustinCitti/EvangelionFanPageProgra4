@@ -73,37 +73,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function forceHideScrollbar() {
-    // Remove any scrolling classes that might exist
-    document.body.classList.remove('scrolling');
-    document.documentElement.classList.remove('scrolling');
-    
-    // Force hide scrollbar styles
+    // Force hide scrollbar styles permanently
     document.documentElement.style.scrollbarWidth = 'none';
     document.documentElement.style.msOverflowStyle = 'none';
-    
-    // Add aggressive CSS to hide scrollbar
-    if (!document.getElementById('force-hide-scrollbar')) {
-        const style = document.createElement('style');
-        style.id = 'force-hide-scrollbar';
-        style.textContent = `
-            ::-webkit-scrollbar {
-                width: 0px !important;
-                background: transparent !important;
-                display: none !important;
-            }
-            html::-webkit-scrollbar {
-                width: 0px !important;
-                background: transparent !important;
-                display: none !important;
-            }
-            body::-webkit-scrollbar {
-                width: 0px !important;
-                background: transparent !important;
-                display: none !important;
-            }
-        `;
-        document.head.appendChild(style);
-    }
 }
 
 // ===== INTRO SYSTEM =====
@@ -157,42 +129,8 @@ function initIntroSystem() {
         // Start hero video
         heroVideo.play();
         
-        // Re-enable scrolling with hidden scrollbar initially
+        // Re-enable scrolling
         document.body.style.overflow = '';
-        document.body.classList.remove('scrolling'); // Ensure scrolling class is removed
-        document.documentElement.classList.remove('scrolling'); // Ensure scrolling class is removed
-        document.documentElement.style.scrollbarWidth = 'none'; // Firefox
-        document.documentElement.style.msOverflowStyle = 'none'; // IE/Edge
-        document.documentElement.style.overflowY = 'scroll'; // Show scrollbar space but hide it
-        
-        // Add CSS to hide webkit scrollbar
-        if (!document.getElementById('scrollbar-style')) {
-            const style = document.createElement('style');
-            style.id = 'scrollbar-style';
-            style.textContent = `
-                ::-webkit-scrollbar {
-                    width: 0px;
-                    background: transparent;
-                }
-                body.scrolling::-webkit-scrollbar {
-                    width: 8px;
-                }
-                body.scrolling::-webkit-scrollbar-track {
-                    background: rgba(0, 0, 0, 0.3);
-                }
-                body.scrolling::-webkit-scrollbar-thumb {
-                    background: rgba(255, 51, 0, 0.6);
-                    border-radius: 4px;
-                }
-                body.scrolling::-webkit-scrollbar-thumb:hover {
-                    background: rgba(255, 51, 0, 0.8);
-                }
-            `;
-            document.head.appendChild(style);
-        }
-        
-        // Initialize scroll detection
-        initScrollbarVisibility();
         
         // Start the progressive unlock sequence
         setTimeout(() => {
@@ -440,52 +378,6 @@ function initIntroSystem() {
             // Ensure no transform is applied
             canvas.style.transform = 'none';
         }
-    }
-    
-    function initScrollbarVisibility() {
-        let scrollTimer = null;
-        let isScrolling = false;
-        
-        function showScrollbar() {
-            if (!isScrolling) {
-                document.body.classList.add('scrolling');
-                document.documentElement.classList.add('scrolling');
-                document.documentElement.style.scrollbarWidth = 'thin'; // Firefox
-                document.documentElement.style.msOverflowStyle = 'auto'; // IE/Edge
-                isScrolling = true;
-            }
-            
-            // Clear existing timer
-            if (scrollTimer) {
-                clearTimeout(scrollTimer);
-            }
-            
-            // Hide scrollbar after 2 seconds of no scrolling
-            scrollTimer = setTimeout(() => {
-                document.body.classList.remove('scrolling');
-                document.documentElement.classList.remove('scrolling');
-                document.documentElement.style.scrollbarWidth = 'none'; // Firefox
-                document.documentElement.style.msOverflowStyle = 'none'; // IE/Edge
-                isScrolling = false;
-            }, 2000);
-        }
-        
-        // Listen for scroll events
-        window.addEventListener('scroll', showScrollbar, { passive: true });
-        
-        // Listen for wheel events (mouse wheel)
-        window.addEventListener('wheel', showScrollbar, { passive: true });
-        
-        // Listen for touch events (mobile scrolling)
-        window.addEventListener('touchstart', showScrollbar, { passive: true });
-        window.addEventListener('touchmove', showScrollbar, { passive: true });
-        
-        // Listen for keyboard scrolling
-        window.addEventListener('keydown', function(e) {
-            if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', 'Space'].includes(e.code)) {
-                showScrollbar();
-            }
-        });
     }
 }
 
