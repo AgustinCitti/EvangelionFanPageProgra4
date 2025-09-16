@@ -61,7 +61,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Force hide scrollbar on page load
     forceHideScrollbar();
     
-    initIntroSystem();
+    // Check if user is coming from another page
+    const shouldSkipIntro = checkIfShouldSkipIntro();
+    
+    if (shouldSkipIntro) {
+        skipIntroAndUnlockPage();
+    } else {
+        initIntroSystem();
+    }
+    
     initHeroAnimation();
     initVideoPlayer();
     initCharacterGallery();
@@ -79,6 +87,97 @@ function forceHideScrollbar() {
     document.documentElement.style.msOverflowStyle = 'none';
 }
 
+function checkIfShouldSkipIntro() {
+    // Check if user is coming from another page within the same site
+    const referrer = document.referrer;
+    const currentDomain = window.location.origin;
+    
+    // If there's a referrer and it's from the same domain, skip intro
+    if (referrer && referrer.startsWith(currentDomain)) {
+        const referrerPath = new URL(referrer).pathname;
+        // Skip intro if coming from episodes.html, map.html, report.html, or any other page
+        if (referrerPath.includes('episodes.html') || 
+            referrerPath.includes('map.html') || 
+            referrerPath.includes('report.html')) {
+            return true;
+        }
+    }
+    
+    // Also check sessionStorage to see if user has already seen the intro
+    const hasSeenIntro = sessionStorage.getItem('nge_intro_seen');
+    if (hasSeenIntro === 'true') {
+        return true;
+    }
+    
+    return false;
+}
+
+function skipIntroAndUnlockPage() {
+    const introOverlay = document.getElementById('introOverlay');
+    const heroSection = document.getElementById('hero');
+    const heroVideo = document.getElementById('heroVideo');
+    const pageNav = document.getElementById('pageNav');
+    const heroTitle = document.getElementById('heroTitle');
+    const ctaButton = document.getElementById('ctaButton');
+    const lockedContent = document.querySelectorAll('.locked-content');
+    const introAudio = document.getElementById('introAudio');
+    
+    // Stop intro audio if it's playing
+    if (introAudio) {
+        introAudio.pause();
+        introAudio.currentTime = 0;
+    }
+    
+    // Set intro as inactive and page as unlocked immediately
+    introActive = false;
+    pageUnlocked = true;
+    
+    // Hide intro overlay completely
+    if (introOverlay) {
+        introOverlay.style.display = 'none';
+        introOverlay.style.visibility = 'hidden';
+        introOverlay.style.pointerEvents = 'none';
+    }
+    
+    // Unlock hero section
+    if (heroSection) {
+        heroSection.classList.remove('locked');
+    }
+    
+    // Show and unlock navigation
+    if (pageNav) {
+        pageNav.classList.remove('locked');
+        pageNav.classList.add('show');
+    }
+    
+    // Show hero title and CTA button
+    if (heroTitle) {
+        heroTitle.classList.add('show-title');
+    }
+    if (ctaButton) {
+        ctaButton.classList.add('show-cta');
+    }
+    
+    // Unlock all page content immediately
+    lockedContent.forEach((element) => {
+        element.classList.add('unlocked');
+    });
+    
+    // Ensure scrolling is enabled
+    document.body.style.overflow = '';
+    
+    // Start hero video if it exists
+    if (heroVideo) {
+        heroVideo.currentTime = 0;
+        heroVideo.play().catch(e => {
+            // Handle autoplay restrictions
+            console.log('Video autoplay prevented:', e);
+        });
+    }
+    
+    console.log('Intro skipped - page fully unlocked');
+}
+
 // ===== INTRO SYSTEM =====
 function initIntroSystem() {
     const introOverlay = document.getElementById('introOverlay');
@@ -88,6 +187,12 @@ function initIntroSystem() {
     
     // Handle intro start button click
     introStartBtn.addEventListener('click', function() {
+        // Enable audio context for intro sound (user interaction)
+        const introAudio = document.getElementById('introAudio');
+        if (introAudio) {
+            // Ensure audio is ready to play
+            introAudio.load();
+        }
         startIntroSequence();
     });
     
@@ -104,6 +209,9 @@ function initIntroSystem() {
     
     function startHeroSequence() {
         introActive = false;
+        
+        // Mark that user has seen the intro for this session
+        sessionStorage.setItem('nge_intro_seen', 'true');
         
         // Hide intro overlay completely
         introOverlay.style.visibility = 'hidden';
@@ -149,6 +257,17 @@ function initIntroSystem() {
         const statusText = document.querySelector('.status-text');
         const statusIndicator = document.querySelector('.status-indicator');
         const introStartBtn = document.getElementById('introStartBtn');
+        const introAudio = document.getElementById('introAudio');
+        
+        // Play intro sound
+        if (introAudio) {
+            introAudio.volume = 0.7; // Set volume to 70%
+            introAudio.currentTime = 0; // Reset to beginning
+            introAudio.play().catch(e => {
+                console.log('Intro audio autoplay prevented:', e);
+                // Audio will be enabled after user interaction
+            });
+        }
         
         // Disable button during sync
         introStartBtn.style.pointerEvents = 'none';
@@ -235,6 +354,19 @@ function initIntroSystem() {
                 
                 // Stop glitch effect immediately
                 glitchOverlay.classList.remove('active');
+                
+                // Fade out intro audio
+                if (introAudio) {
+                    const fadeOutInterval = setInterval(() => {
+                        if (introAudio.volume > 0.1) {
+                            introAudio.volume = Math.max(0, introAudio.volume - 0.05);
+                        } else {
+                            introAudio.pause();
+                            introAudio.volume = 0.7; // Reset volume for next time
+                            clearInterval(fadeOutInterval);
+                        }
+                    }, 50);
+                }
                 
                 // Direct smooth transition without zoom animation
                 setTimeout(() => {
