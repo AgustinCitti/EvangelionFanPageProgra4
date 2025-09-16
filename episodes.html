@@ -48,8 +48,20 @@
     <section class="episodes-library-header">
         <div class="container">
             <div class="library-header-content">
-                <h1 class="library-title">EPISODE ARCHIVE</h1>
-                <p class="library-subtitle">CLASSIFIED NERV DATABASE</p>
+                <h1 class="library-title">NERV ARCHIVE</h1>
+                <p class="library-subtitle">CLASSIFIED DATABASE ACCESS</p>
+                
+                <!-- Tab Navigation -->
+                <div class="archive-tabs">
+                    <button class="archive-tab active" data-tab="episodes">
+                        
+                        <span class="tab-text">EPISODES</span>
+                    </button>
+                    <button class="archive-tab" data-tab="gallery">
+                        
+                        <span class="tab-text">GALLERY</span>
+                    </button>
+                </div>
                 <div class="library-stats">
                     <div class="stat-item">
                         <span class="stat-label">EPISODES UNLOCKED:</span>
@@ -578,6 +590,46 @@
             </div>
         </div>
     </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section" id="gallery" style="display: none;">
+        <div class="container">
+            <div class="gallery-content">
+                <!-- Gallery Categories -->
+                <div class="gallery-categories">
+                    <button class="category-btn active" data-category="all">ALL IMAGES</button>
+                    <button class="category-btn" data-category="characters">PILOTS</button>
+                    <button class="category-btn" data-category="evas">UNITS</button>
+                    <button class="category-btn" data-category="episodes">EPISODES</button>
+                </div>
+                
+                <!-- Gallery Grid -->
+                <div class="gallery-grid" id="galleryGrid">
+                    <!-- Memory Cards will be dynamically generated -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Modal -->
+    <div class="image-modal" id="imageModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <button class="modal-nav modal-prev" id="modalPrev">‹</button>
+            <button class="modal-nav modal-next" id="modalNext">›</button>
+            <div class="modal-image-container">
+                <img class="modal-image" id="modalImage" src="" alt="">
+                <div class="modal-info">
+                    <h3 class="modal-title" id="modalTitle"></h3>
+                    <p class="modal-category" id="modalCategory"></p>
+                    <div class="modal-counter">
+                        <span id="modalCurrent">1</span> / <span id="modalTotal">1</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">

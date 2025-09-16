@@ -1,5 +1,56 @@
 // ===== EPISODES LIBRARY FUNCTIONALITY =====
 
+// Gallery images data
+const galleryImages = [
+    // Characters
+    { src: 'Media/characters/shinji.jpeg', title: 'Shinji Ikari', category: 'characters', alt: 'Shinji Ikari - Third Child' },
+    { src: 'Media/characters/rei.jpg', title: 'Rei Ayanami', category: 'characters', alt: 'Rei Ayanami - First Child' },
+    { src: 'Media/characters/asuka.jpg', title: 'Asuka Langley', category: 'characters', alt: 'Asuka Langley - Second Child' },
+    { src: 'Media/characters/gendo.jpg', title: 'Gendo Ikari', category: 'characters', alt: 'Gendo Ikari - NERV Commander' },
+    { src: 'Media/characters/misato.png', title: 'Misato Katsuragi', category: 'characters', alt: 'Misato Katsuragi - Operations Director' },
+    { src: 'Media/characters/kaworu.jpg', title: 'Kaworu Nagisa', category: 'characters', alt: 'Kaworu Nagisa - Fifth Child' },
+    { src: 'Media/characters/ryoji.jpeg', title: 'Ryoji Kaji', category: 'characters', alt: 'Ryoji Kaji - Special Inspector' },
+    { src: 'Media/characters/ritsuko.jpg', title: 'Ritsuko Akagi', category: 'characters', alt: 'Ritsuko Akagi - Chief Scientist' },
+    
+    // EVAs
+    { src: 'Media/evas/01.jpg', title: 'Evangelion Unit-01', category: 'evas', alt: 'EVA Unit-01 - Test Type' },
+    { src: 'Media/evas/00.jpg', title: 'Evangelion Unit-00', category: 'evas', alt: 'EVA Unit-00 - Prototype' },
+    { src: 'Media/evas/02.jpg', title: 'Evangelion Unit-02', category: 'evas', alt: 'EVA Unit-02 - Production Model' },
+    
+    // Episodes
+    { src: 'Media/episodes/one.webp', title: 'Episode 1: Angel Attack', category: 'episodes', alt: 'Episode 1' },
+    { src: 'Media/episodes/two.webp', title: 'Episode 2: The Beast', category: 'episodes', alt: 'Episode 2' },
+    { src: 'Media/episodes/three.webp', title: 'Episode 3: A Transfer', category: 'episodes', alt: 'Episode 3' },
+    { src: 'Media/episodes/four.webp', title: 'Episode 4: Hedgehog\'s Dilemma', category: 'episodes', alt: 'Episode 4' },
+    { src: 'Media/episodes/five.webp', title: 'Episode 5: Rei I', category: 'episodes', alt: 'Episode 5' },
+    { src: 'Media/episodes/six.webp', title: 'Episode 6: Rei II', category: 'episodes', alt: 'Episode 6' },
+    { src: 'Media/episodes/seven.webp', title: 'Episode 7: A Human Work', category: 'episodes', alt: 'Episode 7' },
+    { src: 'Media/episodes/eight.webp', title: 'Episode 8: Asuka Strikes!', category: 'episodes', alt: 'Episode 8' },
+    { src: 'Media/episodes/nine.webp', title: 'Episode 9: Both of You, Dance Like You Want to Win!', category: 'episodes', alt: 'Episode 9' },
+    { src: 'Media/episodes/ten.webp', title: 'Episode 10: Magma Diver', category: 'episodes', alt: 'Episode 10' },
+    { src: 'Media/episodes/eleven.webp', title: 'Episode 11: The Day Tokyo-3 Stood Still', category: 'episodes', alt: 'Episode 11' },
+    { src: 'Media/episodes/twelve.webp', title: 'Episode 12: She said, Don\'t make others suffer', category: 'episodes', alt: 'Episode 12' },
+    { src: 'Media/episodes/thirdteen.webp', title: 'Episode 13: Lilliputian Hitcher', category: 'episodes', alt: 'Episode 13' },
+    { src: 'Media/episodes/fourteen.webp', title: 'Episode 14: Weaving a Story', category: 'episodes', alt: 'Episode 14' },
+    { src: 'Media/episodes/fifteen.webp', title: 'Episode 15: Those women longed for the touch', category: 'episodes', alt: 'Episode 15' },
+    { src: 'Media/episodes/sixteen.webp', title: 'Episode 16: Splitting of the Breast', category: 'episodes', alt: 'Episode 16' },
+    { src: 'Media/episodes/seventeen.webp', title: 'Episode 17: Fourth Child', category: 'episodes', alt: 'Episode 17' },
+    { src: 'Media/episodes/eighteen.webp', title: 'Episode 18: Ambivalence', category: 'episodes', alt: 'Episode 18' },
+    { src: 'Media/episodes/nineteen.webp', title: 'Episode 19: Introjection', category: 'episodes', alt: 'Episode 19' },
+    { src: 'Media/episodes/twenty.webp', title: 'Episode 20: Weaving a Story 2: oral stage', category: 'episodes', alt: 'Episode 20' },
+    { src: 'Media/episodes/twentyone.webp', title: 'Episode 21: He was aware that he was still a child', category: 'episodes', alt: 'Episode 21' },
+    { src: 'Media/episodes/twentytwo.webp', title: 'Episode 22: Don\'t Be', category: 'episodes', alt: 'Episode 22' },
+    { src: 'Media/episodes/twentythree.webp', title: 'Episode 23: Rei III', category: 'episodes', alt: 'Episode 23' },
+    { src: 'Media/episodes/twentyfour.webp', title: 'Episode 24: The Beginning and the End', category: 'episodes', alt: 'Episode 24' },
+    { src: 'Media/episodes/twentyfive.webp', title: 'Episode 25: Do you love me?', category: 'episodes', alt: 'Episode 25' },
+    { src: 'Media/episodes/twentysix.webp', title: 'Episode 26: Take care of yourself', category: 'episodes', alt: 'Episode 26' },
+    { src: 'Media/episodes/endofevangelion.jpeg', title: 'The End of Evangelion', category: 'episodes', alt: 'End of Evangelion' },
+    
+    // Other images
+    { src: 'Media/sinpsis.jpg', title: 'Synopsis Image', category: 'other', alt: 'Evangelion Synopsis' },
+    { src: 'Media/nav.png', title: 'NERV Logo', category: 'other', alt: 'NERV Navigation Logo' }
+];
+
 // Episodes data
 const episodes = [
     { title: "Angel Attack", synopsis: "Fifteen years after the Second Impact, Shinji Ikari is summoned to Tokyo-3 by his estranged father to pilot a giant bio-mechanical robot called Evangelion to combat beings known as Angels." },
@@ -38,6 +89,10 @@ class EpisodeLibrary {
         this.currentEpisode = null;
         this.dialog = null;
         this.gridContainer = null;
+        this.currentTab = 'episodes';
+        this.currentCategory = 'all';
+        this.currentImageIndex = 0;
+        this.filteredImages = [];
         this.loadWatchedEpisodes();
         this.init();
     }
@@ -49,6 +104,9 @@ class EpisodeLibrary {
         this.bindEvents();
         this.addTerminalEffects();
         this.bindDialogEvents();
+        this.initGallery();
+        this.bindTabEvents();
+        this.bindGalleryEvents();
     }
 
     loadWatchedEpisodes() {
@@ -353,6 +411,222 @@ class EpisodeLibrary {
                 }
             }, 100);
         });
+    }
+
+    // ===== GALLERY FUNCTIONALITY =====
+    initGallery() {
+        this.filteredImages = [...galleryImages];
+        this.generateGalleryGrid();
+    }
+
+    bindTabEvents() {
+        const tabs = document.querySelectorAll('.archive-tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabType = tab.dataset.tab;
+                this.switchTab(tabType);
+            });
+        });
+    }
+
+    switchTab(tabType) {
+        if (this.currentTab === tabType) return;
+
+        this.currentTab = tabType;
+        
+        // Update tab appearance
+        document.querySelectorAll('.archive-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        document.querySelector(`[data-tab="${tabType}"]`).classList.add('active');
+
+        // Switch sections
+        const episodesSection = document.getElementById('episodes');
+        const gallerySection = document.getElementById('gallery');
+
+        if (tabType === 'episodes') {
+            episodesSection.style.display = 'block';
+            gallerySection.style.display = 'none';
+        } else {
+            episodesSection.style.display = 'none';
+            gallerySection.style.display = 'block';
+        }
+
+        // Add transition effect
+        this.addTabSwitchEffect();
+    }
+
+    addTabSwitchEffect() {
+        const activeSection = this.currentTab === 'episodes' ? 
+            document.getElementById('episodes') : 
+            document.getElementById('gallery');
+        
+        activeSection.style.opacity = '0';
+        activeSection.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            activeSection.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            activeSection.style.opacity = '1';
+            activeSection.style.transform = 'translateY(0)';
+        }, 50);
+    }
+
+    bindGalleryEvents() {
+        // Category buttons
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const category = btn.dataset.category;
+                this.filterGallery(category);
+                
+                // Update active button
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // Modal events
+        this.bindModalEvents();
+    }
+
+    filterGallery(category) {
+        this.currentCategory = category;
+        
+        if (category === 'all') {
+            this.filteredImages = [...galleryImages];
+        } else {
+            this.filteredImages = galleryImages.filter(img => img.category === category);
+        }
+        
+        this.generateGalleryGrid();
+    }
+
+    generateGalleryGrid() {
+        const galleryGrid = document.getElementById('galleryGrid');
+        galleryGrid.innerHTML = '';
+
+        this.filteredImages.forEach((image, index) => {
+            const memoryCard = this.createMemoryCard(image, index);
+            galleryGrid.appendChild(memoryCard);
+        });
+    }
+
+    createMemoryCard(image, index) {
+        const card = document.createElement('div');
+        card.className = 'memory-card';
+        card.dataset.index = index;
+        
+        card.innerHTML = `
+            <img class="card-image" src="${image.src}" alt="${image.alt}" loading="lazy">
+            <div class="card-info">
+                <h4 class="card-title">${image.title}</h4>
+                <p class="card-category">${this.getCategoryDisplayName(image.category)}</p>
+            </div>
+        `;
+
+        card.addEventListener('click', () => {
+            this.openImageModal(index);
+        });
+
+        return card;
+    }
+
+    getCategoryDisplayName(category) {
+        const categoryNames = {
+            'characters': 'PILOT',
+            'evas': 'UNIT',
+            'episodes': 'EPISODE',
+            'other': 'ARCHIVE'
+        };
+        return categoryNames[category] || category.toUpperCase();
+    }
+
+    // ===== MODAL FUNCTIONALITY =====
+    bindModalEvents() {
+        const modal = document.getElementById('imageModal');
+        const modalClose = document.getElementById('modalClose');
+        const modalPrev = document.getElementById('modalPrev');
+        const modalNext = document.getElementById('modalNext');
+        const modalOverlay = modal.querySelector('.modal-overlay');
+
+        modalClose.addEventListener('click', () => this.closeImageModal());
+        modalPrev.addEventListener('click', () => this.navigateModal(-1));
+        modalNext.addEventListener('click', () => this.navigateModal(1));
+        modalOverlay.addEventListener('click', () => this.closeImageModal());
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!modal.classList.contains('active')) return;
+            
+            switch(e.key) {
+                case 'Escape':
+                    this.closeImageModal();
+                    break;
+                case 'ArrowLeft':
+                    this.navigateModal(-1);
+                    break;
+                case 'ArrowRight':
+                    this.navigateModal(1);
+                    break;
+            }
+        });
+    }
+
+    openImageModal(index) {
+        this.currentImageIndex = index;
+        const modal = document.getElementById('imageModal');
+        
+        this.updateModalContent();
+        modal.classList.add('active');
+        
+        // Prevent body scroll
+        document.body.style.overflow = 'hidden';
+    }
+
+    closeImageModal() {
+        const modal = document.getElementById('imageModal');
+        modal.classList.remove('active');
+        
+        // Restore body scroll
+        document.body.style.overflow = '';
+    }
+
+    navigateModal(direction) {
+        const newIndex = this.currentImageIndex + direction;
+        
+        if (newIndex >= 0 && newIndex < this.filteredImages.length) {
+            this.currentImageIndex = newIndex;
+            this.updateModalContent();
+        }
+    }
+
+    updateModalContent() {
+        const image = this.filteredImages[this.currentImageIndex];
+        const modalImage = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalCategory = document.getElementById('modalCategory');
+        const modalCurrent = document.getElementById('modalCurrent');
+        const modalTotal = document.getElementById('modalTotal');
+        const modalPrev = document.getElementById('modalPrev');
+        const modalNext = document.getElementById('modalNext');
+
+        modalImage.src = image.src;
+        modalImage.alt = image.alt;
+        modalTitle.textContent = image.title;
+        modalCategory.textContent = this.getCategoryDisplayName(image.category);
+        modalCurrent.textContent = this.currentImageIndex + 1;
+        modalTotal.textContent = this.filteredImages.length;
+
+        // Update navigation buttons
+        modalPrev.disabled = this.currentImageIndex === 0;
+        modalNext.disabled = this.currentImageIndex === this.filteredImages.length - 1;
+
+        // Add loading effect
+        modalImage.style.opacity = '0';
+        modalImage.onload = () => {
+            modalImage.style.transition = 'opacity 0.3s ease';
+            modalImage.style.opacity = '1';
+        };
     }
 }
 
