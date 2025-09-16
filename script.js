@@ -385,13 +385,13 @@ function initIntroSystem() {
                             }
                             
                             // Direct fade out without zoom
-                            introOverlay.style.transition = 'opacity 1.2s ease-out';
+                            introOverlay.style.transition = 'opacity 0.1s ease-out';
                             introOverlay.style.opacity = '0';
                             
                             // Start hero sequence after fade completes
                             setTimeout(() => {
                                 startHeroSequence();
-                            }, 1200);
+                            }, 100);
                         }
                     }, 50);
                 }, 600); // Brief pause to show completion status
