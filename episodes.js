@@ -1,5 +1,49 @@
 // ===== EPISODES LIBRARY FUNCTIONALITY =====
 
+// ===== MOBILE NAVIGATION =====
+document.addEventListener('DOMContentLoaded', function() {
+    const burgerMenu = document.getElementById('burgerMenu');
+    const navMenu = document.getElementById('navMenu');
+    
+    // Initialize burger menu
+    if (burgerMenu && navMenu) {
+        burgerMenu.addEventListener('click', function() {
+            burgerMenu.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            // Close menu when clicking outside
+            if (navMenu.classList.contains('active')) {
+                document.addEventListener('click', closeMobileMenu);
+            } else {
+                document.removeEventListener('click', closeMobileMenu);
+            }
+        });
+    }
+    
+    function closeMobileMenu(event) {
+        const isClickInsideNav = navMenu.contains(event.target) || burgerMenu.contains(event.target);
+        
+        if (!isClickInsideNav) {
+            burgerMenu.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.removeEventListener('click', closeMobileMenu);
+        }
+    }
+    
+    // Handle navigation link clicks
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Close mobile menu when link is clicked
+            if (burgerMenu && navMenu) {
+                burgerMenu.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.removeEventListener('click', closeMobileMenu);
+            }
+        });
+    });
+});
+
 // Gallery images data
 const galleryImages = [
     // Characters

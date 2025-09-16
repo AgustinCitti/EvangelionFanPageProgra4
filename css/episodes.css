@@ -1266,3 +1266,325 @@
         padding: 15px;
     }
 }
+
+@media (max-width: 768px) {
+    .episodes-library-header {
+        padding: 100px 0 40px;
+    }
+    
+    .library-title {
+        font-size: 3rem;
+        letter-spacing: 4px;
+        margin-bottom: 15px;
+    }
+    
+    .library-subtitle {
+        font-size: 1rem;
+        letter-spacing: 2px;
+        margin-bottom: 30px;
+    }
+    
+    .library-stats {
+        gap: 30px;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .stat-item {
+        flex-direction: row;
+        gap: 15px;
+        align-items: center;
+    }
+    
+    .stat-label {
+        font-size: 0.8rem;
+    }
+    
+    .stat-value {
+        font-size: 1.5rem;
+    }
+    
+    .episodes-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        max-width: 600px;
+        padding: 0 15px;
+    }
+    
+    .episode-item {
+        border-width: 1px;
+        aspect-ratio: 16/9;
+        min-height: 180px;
+        overflow: hidden;
+    }
+    
+    .episode-card {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .episode-image {
+        height: 100%;
+        width: 100%;
+        position: relative;
+        flex: 1;
+    }
+    
+    .episode-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+    
+    .episodes-grid .episode-number {
+        top: 8px;
+        right: 8px;
+        padding: 4px 8px;
+        font-size: 0.8rem;
+    }
+    
+    .watch-toggle {
+        bottom: 8px;
+        right: 8px;
+        width: 35px;
+        height: 35px;
+    }
+    
+    .watch-icon {
+        font-size: 1rem;
+    }
+    
+    .archive-tabs {
+        margin: 20px 0;
+    }
+    
+    .archive-tab {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+        width: 150px;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 8px;
+    }
+    
+    .memory-card::after {
+        font-size: 0.4rem;
+    }
+    
+    .card-title {
+        font-size: 0.6rem;
+    }
+    
+    .card-category {
+        font-size: 0.5rem;
+    }
+}
+
+@media (max-width: 550px) {
+    .episodes-library-header {
+        padding: 80px 0 30px;
+    }
+    
+    .library-title {
+        font-size: 2.5rem;
+        letter-spacing: 3px;
+        margin-bottom: 10px;
+    }
+    
+    .library-subtitle {
+        font-size: 0.9rem;
+        letter-spacing: 1.5px;
+        margin-bottom: 25px;
+    }
+    
+    .library-stats {
+        gap: 20px;
+    }
+    
+    .stat-label {
+        font-size: 0.7rem;
+    }
+    
+    .stat-value {
+        font-size: 1.3rem;
+    }
+    
+    .episodes-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 0 15px;
+        max-width: 400px;
+    }
+    
+    .episode-item {
+        max-width: 350px;
+        margin: 0 auto;
+        min-height: 200px;
+    }
+    
+    .classified-text {
+        font-size: 1.2rem;
+        letter-spacing: 3px;
+    }
+    
+    .archive-tab {
+        width: 120px;
+        padding: 6px 12px;
+        font-size: 0.7rem;
+    }
+    
+    .episode-dialog-content {
+        padding: 20px;
+    }
+    
+    .episode-dialog-title {
+        font-size: 1.2rem;
+        line-height: 1.2;
+    }
+    
+    .episode-dialog-synopsis {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+        gap: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .episodes-library-header {
+        padding: 70px 0 25px;
+    }
+    
+    .library-title {
+        font-size: 2rem;
+        letter-spacing: 2px;
+    }
+    
+    .library-subtitle {
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+    }
+    
+    .library-stats {
+        gap: 15px;
+    }
+    
+    .stat-item {
+        gap: 10px;
+    }
+    
+    .stat-label {
+        font-size: 0.65rem;
+    }
+    
+    .stat-value {
+        font-size: 1.1rem;
+    }
+    
+    .episodes-grid {
+        gap: 15px;
+        max-width: 320px;
+        padding: 0 10px;
+    }
+    
+    .episode-item {
+        max-width: 300px;
+        min-height: 180px;
+        border-radius: 8px;
+    }
+    
+    .episodes-grid .episode-number {
+        top: 6px;
+        right: 6px;
+        padding: 3px 6px;
+        font-size: 0.7rem;
+        border-radius: 4px;
+    }
+    
+    .watch-toggle {
+        bottom: 6px;
+        right: 6px;
+        width: 30px;
+        height: 30px;
+    }
+    
+    .watch-icon {
+        font-size: 0.9rem;
+    }
+    
+    .classified-text {
+        font-size: 1rem;
+        letter-spacing: 2px;
+    }
+    
+    .archive-tabs {
+        gap: 8px;
+        margin: 15px 0;
+    }
+    
+    .archive-tab {
+        width: 100px;
+        padding: 5px 8px;
+        font-size: 0.65rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .episode-dialog-content {
+        padding: 15px;
+    }
+    
+    .episode-dialog-title {
+        font-size: 1rem;
+    }
+    
+    .episode-dialog-synopsis {
+        font-size: 0.85rem;
+    }
+    
+    .episode-dialog-watch-btn {
+        padding: 10px 16px;
+        font-size: 0.8rem;
+    }
+    
+    .gallery-categories {
+        gap: 6px;
+    }
+    
+    .category-btn {
+        padding: 4px 8px;
+        font-size: 0.7rem;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 4px;
+    }
+    
+    .memory-card::after {
+        font-size: 0.35rem;
+        top: 4px;
+        left: 4px;
+    }
+    
+    .card-info {
+        padding: 5px;
+    }
+    
+    .card-title {
+        font-size: 0.5rem;
+        margin-bottom: 2px;
+    }
+    
+    .card-category {
+        font-size: 0.45rem;
+    }
+}
