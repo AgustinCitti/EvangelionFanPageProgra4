@@ -54,16 +54,32 @@
 }
 
 @media (max-width: 768px) {
+    /* Hero section mobile text sizes */
     .hero-title {
         font-size: 2rem;
+        line-height: 1.2;
     }
     
     .hero-title .subtitle {
         font-size: 1.4rem;
     }
     
+    .cta-button {
+        font-size: 0.9rem;
+        padding: 12px 24px;
+    }
+    
+    /* Section titles mobile text sizes */
     .section-title {
         font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+    
+    /* Synopsis section mobile text sizes */
+    .synopsis-text {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        padding-left: 1rem;
     }
     
     .synopsis-content {
@@ -258,31 +274,61 @@
         padding: 0 15px;
     }
     
+    /* Enhanced hero section text sizes for small mobile */
     .hero-title {
         font-size: 1.6rem;
         margin-bottom: 1rem;
+        line-height: 1.1;
     }
     
     .hero-title .subtitle {
         font-size: 1.1rem;
+        letter-spacing: 0.1em;
     }
     
     .cta-button {
         padding: 10px 20px;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+        letter-spacing: 0.05em;
     }
     
+    /* Enhanced section titles for small mobile */
     .section-title {
         font-size: 1.2rem;
+        letter-spacing: 0.05em;
     }
     
     .section-header {
         margin-bottom: 1.5rem;
     }
     
+    /* Enhanced synopsis text for small mobile */
     .synopsis-text {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        padding-left: 1rem;
+    }
+    
+    /* Enhanced character section text sizes */
+    .character-name {
+        font-size: 0.7rem;
+        letter-spacing: 0.05em;
+    }
+    
+    .character-status {
+        font-size: 0.6rem;
+        letter-spacing: 0.02em;
+    }
+    
+    /* Enhanced EVA section text sizes */
+    .eva-label {
+        font-size: 0.9rem;
+        letter-spacing: 0.1em;
+    }
+    
+    .eva-classified {
         font-size: 1rem;
-        padding-left: 1.5rem;
+        letter-spacing: 0.15em;
     }
     
     .arcade-grid {
@@ -472,5 +518,61 @@
     .spec-key,
     .spec-value {
         font-size: 0.6rem;
+    }
+}
+
+/* ===== EXTRA SMALL MOBILE OPTIMIZATIONS ===== */
+@media (max-width: 360px) {
+    /* Ultra-small screen text optimizations */
+    .hero-title {
+        font-size: 1.4rem;
+        line-height: 1.1;
+    }
+    
+    .hero-title .subtitle {
+        font-size: 1rem;
+        letter-spacing: 0.08em;
+    }
+    
+    .cta-button {
+        font-size: 0.8rem;
+        padding: 8px 16px;
+    }
+    
+    .section-title {
+        font-size: 1.1rem;
+        letter-spacing: 0.03em;
+    }
+    
+    .synopsis-text {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+    
+    .character-name {
+        font-size: 0.65rem;
+    }
+    
+    .character-status {
+        font-size: 0.55rem;
+    }
+    
+    .nav-link {
+        font-size: 0.8rem;
+        padding: 10px 14px;
+    }
+    
+    .eva-classified {
+        font-size: 0.9rem;
+        letter-spacing: 0.1em;
+    }
+    
+    .spec-key,
+    .spec-value {
+        font-size: 0.55rem;
+    }
+    
+    .specs-header {
+        font-size: 0.65rem;
     }
 }

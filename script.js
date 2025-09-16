@@ -859,11 +859,45 @@ function initHeroAnimation() {
 function initPageNavigation() {
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('section[id]');
+    const burgerMenu = document.getElementById('burgerMenu');
+    const navMenu = document.getElementById('navMenu');
+    
+    // Initialize burger menu
+    if (burgerMenu && navMenu) {
+        burgerMenu.addEventListener('click', function() {
+            burgerMenu.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            // Close menu when clicking outside
+            if (navMenu.classList.contains('active')) {
+                document.addEventListener('click', closeMobileMenu);
+            } else {
+                document.removeEventListener('click', closeMobileMenu);
+            }
+        });
+    }
+    
+    function closeMobileMenu(event) {
+        const isClickInsideNav = navMenu.contains(event.target) || burgerMenu.contains(event.target);
+        
+        if (!isClickInsideNav) {
+            burgerMenu.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.removeEventListener('click', closeMobileMenu);
+        }
+    }
     
     // Handle navigation link clicks
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
+            
+            // Close mobile menu when link is clicked
+            if (burgerMenu && navMenu) {
+                burgerMenu.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.removeEventListener('click', closeMobileMenu);
+            }
             
             // Only prevent default for hash links (internal sections)
             if (href && href.startsWith('#')) {

@@ -16,10 +16,13 @@
     color: var(--terminal-green);
     font-family: 'Orbitron', monospace;
     margin-bottom: 0.5rem;
+    font-size: 1.1rem;
 }
 
 .footer-section p {
     color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
 }
 
 .footer-bottom {
@@ -28,4 +31,58 @@
     border-top: 1px solid var(--dark-green);
     color: var(--text-secondary);
     font-size: 0.9rem;
+}
+
+/* ===== FOOTER MOBILE RESPONSIVENESS ===== */
+@media (max-width: 768px) {
+    .footer {
+        padding: 1.5rem 0 1rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+    
+    .footer-section h3 {
+        font-size: 1rem;
+        margin-bottom: 0.4rem;
+    }
+    
+    .footer-section p {
+        font-size: 0.85rem;
+    }
+    
+    .footer-bottom {
+        font-size: 0.8rem;
+        padding-top: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        padding: 1rem 0 0.8rem;
+    }
+    
+    .footer-content {
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .footer-section h3 {
+        font-size: 0.9rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .footer-section p {
+        font-size: 0.8rem;
+    }
+    
+    .footer-bottom {
+        font-size: 0.75rem;
+        padding-top: 0.6rem;
+        line-height: 1.4;
+    }
 }

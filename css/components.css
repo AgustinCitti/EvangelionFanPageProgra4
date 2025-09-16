@@ -180,3 +180,73 @@
     border-left: none;
     border-top: none;
 }
+
+/* ===== MINI VIDEO PLAYER MOBILE RESPONSIVENESS ===== */
+@media (max-width: 768px) {
+    .mini-video-container {
+        width: 250px;
+        height: 140px;
+        bottom: 15px;
+        left: 15px;
+    }
+    
+    .mini-control-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+    
+    .mini-video-border::before,
+    .mini-video-border::after {
+        width: 8px;
+        height: 8px;
+        border-width: 2px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mini-video-container {
+        width: 200px;
+        height: 110px;
+        bottom: 10px;
+        left: 10px;
+    }
+    
+    .mini-control-btn {
+        width: 25px;
+        height: 25px;
+        font-size: 11px;
+    }
+    
+    .mini-video-controls {
+        top: 3px;
+        right: 3px;
+        gap: 3px;
+    }
+    
+    .mini-video-border::before,
+    .mini-video-border::after {
+        width: 6px;
+        height: 6px;
+        border-width: 1px;
+    }
+}
+
+@media (max-width: 360px) {
+    .mini-video-container {
+        width: 180px;
+        height: 100px;
+        bottom: 8px;
+        left: 8px;
+    }
+    
+    .mini-control-btn {
+        width: 22px;
+        height: 22px;
+        font-size: 10px;
+    }
+    
+    .mini-video-controls {
+        gap: 2px;
+    }
+}
