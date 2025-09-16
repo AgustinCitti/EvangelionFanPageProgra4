@@ -55,34 +55,51 @@ function applyRadarMapStyle() {
         }
     });
 
-    // Modify map style for radar theme
-    map.setPaintProperty('background', 'background-color', '#000000');
-    
-    // Style water bodies
-    if (map.getLayer('water')) {
-        map.setPaintProperty('water', 'fill-color', '#001122');
-        map.setPaintProperty('water', 'fill-opacity', 0.8);
+    // Wait for style to be fully loaded before applying changes
+    if (!map.isStyleLoaded()) {
+        map.once('styledata', applyRadarMapStyle);
+        return;
     }
-    
-    // Style land
-    if (map.getLayer('land')) {
-        map.setPaintProperty('land', 'fill-color', '#000000');
-    }
-    
-    // Style roads with green terminal color
-    const roadLayers = ['road-primary', 'road-secondary', 'road-arterial', 'road-local'];
-    roadLayers.forEach(layerId => {
-        if (map.getLayer(layerId)) {
-            map.setPaintProperty(layerId, 'line-color', '#00ff41');
-            map.setPaintProperty(layerId, 'line-opacity', 0.6);
+
+    // Safely modify map style for radar theme - check if layers exist first
+    try {
+        // Style water bodies
+        if (map.getLayer('water')) {
+            map.setPaintProperty('water', 'fill-color', '#001122');
+            map.setPaintProperty('water', 'fill-opacity', 0.8);
         }
-    });
+        
+        // Style land areas
+        if (map.getLayer('land')) {
+            map.setPaintProperty('land', 'fill-color', '#000000');
+        }
+        
+        // Try to style background if it exists
+        if (map.getLayer('background')) {
+            map.setPaintProperty('background', 'background-color', '#000000');
+        }
+    } catch (error) {
+        console.warn('Could not apply some map styling:', error);
+    }
     
-    // Style buildings
-    if (map.getLayer('building')) {
-        map.setPaintProperty('building', 'fill-color', '#003300');
-        map.setPaintProperty('building', 'fill-opacity', 0.7);
-        map.setPaintProperty('building', 'fill-outline-color', '#00ff41');
+    try {
+        // Style roads with green terminal color
+        const roadLayers = ['road-primary', 'road-secondary', 'road-arterial', 'road-local'];
+        roadLayers.forEach(layerId => {
+            if (map.getLayer(layerId)) {
+                map.setPaintProperty(layerId, 'line-color', '#00ff41');
+                map.setPaintProperty(layerId, 'line-opacity', 0.6);
+            }
+        });
+        
+        // Style buildings
+        if (map.getLayer('building')) {
+            map.setPaintProperty('building', 'fill-color', '#003300');
+            map.setPaintProperty('building', 'fill-opacity', 0.7);
+            map.setPaintProperty('building', 'fill-outline-color', '#00ff41');
+        }
+    } catch (error) {
+        console.warn('Could not apply road/building styling:', error);
     }
 }
 
@@ -252,24 +269,41 @@ function initMapEvents() {
     // Update status based on map activity
     let activityTimeout;
     map.on('movestart', function() {
-        document.getElementById('mapStatus').textContent = 'SCANNING';
+        const statusElement = document.getElementById('mapStatus');
+        if (statusElement) {
+            statusElement.textContent = 'SCANNING';
+        }
         clearTimeout(activityTimeout);
     });
 
     map.on('moveend', function() {
         activityTimeout = setTimeout(() => {
-            document.getElementById('mapStatus').textContent = 'ACTIVE';
+            const statusElement = document.getElementById('mapStatus');
+            if (statusElement) {
+                statusElement.textContent = 'ACTIVE';
+            }
         }, 1000);
     });
 }
 
 function updateMapHUD() {
-    const center = map.getCenter();
-    const zoom = map.getZoom();
-    
-    document.getElementById('coordinates').textContent = 
-        `${center.lat.toFixed(4)}°N, ${center.lng.toFixed(4)}°E`;
-    document.getElementById('zoomLevel').textContent = zoom.toFixed(1);
+    try {
+        const center = map.getCenter();
+        const zoom = map.getZoom();
+        
+        const coordsElement = document.getElementById('coordinates');
+        const zoomElement = document.getElementById('zoomLevel');
+        
+        if (coordsElement) {
+            coordsElement.textContent = `${center.lat.toFixed(4)}°N, ${center.lng.toFixed(4)}°E`;
+        }
+        
+        if (zoomElement) {
+            zoomElement.textContent = zoom.toFixed(1);
+        }
+    } catch (error) {
+        console.warn('Error updating map HUD:', error);
+    }
 }
 
 // ===== MAP CONTROLS =====
@@ -278,6 +312,12 @@ function initMapControls() {
     const satelliteBtn = document.getElementById('toggleSatellite');
     const terrainBtn = document.getElementById('toggleTerrain');
     const labelsBtn = document.getElementById('toggleLabels');
+
+    // Check if all required elements exist
+    if (!resetBtn || !satelliteBtn || !terrainBtn || !labelsBtn) {
+        console.warn('Some map control buttons are missing from the DOM');
+        return;
+    }
 
     resetBtn.addEventListener('click', function() {
         map.flyTo({
@@ -296,43 +336,66 @@ function initMapControls() {
     });
 
     satelliteBtn.addEventListener('click', function() {
-        const currentStyle = map.getStyle().name;
-        if (currentStyle.includes('dark')) {
-            map.setStyle('mapbox://styles/mapbox/satellite-v9');
-            this.classList.add('active');
-            this.textContent = 'TACTICAL';
-        } else {
-            map.setStyle('mapbox://styles/mapbox/dark-v11');
-            this.classList.remove('active');
-            this.textContent = 'SATELLITE';
+        try {
+            const currentStyle = map.getStyle();
+            const styleName = currentStyle && currentStyle.name ? currentStyle.name : '';
             
-            // Reapply custom styling when switching back
-            map.once('styledata', applyRadarMapStyle);
+            if (styleName.includes('dark') || !styleName.includes('satellite')) {
+                map.setStyle('mapbox://styles/mapbox/satellite-v9');
+                this.classList.add('active');
+                this.textContent = 'TACTICAL';
+            } else {
+                map.setStyle('mapbox://styles/mapbox/dark-v11');
+                this.classList.remove('active');
+                this.textContent = 'SATELLITE';
+                
+                // Reapply custom styling when switching back
+                map.once('styledata', applyRadarMapStyle);
+            }
+        } catch (error) {
+            console.warn('Error toggling satellite view:', error);
         }
     });
 
     terrainBtn.addEventListener('click', function() {
-        if (map.getTerrain()) {
-            map.setTerrain(null);
-            this.classList.remove('active');
-        } else {
-            map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
-            this.classList.add('active');
+        try {
+            if (map.getTerrain()) {
+                map.setTerrain(null);
+                this.classList.remove('active');
+            } else {
+                // First add terrain source if it doesn't exist
+                if (!map.getSource('mapbox-dem')) {
+                    map.addSource('mapbox-dem', {
+                        'type': 'raster-dem',
+                        'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
+                        'tileSize': 512,
+                        'maxzoom': 14
+                    });
+                }
+                map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
+                this.classList.add('active');
+            }
+        } catch (error) {
+            console.warn('Error toggling terrain:', error);
         }
     });
 
     labelsBtn.addEventListener('click', function() {
-        const labelLayers = ['country-label', 'state-label', 'place-label'];
-        const isHidden = this.classList.contains('active');
-        
-        labelLayers.forEach(layerId => {
-            if (map.getLayer(layerId)) {
-                map.setLayoutProperty(layerId, 'visibility', isHidden ? 'visible' : 'none');
-            }
-        });
-        
-        this.classList.toggle('active');
-        this.textContent = isHidden ? 'LABELS' : 'NO LABELS';
+        try {
+            const labelLayers = ['country-label', 'state-label', 'place-label', 'settlement-label'];
+            const isHidden = this.classList.contains('active');
+            
+            labelLayers.forEach(layerId => {
+                if (map.getLayer(layerId)) {
+                    map.setLayoutProperty(layerId, 'visibility', isHidden ? 'visible' : 'none');
+                }
+            });
+            
+            this.classList.toggle('active');
+            this.textContent = isHidden ? 'LABELS' : 'NO LABELS';
+        } catch (error) {
+            console.warn('Error toggling labels:', error);
+        }
     });
 }
 

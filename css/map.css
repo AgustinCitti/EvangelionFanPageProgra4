@@ -1,40 +1,47 @@
 /* ===== MAP PAGE STYLES ===== */
 .map-section {
-    min-height: 100vh;
+    min-height: calc(100vh - 120px);
     background: 
         radial-gradient(circle at 20% 80%, rgba(0, 255, 0, 0.1) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(255, 51, 0, 0.05) 0%, transparent 40%),
         var(--background-dark);
-    padding: 80px 0 50px;
+    padding: 70px 0 10px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .map-container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 2rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .map-header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 0.5rem;
+    flex-shrink: 0;
 }
 
 .map-title {
     font-family: 'Orbitron', monospace;
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: 900;
     color: var(--terminal-green);
     text-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.2rem;
     letter-spacing: 0.1em;
 }
 
 .map-subtitle {
     font-family: 'Share Tech Mono', monospace;
     color: var(--primary-red);
-    font-size: 1.2rem;
+    font-size: 0.9rem;
     letter-spacing: 0.2em;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .section-border {
@@ -67,30 +74,33 @@
 .map-controls-top {
     background: rgba(255, 51, 0, 0.05);
     border: 2px solid var(--primary-red);
-    padding: 1.5rem 2rem;
-    margin-bottom: 2rem;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
     text-align: center;
+    flex-shrink: 0;
 }
 
 .map-controls-top h4 {
     font-family: 'Orbitron', monospace;
     color: var(--primary-red);
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
 }
 
 .map-controls-top .control-buttons {
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: 10px;
     flex-wrap: wrap;
 }
 
 .map-content {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 3rem;
-    align-items: start;
+    grid-template-columns: 2.2fr 0.8fr;
+    gap: 1rem;
+    align-items: stretch;
+    flex: 1;
+    min-height: 0;
 }
 
 .map-display {
@@ -98,11 +108,13 @@
     background: rgba(0, 0, 0, 0.8);
     border: 2px solid var(--primary-red);
     overflow: hidden;
+    height: 100%;
+    min-height: 350px;
 }
 
 .mapbox-container {
     width: 100%;
-    height: 600px;
+    height: 100%;
     position: relative;
 }
 
@@ -206,42 +218,73 @@
 .map-info {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
+    height: 100%;
+    overflow: hidden;
 }
 
 .info-panel {
     background: rgba(0, 255, 0, 0.05);
     border: 2px solid var(--terminal-green);
-    padding: 2rem;
+    padding: 1rem;
     position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .info-panel h3 {
     font-family: 'Orbitron', monospace;
     color: var(--terminal-green);
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
     text-align: center;
+    flex-shrink: 0;
 }
 
 .info-panel > p {
     color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-    font-size: 0.95rem;
+    line-height: 1.4;
+    margin-bottom: 0.8rem;
+    font-size: 0.8rem;
+    flex-shrink: 0;
 }
 
 .location-features {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 0.5rem;
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    padding-right: 0.5rem;
+}
+
+/* Custom scrollbar for location features */
+.location-features::-webkit-scrollbar {
+    width: 4px;
+}
+
+.location-features::-webkit-scrollbar-track {
+    background: rgba(0, 255, 65, 0.1);
+}
+
+.location-features::-webkit-scrollbar-thumb {
+    background: var(--terminal-green);
+    border-radius: 2px;
+}
+
+.location-features::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-red);
 }
 
 .feature-item {
     background: rgba(0, 255, 0, 0.05);
     border-left: 3px solid var(--terminal-green);
-    padding: 1.5rem;
+    padding: 0.6rem;
     transition: all 0.3s ease;
+    flex-shrink: 0;
 }
 
 .feature-item:hover {
@@ -252,14 +295,14 @@
 .feature-item h4 {
     color: var(--terminal-green);
     font-family: 'Orbitron', monospace;
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
+    margin-bottom: 0.3rem;
+    font-size: 0.8rem;
 }
 
 .feature-item p {
     color: var(--text-secondary);
-    line-height: 1.5;
-    font-size: 0.9rem;
+    line-height: 1.3;
+    font-size: 0.7rem;
 }
 
 
@@ -267,14 +310,14 @@
     background: transparent;
     border: 2px solid var(--primary-red);
     color: var(--primary-red);
-    padding: 12px 20px;
+    padding: 8px 15px;
     font-family: 'Share Tech Mono', monospace;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
     cursor: pointer;
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    min-width: 120px;
+    min-width: 90px;
 }
 
 .control-btn:hover {
@@ -339,61 +382,71 @@
 @media (max-width: 1024px) {
     .map-content {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 1rem;
     }
     
-    .mapbox-container {
-        height: 500px;
+    .map-display {
+        min-height: 350px;
+        max-height: 60vh;
+    }
+    
+    .map-info {
+        max-height: 35vh;
     }
     
     .map-title {
-        font-size: 2.5rem;
+        font-size: 1.8rem;
     }
     
     .map-controls-top .control-buttons {
-        gap: 10px;
+        gap: 8px;
     }
     
     .control-btn {
-        min-width: 100px;
-        padding: 10px 15px;
-        font-size: 0.85rem;
+        min-width: 80px;
+        padding: 8px 12px;
+        font-size: 0.7rem;
     }
 }
 
 @media (max-width: 768px) {
+    .map-section {
+        padding: 70px 0 5px;
+        min-height: calc(100vh - 100px);
+    }
+    
     .map-container {
         padding: 0 1rem;
     }
     
-    .mapbox-container {
-        height: 400px;
+    .map-display {
+        min-height: 300px;
     }
     
     .map-title {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
     
     .map-subtitle {
-        font-size: 1rem;
+        font-size: 0.8rem;
     }
     
     .map-controls-top {
-        padding: 1rem;
+        padding: 0.5rem;
     }
     
     .map-controls-top .control-buttons {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 10px;
+        gap: 8px;
         max-width: 400px;
         margin: 0 auto;
     }
     
     .control-btn {
         min-width: auto;
-        padding: 10px 12px;
-        font-size: 0.8rem;
+        padding: 8px 10px;
+        font-size: 0.65rem;
     }
     
     .map-hud {
@@ -401,13 +454,37 @@
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
-        margin: 10px;
-        gap: 5px;
+        margin: 8px;
+        gap: 4px;
     }
     
     .hud-element {
-        font-size: 0.75rem;
-        padding: 6px 10px;
+        font-size: 0.7rem;
+        padding: 4px 8px;
+    }
+    
+    /* Even more compact footer on mobile */
+    body .footer {
+        padding: 0.5rem 0 0.3rem;
+    }
+    
+    body .footer-content {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    body .footer-section h4 {
+        font-size: 0.7rem;
+    }
+    
+    body .footer-section p {
+        font-size: 0.6rem;
+    }
+    
+    body .footer-bottom {
+        font-size: 0.6rem;
+        padding-top: 0.3rem;
     }
 }
 
@@ -447,4 +524,33 @@
 
 #mapStatus {
     animation: glitch 0.3s ease-in-out infinite;
+}
+
+/* Compact footer for map page */
+body .footer {
+    padding: 1rem 0 0.5rem;
+}
+
+body .footer-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+body .footer-section h4 {
+    font-size: 0.8rem;
+    margin-bottom: 0.3rem;
+    color: var(--terminal-green);
+    font-family: 'Orbitron', monospace;
+}
+
+body .footer-section p {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    line-height: 1.3;
+}
+
+body .footer-bottom {
+    padding-top: 0.5rem;
+    font-size: 0.7rem;
 }
