@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initImageErrorHandling();
     initPageNavigation();
     initLogoNavigation();
+    initCursorHideSystem();
 });
 
 function forceHideScrollbar() {
@@ -1157,6 +1158,61 @@ function addTerminalGlitch() {
     });
 }
 
+
+// ===== CURSOR HIDE SYSTEM =====
+function initCursorHideSystem() {
+    let cursorTimer;
+    let isHidden = false;
+    const hideDelay = 2000; // Hide cursor after 2 seconds of inactivity
+    
+    // Add cursor hide styles to document
+    const style = document.createElement('style');
+    style.textContent = `
+        .cursor-hidden {
+            cursor: none !important;
+        }
+        .cursor-hidden * {
+            cursor: none !important;
+        }
+    `;
+    document.head.appendChild(style);
+    
+    function hideCursor() {
+        if (!isHidden) {
+            document.body.classList.add('cursor-hidden');
+            isHidden = true;
+        }
+    }
+    
+    function showCursor() {
+        if (isHidden) {
+            document.body.classList.remove('cursor-hidden');
+            isHidden = false;
+        }
+        
+        // Clear existing timer
+        if (cursorTimer) {
+            clearTimeout(cursorTimer);
+        }
+        
+        // Set new timer to hide cursor
+        cursorTimer = setTimeout(hideCursor, hideDelay);
+    }
+    
+    // Mouse movement event listener
+    document.addEventListener('mousemove', showCursor);
+    
+    // Also show cursor on mouse clicks and key presses
+    document.addEventListener('mousedown', showCursor);
+    document.addEventListener('mouseup', showCursor);
+    document.addEventListener('keydown', showCursor);
+    document.addEventListener('keyup', showCursor);
+    
+    // Initialize the timer
+    cursorTimer = setTimeout(hideCursor, hideDelay);
+    
+    console.log('Cursor hide system initialized');
+}
 
 // ===== KEYBOARD SHORTCUTS =====
 document.addEventListener('keydown', function(e) {
