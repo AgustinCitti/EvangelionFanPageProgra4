@@ -30,15 +30,79 @@
     <!-- Intro Overlay -->
     <div class="intro-overlay" id="introOverlay">
         <div class="intro-content">
-            <div class="intro-text">                           
-                <button class="intro-start-btn" id="introStartBtn">CLICK TO START SYNC</button>
+            <!-- Sync HUD Elements -->
+            <div class="sync-hud">
+                <div class="sync-grid-lines"></div>
+                <div class="sync-crosshairs">
+                    <div class="crosshair top-left">+</div>
+                    <div class="crosshair top-right">+</div>
+                    <div class="crosshair bottom-left">+</div>
+                    <div class="crosshair bottom-right">+</div>
+                </div>
+                <div class="spiral-container">
+                    <div class="wireframe-spiral" id="wireframeSpiral">
+                        <canvas id="spiralCanvas" width="800" height="400"></canvas>
+                    </div>
+                    
+                    <!-- Sync measurement grid -->
+                    <div class="measurement-grid">
+                        <div class="grid-lines horizontal"></div>
+                        <div class="grid-lines vertical"></div>
+                        <div class="measurement-scale">
+                            <span class="scale-marker">-5</span>
+                            <span class="scale-marker">-4</span>
+                            <span class="scale-marker">-3</span>
+                            <span class="scale-marker">-2</span>
+                            <span class="scale-marker">-1</span>
+                            <span class="scale-marker center">0</span>
+                            <span class="scale-marker">+1</span>
+                            <span class="scale-marker">+2</span>
+                            <span class="scale-marker">+3</span>
+                            <span class="scale-marker">+4</span>
+                            <span class="scale-marker">+5</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="sync-readings">
+                    <div class="reading-line">
+                        <span class="label">SYNC RATIO:</span>
+                        <span class="value" id="syncRatio">000.0%</span>
+                    </div>
+                    <div class="reading-line">
+                        <span class="label">NEURAL LINK:</span>
+                        <span class="value status-standby">STANDBY</span>
+                    </div>
+                    <div class="reading-line">
+                        <span class="label">A.T. FIELD:</span>
+                        <span class="value status-inactive">INACTIVE</span>
+                    </div>
+                </div>
             </div>
+            
+            <div class="intro-text">          
+                <div class="sync-status">
+                    <div class="status-indicator"></div>
+                    <span class="status-text">AWAITING PILOT INPUT</span>
+                </div>
+                <button class="intro-start-btn" id="introStartBtn">
+                    <span class="btn-text">INITIATE SYNCHRONIZATION</span>
+                    <div class="btn-glitch-overlay"></div>
+                </button>
+            </div>
+            
             <div class="intro-terminal-borders">
                 <div class="corner top-left"></div>
                 <div class="corner top-right"></div>
                 <div class="corner bottom-left"></div>
                 <div class="corner bottom-right"></div>
             </div>
+        </div>
+        
+        <!-- Glitch Effect Overlay -->
+        <div class="glitch-overlay" id="glitchOverlay">
+            <div class="glitch-layer glitch-1"></div>
+            <div class="glitch-layer glitch-2"></div>
+            <div class="glitch-layer glitch-3"></div>
         </div>
     </div>
 

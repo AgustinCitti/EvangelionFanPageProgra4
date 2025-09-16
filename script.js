@@ -85,10 +85,19 @@ function initIntroSystem() {
     document.body.style.overflow = 'hidden';
     
     function startIntroSequence() {
+        // Start sync animation sequence
+        startSyncAnimation();
+        
+        // Sync animation will handle its own completion
+        // No automatic timeout - controlled by sync completion
+    }
+    
+    function startHeroSequence() {
         introActive = false;
         
-        // Hide intro overlay
-        introOverlay.classList.add('hidden');
+        // Hide intro overlay completely
+        introOverlay.style.visibility = 'hidden';
+        introOverlay.style.pointerEvents = 'none';
         
         // Unlock hero section and start video
         heroSection.classList.remove('locked');
@@ -116,7 +125,247 @@ function initIntroSystem() {
             initProgressiveUnlock();
         }, 1000);
         
-        console.log('Intro sequence started');
+        console.log('Hero sequence started');
+    }
+    
+    function startSyncAnimation() {
+        const glitchOverlay = document.getElementById('glitchOverlay');
+        const syncRatio = document.getElementById('syncRatio');
+        const neuralLink = document.querySelector('.status-standby');
+        const atField = document.querySelector('.status-inactive');
+        const statusText = document.querySelector('.status-text');
+        const statusIndicator = document.querySelector('.status-indicator');
+        const introStartBtn = document.getElementById('introStartBtn');
+        
+        // Disable button during sync
+        introStartBtn.style.pointerEvents = 'none';
+        introStartBtn.style.opacity = '0.5';
+        
+        // Activate sync background
+        introOverlay.classList.add('sync-active');
+        
+        // Start glitch effect
+        glitchOverlay.classList.add('active');
+        
+        // Initialize wireframe spiral canvas
+        initWireframeSpiral();
+        
+        // Ensure no rotation on spiral container
+        const spiralContainer = document.querySelector('.spiral-container');
+        if (spiralContainer) {
+            spiralContainer.style.transform = 'none';
+            spiralContainer.style.animation = 'none';
+        }
+        
+        // Update status text
+        statusText.textContent = 'SYNCHRONIZATION IN PROGRESS';
+        statusIndicator.style.background = 'var(--primary-red)';
+        statusIndicator.style.boxShadow = '0 0 10px var(--primary-red)';
+        
+        // Animate sync ratio
+        let ratio = 0;
+        const syncInterval = setInterval(() => {
+            ratio += Math.random() * 15 + 5; // Random increment between 5-20
+            if (ratio > 100) ratio = 100;
+            
+            syncRatio.textContent = ratio.toFixed(1) + '%';
+            
+            // Update wireframe spiral based on sync ratio
+            updateWireframeSpiral(ratio);
+            
+            // Add glitch to sync ratio occasionally
+            if (Math.random() < 0.3) {
+                syncRatio.style.transform = `translateX(${Math.random() * 4 - 2}px)`;
+                syncRatio.style.color = 'var(--primary-red)';
+                setTimeout(() => {
+                    syncRatio.style.transform = 'translateX(0)';
+                    syncRatio.style.color = 'var(--terminal-green)';
+                }, 100);
+            }
+            
+            // Add terminal flicker effect to readings
+            if (Math.random() < 0.2) {
+                const readings = document.querySelector('.sync-readings');
+                readings.style.opacity = '0.7';
+                setTimeout(() => {
+                    readings.style.opacity = '1';
+                }, 50);
+            }
+            
+            // Update neural link status
+            if (ratio > 30 && neuralLink.textContent === 'STANDBY') {
+                neuralLink.textContent = 'CONNECTING';
+                neuralLink.className = 'value';
+                neuralLink.style.color = 'var(--warning-yellow)';
+            }
+            
+            if (ratio > 60 && neuralLink.textContent === 'CONNECTING') {
+                neuralLink.textContent = 'ACTIVE';
+                neuralLink.style.color = 'var(--terminal-green)';
+            }
+            
+            // Update A.T. Field status
+            if (ratio > 80 && atField.textContent === 'INACTIVE') {
+                atField.textContent = 'DEPLOYING';
+                atField.style.color = 'var(--warning-yellow)';
+            }
+            
+            if (ratio >= 100) {
+                clearInterval(syncInterval);
+                
+                // Final status updates
+                atField.textContent = 'ACTIVE';
+                atField.style.color = 'var(--terminal-green)';
+                statusText.textContent = 'SYNCHRONIZATION COMPLETE';
+                statusIndicator.style.background = 'var(--terminal-green)';
+                statusIndicator.style.boxShadow = '0 0 10px var(--terminal-green)';
+                
+                // Stop glitch effect immediately
+                glitchOverlay.classList.remove('active');
+                
+                // Direct smooth transition without zoom animation
+                setTimeout(() => {
+                    // Gradually fade out spiral intensity
+                    let fadeProgress = 0;
+                    const fadeInterval = setInterval(() => {
+                        fadeProgress += 0.05;
+                        syncProgress = Math.max(0, 1 - fadeProgress);
+                        
+                        if (fadeProgress >= 1) {
+                            clearInterval(fadeInterval);
+                            
+                            // Stop canvas animation
+                            if (animationId) {
+                                cancelAnimationFrame(animationId);
+                            }
+                            
+                            // Direct fade out without zoom
+                            introOverlay.style.transition = 'opacity 1.2s ease-out';
+                            introOverlay.style.opacity = '0';
+                            
+                            // Start hero sequence after fade completes
+                            setTimeout(() => {
+                                startHeroSequence();
+                            }, 1200);
+                        }
+                    }, 50);
+                }, 600); // Brief pause to show completion status
+                
+                console.log('Sync animation completed');
+            }
+        }, 100);
+    }
+    
+    let canvas, ctx, animationId;
+    let time = 0;
+    let syncProgress = 0;
+    
+    function initWireframeSpiral() {
+        canvas = document.getElementById('spiralCanvas');
+        if (!canvas) return;
+        
+        ctx = canvas.getContext('2d');
+        canvas.width = 800;
+        canvas.height = 400;
+        
+        // Start animation loop
+        animateWireframeSpiral();
+    }
+    
+    function animateWireframeSpiral() {
+        if (!ctx) return;
+        
+        // Clear canvas with dark background
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.95)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        time += 0.02;
+        
+        // Draw multiple spiral layers with better spacing
+        drawSpiralLayer(0, '#ff6b6b', 0.9, 1.0); // Red layer
+        drawSpiralLayer(Math.PI/2, '#4ecdc4', 0.8, 0.9); // Cyan layer  
+        drawSpiralLayer(Math.PI, '#45b7d1', 0.7, 0.8); // Blue layer
+        drawSpiralLayer(Math.PI*3/2, '#96ceb4', 0.6, 0.7); // Green layer
+        
+        // Add wireframe grid overlay
+        drawWireframeGrid();
+        
+        animationId = requestAnimationFrame(animateWireframeSpiral);
+    }
+    
+    function drawSpiralLayer(phaseOffset, color, opacity, amplitude) {
+        ctx.strokeStyle = color;
+        ctx.globalAlpha = opacity * (0.3 + syncProgress * 0.7);
+        ctx.lineWidth = 1 + syncProgress * 2;
+        
+        // Create complex spiral pattern with better spacing
+        for (let layer = 0; layer < 6; layer++) { // Reduced from 8 to 6 layers
+            ctx.beginPath();
+            
+            for (let x = 0; x < canvas.width; x += 2) {
+                const progress = x / canvas.width;
+                const frequency = 0.02 + layer * 0.008; // Increased spacing between frequencies
+                const layerOffset = layer * Math.PI / 3; // Increased phase offset for better separation
+                
+                // Complex wave calculation with better vertical separation
+                const wave1 = Math.sin((x * frequency + time + phaseOffset + layerOffset) * 2) * amplitude * 25;
+                const wave2 = Math.sin((x * frequency * 1.5 + time * 0.7 + phaseOffset) * 3) * amplitude * 12;
+                const wave3 = Math.sin((x * frequency * 0.5 + time * 1.3 + phaseOffset) * 1.5) * amplitude * 35;
+                
+                // Better vertical spacing to prevent overlap
+                const verticalOffset = (layer - 3) * 15; // Increased from 8 to 15 for better separation
+                const y = canvas.height / 2 + wave1 + wave2 + wave3 + verticalOffset;
+                
+                if (x === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+            
+            ctx.stroke();
+        }
+        
+        ctx.globalAlpha = 1;
+    }
+    
+    function drawWireframeGrid() {
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+        ctx.lineWidth = 0.5;
+        ctx.globalAlpha = 0.3;
+        
+        // Vertical grid lines
+        for (let x = 0; x < canvas.width; x += 80) {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, canvas.height);
+            ctx.stroke();
+        }
+        
+        // Horizontal grid lines
+        for (let y = 0; y < canvas.height; y += 40) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(canvas.width, y);
+            ctx.stroke();
+        }
+        
+        ctx.globalAlpha = 1;
+    }
+    
+    function updateWireframeSpiral(ratio) {
+        syncProgress = ratio / 100;
+        
+        // Increase animation speed and complexity with sync progress
+        time += syncProgress * 0.01;
+        
+        // Add color intensity based on sync ratio without rotation
+        if (canvas) {
+            const hueShift = ratio * 3.6;
+            canvas.style.filter = `hue-rotate(${hueShift}deg) brightness(${1 + syncProgress}) saturate(${1 + syncProgress * 2})`;
+            // Ensure no transform is applied
+            canvas.style.transform = 'none';
+        }
     }
 }
 
