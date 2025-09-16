@@ -8,14 +8,32 @@ body {
     animation: pageLoad 0.8s ease-out;
 }
 
-/* ===== CUSTOM SCROLLBAR - HUD STYLE ===== */
-/* Webkit Scrollbar (Chrome, Safari, Edge) */
-::-webkit-scrollbar {
-    width: 16px;
-    background: rgba(0, 0, 0, 0.9);
+html {
+    overflow-y: scroll; /* Always reserve space for scrollbar */
+    scrollbar-width: none; /* Firefox - hide scrollbar */
+    -ms-overflow-style: none; /* IE/Edge - hide scrollbar */
 }
 
-::-webkit-scrollbar-track {
+/* ===== CUSTOM SCROLLBAR - HUD STYLE ===== */
+/* Webkit Scrollbar (Chrome, Safari, Edge) - Hidden by default */
+::-webkit-scrollbar {
+    width: 0px !important;
+    background: transparent !important;
+}
+
+html::-webkit-scrollbar {
+    width: 0px !important;
+    background: transparent !important;
+}
+
+/* Show scrollbar when scrolling */
+body.scrolling::-webkit-scrollbar,
+html.scrolling::-webkit-scrollbar {
+    width: 16px !important;
+    background: rgba(0, 0, 0, 0.9) !important;
+}
+
+body.scrolling::-webkit-scrollbar-track {
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.9), rgba(51, 0, 0, 0.3));
     border: 1px solid var(--terminal-green);
     border-radius: 0;
@@ -23,7 +41,7 @@ body {
     position: relative;
 }
 
-::-webkit-scrollbar-track::before {
+body.scrolling::-webkit-scrollbar-track::before {
     content: '';
     position: absolute;
     top: 0;
@@ -40,7 +58,7 @@ body {
     pointer-events: none;
 }
 
-::-webkit-scrollbar-thumb {
+body.scrolling::-webkit-scrollbar-thumb {
     background: linear-gradient(
         180deg,
         var(--primary-red) 0%,
@@ -56,7 +74,7 @@ body {
     transition: all 0.3s ease;
 }
 
-::-webkit-scrollbar-thumb:hover {
+body.scrolling::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(
         180deg,
         var(--neon-orange) 0%,
@@ -69,20 +87,26 @@ body {
     border-color: var(--muted-green);
 }
 
-::-webkit-scrollbar-thumb:active {
+body.scrolling::-webkit-scrollbar-thumb:active {
     background: var(--terminal-green);
     box-shadow: 
         0 0 30px rgba(0, 255, 65, 0.9),
         inset 0 0 10px rgba(255, 51, 0, 0.4);
 }
 
-::-webkit-scrollbar-corner {
+body.scrolling::-webkit-scrollbar-corner {
     background: rgba(0, 0, 0, 0.9);
     border: 1px solid var(--terminal-green);
 }
 
-/* Firefox Scrollbar */
+/* Firefox Scrollbar - Hidden by default */
 * {
+    scrollbar-width: none;
+    scrollbar-color: transparent transparent;
+}
+
+/* Show Firefox scrollbar when scrolling */
+body.scrolling * {
     scrollbar-width: thin;
     scrollbar-color: var(--primary-red) rgba(0, 0, 0, 0.9);
 }
