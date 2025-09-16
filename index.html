@@ -27,9 +27,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Intro Overlay -->
+    <div class="intro-overlay" id="introOverlay">
+        <div class="intro-content">
+            <div class="intro-text">                           
+                <button class="intro-start-btn" id="introStartBtn">CLICK TO START SYNC</button>
+            </div>
+            <div class="intro-terminal-borders">
+                <div class="corner top-left"></div>
+                <div class="corner top-right"></div>
+                <div class="corner bottom-left"></div>
+                <div class="corner bottom-right"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Hero Section -->
-    <section class="hero-section" id="hero">
-        <video class="hero-video" id="heroVideo" autoplay muted loop preload="metadata">
+    <section class="hero-section locked" id="hero">
+        <video class="hero-video" id="heroVideo" muted loop preload="metadata">
             <source src="Media/Neon Genesis Evangelion - Opening [4K 60FPS  Creditless  CC] - Neobrane (720p, h264).mp4" type="video/mp4">
             <div class="hero-background"></div>
         </video>
@@ -50,7 +65,7 @@
     </section>
 
     <!-- Page Navigation -->
-    <nav class="page-nav show" id="pageNav">
+    <nav class="page-nav locked" id="pageNav">
         <div class="nav-container">
             <div class="nav-logo">
                 <img src="Media/nav.png" alt="NGE Logo" class="nav-logo-image">
@@ -86,7 +101,7 @@
     </div>
 
     <!-- Synopsis Section -->
-    <section class="synopsis-section" id="synopsis">
+    <section class="synopsis-section locked-content" id="synopsis">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">SERIES OVERVIEW</h2>
@@ -105,7 +120,7 @@
     </section>
 
     <!-- Character Gallery -->
-    <section class="character-gallery" id="characters">
+    <section class="character-gallery locked-content" id="characters">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">CHARACTERS</h2>
@@ -190,7 +205,7 @@
     </section>
 
     <!-- Eva Units Section -->
-    <section class="eva-section" id="evas">
+    <section class="eva-section locked-content" id="evas">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">EVANGELION UNITS</h2>
@@ -314,7 +329,7 @@
 
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer locked-content">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">

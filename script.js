@@ -1,5 +1,9 @@
 // ===== GLOBAL VARIABLES =====
 
+// Intro system state
+let introActive = true;
+let pageUnlocked = false;
+
 const characters = {
     shinji: {
         name: "SHINJI IKARI",
@@ -54,6 +58,7 @@ const characters = {
 
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', function() {
+    initIntroSystem();
     initHeroAnimation();
     initVideoPlayer();
     initCharacterGallery();
@@ -63,6 +68,121 @@ document.addEventListener('DOMContentLoaded', function() {
     initPageNavigation();
     initLogoNavigation();
 });
+
+// ===== INTRO SYSTEM =====
+function initIntroSystem() {
+    const introOverlay = document.getElementById('introOverlay');
+    const introStartBtn = document.getElementById('introStartBtn');
+    const heroSection = document.getElementById('hero');
+    const heroVideo = document.getElementById('heroVideo');
+    
+    // Handle intro start button click
+    introStartBtn.addEventListener('click', function() {
+        startIntroSequence();
+    });
+    
+    // Prevent scrolling while intro is active
+    document.body.style.overflow = 'hidden';
+    
+    function startIntroSequence() {
+        introActive = false;
+        
+        // Hide intro overlay
+        introOverlay.classList.add('hidden');
+        
+        // Unlock hero section and start video
+        heroSection.classList.remove('locked');
+        heroVideo.currentTime = 0; // Reset video to beginning
+        
+        // Ensure mini video is stopped and hidden
+        const miniVideoContainer = document.getElementById('miniVideoContainer');
+        const miniVideo = document.getElementById('miniVideo');
+        if (miniVideoContainer) {
+            miniVideoContainer.classList.remove('show');
+        }
+        if (miniVideo) {
+            miniVideo.pause();
+            miniVideo.currentTime = 0;
+        }
+        
+        // Start hero video
+        heroVideo.play();
+        
+        // Re-enable scrolling
+        document.body.style.overflow = '';
+        
+        // Start the progressive unlock sequence
+        setTimeout(() => {
+            initProgressiveUnlock();
+        }, 1000);
+        
+        console.log('Intro sequence started');
+    }
+}
+
+function initProgressiveUnlock() {
+    const heroVideo = document.getElementById('heroVideo');
+    const heroTitle = document.getElementById('heroTitle');
+    const ctaButton = document.getElementById('ctaButton');
+    const pageNav = document.getElementById('pageNav');
+    const lockedContent = document.querySelectorAll('.locked-content');
+    
+    let titleShown = false;
+    let ctaShown = false;
+    let navShown = false;
+    let contentUnlocked = false;
+    
+    function checkUnlockProgress() {
+        if (!heroVideo || introActive) return;
+        
+        const currentTime = heroVideo.currentTime;
+        
+        // Show title at 23 seconds
+        if (currentTime >= 23 && !titleShown) {
+            heroTitle.classList.add('show-title');
+            titleShown = true;
+            console.log('Title unlocked at', currentTime, 'seconds');
+        }
+        
+        // Show CTA button at 24 seconds
+        if (currentTime >= 24 && !ctaShown) {
+            ctaButton.classList.add('show-cta');
+            ctaShown = true;
+            console.log('CTA unlocked at', currentTime, 'seconds');
+        }
+        
+        // Show navigation at 24 seconds
+        if (currentTime >= 24 && !navShown) {
+            unlockNavigation();
+            navShown = true;
+            console.log('Navigation unlocked at', currentTime, 'seconds');
+        }
+        
+        // Unlock page content at 26 seconds
+        if (currentTime >= 26 && !contentUnlocked) {
+            unlockPageContent();
+            contentUnlocked = true;
+            pageUnlocked = true;
+            console.log('Page content unlocked at', currentTime, 'seconds');
+        }
+    }
+    
+    // Listen to video timeupdate events
+    heroVideo.addEventListener('timeupdate', checkUnlockProgress);
+    
+    function unlockNavigation() {
+        pageNav.classList.remove('locked');
+        pageNav.classList.add('show');
+    }
+    
+    function unlockPageContent() {
+        lockedContent.forEach((element, index) => {
+            setTimeout(() => {
+                element.classList.add('unlocked');
+            }, index * 200); // Stagger the unlock animation
+        });
+    }
+}
 
 // ===== IMAGE ERROR HANDLING =====
 function initImageErrorHandling() {
@@ -115,6 +235,11 @@ function initVideoPlayer() {
         heroVideo.muted = true;
         miniVideo.muted = true;
         isMuted = true;
+        
+        // During intro, ensure mini video is paused
+        if (introActive) {
+            miniVideo.pause();
+        }
         
         console.log('Video initialized - will autoplay muted');
         
@@ -213,7 +338,8 @@ function initVideoPlayer() {
             if (entry.target === heroSection) {
                 isHeroVisible = entry.isIntersecting;
                 
-                if (!isHeroVisible && !miniVideoVisible) {
+                // Only show mini video if intro is not active
+                if (!isHeroVisible && !miniVideoVisible && !introActive) {
                     // Hero is out of view, show mini video
                     showMiniVideo();
                 } else if (isHeroVisible && miniVideoVisible) {
@@ -323,51 +449,15 @@ function initVideoPlayer() {
 // ===== HERO SECTION ANIMATION =====
 function initHeroAnimation() {
     const ctaButton = document.getElementById('ctaButton');
-    const heroTitle = document.getElementById('heroTitle');
-    const pageNav = document.getElementById('pageNav');
-    
-    // Track video time to show title and CTA at specific times
-    const heroVideo = document.getElementById('heroVideo');
-    let titleShown = false;
-    let ctaShown = false;
-    let navShown = false;
-    
-    // Function to check video time and show elements
-    function checkVideoTime() {
-        if (heroVideo && !heroVideo.paused) {
-            const currentTime = heroVideo.currentTime;
-            
-            // Show title at 23 seconds
-            if (currentTime >= 23 && !titleShown) {
-                heroTitle.classList.add('show-title');
-                titleShown = true;
-                console.log('Title shown at', currentTime, 'seconds');
-            }
-            
-            // Show CTA button at 24 seconds
-            if (currentTime >= 24 && !ctaShown) {
-                ctaButton.classList.add('show-cta');
-                ctaShown = true;
-                console.log('CTA shown at', currentTime, 'seconds');
-            }
-            
-            // Show navigation after 24 seconds
-            if (currentTime >= 24 && !navShown) {
-                showPageNavigation();
-                navShown = true;
-                console.log('Navigation shown at', currentTime, 'seconds');
-            }
-        }
-    }
-    
-    // Listen to video timeupdate events
-    if (heroVideo) {
-        heroVideo.addEventListener('timeupdate', checkVideoTime);
-    }
     
     // CTA button click handler
     ctaButton.addEventListener('click', function() {
-        smoothScrollTo('#synopsis');
+        if (pageUnlocked) {
+            smoothScrollTo('#synopsis');
+        } else {
+            // If page isn't unlocked yet, show a message or wait
+            console.log('Page content not yet unlocked');
+        }
     });
 }
 
@@ -682,28 +772,53 @@ function initScrollEffects() {
         });
     }
     
-    // Function to check if user scrolled to synopsis section before video reaches 24 seconds
-    function checkEarlyScrollToNav() {
-        const heroVideo = document.getElementById('heroVideo');
-        const synopsisSection = document.getElementById('synopsis');
-        const pageNav = document.getElementById('pageNav');
+    // Function to check if user scrolled to synopsis section and unlock content early
+    function checkEarlyScrollToUnlock() {
+        if (introActive || pageUnlocked) return;
         
-        if (!heroVideo || !synopsisSection || !pageNav) return;
+        const synopsisSection = document.getElementById('synopsis');
+        if (!synopsisSection) return;
         
         // Check if synopsis section is in viewport (user scrolled to it)
         const synopsisRect = synopsisSection.getBoundingClientRect();
         const windowHeight = window.innerHeight || document.documentElement.clientHeight;
         const synopsisInView = synopsisRect.top < windowHeight && synopsisRect.bottom > 0;
         
-        // Check if video hasn't reached 24 seconds yet
-        const videoCurrentTime = heroVideo.currentTime || 0;
-        const hasReached24Seconds = videoCurrentTime >= 24;
-        
-        // Show navigation if user scrolled to synopsis before video reaches 24 seconds
-        if (synopsisInView && !hasReached24Seconds && !pageNav.classList.contains('show')) {
-            showPageNavigation();
-            console.log('Navigation shown due to early scroll at video time:', videoCurrentTime);
+        // If user scrolled to locked content, unlock it early
+        if (synopsisInView && !pageUnlocked) {
+            unlockAllContent();
+            console.log('Content unlocked due to early scroll');
         }
+    }
+    
+    function unlockAllContent() {
+        const pageNav = document.getElementById('pageNav');
+        const heroTitle = document.getElementById('heroTitle');
+        const ctaButton = document.getElementById('ctaButton');
+        const lockedContent = document.querySelectorAll('.locked-content');
+        
+        // Unlock navigation
+        if (pageNav && pageNav.classList.contains('locked')) {
+            pageNav.classList.remove('locked');
+            pageNav.classList.add('show');
+        }
+        
+        // Show title and CTA if not shown
+        if (heroTitle && !heroTitle.classList.contains('show-title')) {
+            heroTitle.classList.add('show-title');
+        }
+        if (ctaButton && !ctaButton.classList.contains('show-cta')) {
+            ctaButton.classList.add('show-cta');
+        }
+        
+        // Unlock all content
+        lockedContent.forEach((element, index) => {
+            setTimeout(() => {
+                element.classList.add('unlocked');
+            }, index * 100);
+        });
+        
+        pageUnlocked = true;
     }
     
     // Parallax effects and scroll animations
@@ -717,8 +832,8 @@ function initScrollEffects() {
             heroBackground.style.transform = `translateY(${rate}px)`;
         }
         
-        // Check for early scroll to navigation
-        checkEarlyScrollToNav();
+        // Check for early scroll to unlock content
+        checkEarlyScrollToUnlock();
         
         // Animate elements as they come into view
         animateVisibleElements();
