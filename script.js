@@ -58,6 +58,9 @@ const characters = {
 
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', function() {
+    // Force hide scrollbar on page load
+    forceHideScrollbar();
+    
     initIntroSystem();
     initHeroAnimation();
     initVideoPlayer();
@@ -68,6 +71,40 @@ document.addEventListener('DOMContentLoaded', function() {
     initPageNavigation();
     initLogoNavigation();
 });
+
+function forceHideScrollbar() {
+    // Remove any scrolling classes that might exist
+    document.body.classList.remove('scrolling');
+    document.documentElement.classList.remove('scrolling');
+    
+    // Force hide scrollbar styles
+    document.documentElement.style.scrollbarWidth = 'none';
+    document.documentElement.style.msOverflowStyle = 'none';
+    
+    // Add aggressive CSS to hide scrollbar
+    if (!document.getElementById('force-hide-scrollbar')) {
+        const style = document.createElement('style');
+        style.id = 'force-hide-scrollbar';
+        style.textContent = `
+            ::-webkit-scrollbar {
+                width: 0px !important;
+                background: transparent !important;
+                display: none !important;
+            }
+            html::-webkit-scrollbar {
+                width: 0px !important;
+                background: transparent !important;
+                display: none !important;
+            }
+            body::-webkit-scrollbar {
+                width: 0px !important;
+                background: transparent !important;
+                display: none !important;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+}
 
 // ===== INTRO SYSTEM =====
 function initIntroSystem() {
