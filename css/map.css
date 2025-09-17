@@ -80,11 +80,13 @@
     flex-shrink: 0;
 }
 
-.map-controls-top h4 {
+.controls-title {
     font-family: 'Orbitron', monospace;
     color: var(--primary-red);
     margin-bottom: 0.5rem;
     font-size: 0.9rem;
+    text-align: center;
+    margin: 0 0 0.5rem 0;
 }
 
 .map-controls-top .control-buttons {
@@ -325,6 +327,21 @@
     background: var(--primary-red);
     color: var(--background-dark);
     box-shadow: 0 0 15px rgba(255, 51, 0, 0.5);
+    transform: translateY(-1px);
+}
+
+/* Touch device improvements */
+@media (hover: none) and (pointer: coarse) {
+    .control-btn:hover {
+        transform: none;
+        box-shadow: 0 0 10px rgba(255, 51, 0, 0.3);
+    }
+    
+    .control-btn:active {
+        background: var(--primary-red);
+        color: var(--background-dark);
+        transform: scale(0.98);
+    }
 }
 
 .control-btn:active {
@@ -400,14 +417,21 @@
         font-size: 1.8rem;
     }
     
+    .controls-title {
+        font-size: 0.85rem;
+        margin-bottom: 0.4rem;
+    }
+    
     .map-controls-top .control-buttons {
         gap: 8px;
+        flex-wrap: wrap;
     }
     
     .control-btn {
-        min-width: 80px;
-        padding: 8px 12px;
-        font-size: 0.7rem;
+        min-width: 75px;
+        padding: 7px 10px;
+        font-size: 0.65rem;
+        border-width: 1px;
     }
 }
 
@@ -436,29 +460,33 @@
     }
     
     .map-controls-top {
-        padding: 0.4rem;
+        padding: 0.5rem 0.4rem;
         margin-bottom: 0.4rem;
     }
     
-    .map-controls-top h4 {
+    .controls-title {
         font-size: 0.8rem;
-        margin-bottom: 0.4rem;
-        padding-top: 4px;
+        margin-bottom: 0.5rem;
     }
     
     .map-controls-top .control-buttons {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 6px;
-        max-width: 350px;
+        gap: 8px;
+        max-width: 320px;
         margin: 0 auto;
     }
     
     .control-btn {
         min-width: auto;
-        padding: 6px 8px;
-        font-size: 0.6rem;
+        padding: 8px 6px;
+        font-size: 0.65rem;
         border-width: 1px;
+        letter-spacing: 0.02em;
+        min-height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     .map-hud {
@@ -630,20 +658,33 @@ body .footer-bottom {
         letter-spacing: 0.05em;
     }
     
-    .map-controls-top h4 {
-        font-size: 0.75rem;
+    .map-controls-top {
+        padding: 0.4rem 0.3rem;
         margin-bottom: 0.3rem;
     }
     
+    .controls-title {
+        font-size: 0.75rem;
+        margin-bottom: 0.4rem;
+    }
+    
     .map-controls-top .control-buttons {
+        display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 5px;
-        max-width: 280px;
+        gap: 6px;
+        max-width: 260px;
+        margin: 0 auto;
     }
     
     .control-btn {
-        padding: 5px 6px;
+        padding: 10px 4px;
         font-size: 0.55rem;
+        border-width: 1px;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        letter-spacing: 0.01em;
     }
     
     .map-display {
@@ -728,5 +769,31 @@ body .footer-bottom {
     .corner.top-right,
     .corner.bottom-right {
         right: 6px;
+    }
+}
+
+/* Extra small mobile screens */
+@media (max-width: 360px) {
+    .map-controls-top {
+        padding: 0.3rem 0.2rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .controls-title {
+        font-size: 0.7rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .map-controls-top .control-buttons {
+        grid-template-columns: 1fr 1fr;
+        gap: 4px;
+        max-width: 240px;
+    }
+    
+    .control-btn {
+        padding: 8px 3px;
+        font-size: 0.5rem;
+        min-height: 38px;
+        letter-spacing: 0;
     }
 }
