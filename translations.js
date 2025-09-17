@@ -547,12 +547,19 @@ class LanguageSystem {
             this.translateSection(introOverlay);
         }
         
+        // Immediately translate character info card since it may be shown dynamically
+        const characterInfo = document.querySelector('.character-info');
+        if (characterInfo) {
+            this.translateSection(characterInfo);
+        }
+        
         // Define sections based on page content - only observe sections that exist
         const allPossibleSections = [
             '.intro-overlay', // Intro overlay with sync interface - index.html
             '.hero-section', // Hero section (after video) - index.html
             '.synopsis-section', // Synopsis - index.html
             '.character-gallery', // Characters - index.html
+            '.character-info', // Character info card - index.html
             '.eva-section', // EVA Units - index.html
             '.episodes-library-header', // Episodes header - episodes.html
             '.episodes-library', // Episodes content - episodes.html

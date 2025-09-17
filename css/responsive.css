@@ -223,7 +223,7 @@
 /* Mobile styles for character info */
 @media (max-width: 768px) {
     .character-info {
-        bottom: 15px;
+        bottom: 170px;
         right: 15px;
         width: 300px;
         max-width: calc(100vw - 30px);
@@ -395,7 +395,7 @@
     }
     
     .character-info {
-        bottom: 10px;
+        bottom: 130px;
         right: 10px;
         width: 250px;
         max-width: calc(100vw - 20px);
@@ -596,7 +596,7 @@
 /* Mobile landscape orientation adjustments */
 @media (max-width: 768px) and (orientation: landscape) {
     .character-info {
-        bottom: 8px;
+        bottom: 120px;
         right: 8px;
         width: 280px;
         height: 80px;
@@ -732,7 +732,7 @@
     }
     
     .character-info {
-        bottom: 8px;
+        bottom: 120px;
         right: 8px;
         width: 200px;
         max-width: calc(100vw - 16px);

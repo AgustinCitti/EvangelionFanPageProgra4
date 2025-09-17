@@ -82,7 +82,7 @@
 /* Mobile */
 @media (max-width: 768px) {
     .character-info {
-        bottom: 10px;
+        bottom: 170px;
         right: 10px;
         width: 280px;
         padding: 10px;
@@ -105,7 +105,7 @@
 
 @media (max-width: 480px) {
     .character-info {
-        bottom: 5px;
+        bottom: 130px;
         right: 5px;
         width: 250px;
         padding: 8px;
@@ -127,5 +127,32 @@
     
     .stat {
         padding: 3px 5px;
+    }
+}
+
+@media (max-width: 360px) {
+    .character-info {
+        bottom: 120px;
+        right: 3px;
+        width: 220px;
+        padding: 6px;
+    }
+    
+    .info-panel h3 {
+        font-size: 10px;
+        margin-bottom: 4px;
+    }
+    
+    .info-panel p {
+        font-size: 7px;
+        margin-bottom: 5px;
+    }
+    
+    .stat-label, .stat-value {
+        font-size: 6px;
+    }
+    
+    .stat {
+        padding: 2px 4px;
     }
 }
