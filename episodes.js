@@ -86,24 +86,44 @@ function createMobileEpisodesGrid() {
     // Generate mobile episode cards
     episodes.forEach(episode => {
         const episodeCard = document.createElement('div');
-        episodeCard.className = `mobile-episode-card ${episode.status}`;
+        
+        // Determine actual episode status based on unlocking logic
+        const isWatched = window.episodeLibrary && window.episodeLibrary.watchedEpisodes.has(episode.id);
+        const isUnlocked = window.episodeLibrary ? window.episodeLibrary.isEpisodeUnlocked(episode.id) : episode.id === 1;
+        
+        let actualStatus;
+        let cardClasses = 'mobile-episode-card';
+        
+        if (isWatched) {
+            actualStatus = 'watched';
+            cardClasses += ' watched';
+        } else if (isUnlocked) {
+            actualStatus = 'unlocked';
+            cardClasses += ' unlocked';
+        } else {
+            actualStatus = 'locked';
+            cardClasses += ' locked';
+        }
+        
+        episodeCard.className = cardClasses;
         episodeCard.dataset.episode = episode.id;
 
         const episodeNumber = episode.number || (episode.id < 10 ? `0${episode.id}` : episode.id);
-        const watchIcon = episode.status === 'locked' ? '🔒' : '👁️';
-        const isDisabled = episode.status === 'locked' ? 'disabled' : '';
+        let watchIcon = actualStatus === 'locked' ? '🔒' : (isWatched ? '✅' : '👁️');
+        const isDisabled = actualStatus === 'locked' ? 'disabled' : '';
+        const watchTitle = actualStatus === 'locked' ? 'Episode locked' : (isWatched ? 'Marked as watched' : 'Mark as watched');
 
         episodeCard.innerHTML = `
             <div class="mobile-episode-image">
                 <img src="${episode.image}" alt="Episode ${episode.id}">
             </div>
-            ${episode.status === 'locked' ? `
+            ${actualStatus === 'locked' ? `
                 <div class="mobile-classified-overlay">
                     <div class="mobile-classified-text"></div>
                 </div>
             ` : ''}
             <div class="mobile-episode-number">${episodeNumber}</div>
-            <button class="mobile-watch-toggle ${isDisabled}" data-episode="${episode.id}" title="${episode.status === 'locked' ? 'Episode locked' : 'Mark as watched'}">
+            <button class="mobile-watch-toggle ${isDisabled}" data-episode="${episode.id}" title="${watchTitle}">
                 <span class="mobile-watch-icon">${watchIcon}</span>
             </button>
         `;
@@ -121,16 +141,24 @@ function setupMobileEventListeners() {
 
     // Handle mobile episode card clicks
     mobileGrid.addEventListener('click', function(e) {
+        // Don't trigger card click if watch toggle was clicked
+        if (e.target.closest('.mobile-watch-toggle')) return;
+        
         const episodeCard = e.target.closest('.mobile-episode-card');
         if (!episodeCard) return;
 
-        const episodeId = episodeCard.dataset.episode;
+        const episodeId = parseInt(episodeCard.dataset.episode);
         const isLocked = episodeCard.classList.contains('locked');
 
         if (!isLocked) {
-            // Handle unlocked episode interaction
-            console.log(`Mobile episode ${episodeId} clicked`);
-            // You can add more functionality here like opening a modal or dialog
+            // Open episode dialog using existing EpisodeLibrary functionality
+            if (window.episodeLibrary) {
+                window.episodeLibrary.openEpisodeDialog(episodeId);
+            } else {
+                // Fallback if EpisodeLibrary not initialized
+                console.log(`Mobile episode ${episodeId} clicked - opening dialog`);
+                openMobileEpisodeDialog(episodeId);
+            }
         } else {
             // Handle locked episode feedback
             episodeCard.style.animation = 'shake 0.5s ease-in-out';
@@ -146,29 +174,133 @@ function setupMobileEventListeners() {
             e.stopPropagation();
             const button = e.target.closest('.mobile-watch-toggle');
             const episodeCard = button.closest('.mobile-episode-card');
-            const episodeId = button.dataset.episode;
+            const episodeId = parseInt(button.dataset.episode);
 
-            // Toggle watched state
-            if (episodeCard.classList.contains('watched')) {
-                episodeCard.classList.remove('watched');
-                button.querySelector('.mobile-watch-icon').textContent = '👁️';
-                button.title = 'Mark as watched';
+            // Use EpisodeLibrary watch functionality if available
+            if (window.episodeLibrary) {
+                window.episodeLibrary.toggleWatchStatus(episodeId);
+                // updateMobileEpisodeCards is now called automatically by updateUI in EpisodeLibrary
             } else {
-                episodeCard.classList.add('watched');
-                button.querySelector('.mobile-watch-icon').textContent = '✅';
-                button.title = 'Marked as watched';
+                console.log(`Mobile episode ${episodeId} watch status toggled (fallback)`);
             }
-
-            console.log(`Mobile episode ${episodeId} watch status toggled`);
         }
     });
 }
 
+// Mobile watch status functions removed - now handled by EpisodeLibrary.updateMobileEpisodeCards()
+
+function openMobileEpisodeDialog(episodeId) {
+    // Fallback dialog opening functionality
+    const dialog = document.getElementById('episodeDialog');
+    if (!dialog) {
+        console.error('Episode dialog not found');
+        return;
+    }
+    
+    // Use existing episode data
+    const episode = episodes[episodeId - 1];
+    if (!episode) {
+        console.error(`Episode ${episodeId} not found`);
+        return;
+    }
+    
+    // Update dialog content
+    const dialogImage = document.getElementById('dialogImage');
+    const dialogNumber = document.getElementById('dialogNumber');
+    const dialogTitle = document.getElementById('dialogTitle');
+    const dialogSynopsis = document.getElementById('dialogSynopsis');
+    
+    if (dialogImage && dialogNumber && dialogTitle && dialogSynopsis) {
+        // Set episode image
+        const imageSrc = episodeId === 27 ? 'Media/episodes/endofevangelion.jpeg' : 
+                        `Media/episodes/${getEpisodeImageName(episodeId)}.webp`;
+        dialogImage.src = imageSrc;
+        
+        // Set episode number
+        dialogNumber.textContent = episodeId === 27 ? 'EOE' : episodeId.toString().padStart(2, '0');
+        
+        // Set title and synopsis
+        dialogTitle.textContent = episode.title;
+        dialogSynopsis.textContent = episode.synopsis;
+        
+        // Show dialog
+        dialog.classList.add('active');
+        
+        // On mobile, make dialog full screen
+        if (window.innerWidth <= 768) {
+            dialog.style.width = '100vw';
+            dialog.style.right = '0';
+            dialog.style.left = '0';
+        }
+        
+        // Ensure close button works
+        setupDialogCloseHandler();
+    } else {
+        console.error('Dialog elements not found');
+    }
+}
+
+function setupDialogCloseHandler() {
+    const dialog = document.getElementById('episodeDialog');
+    const closeBtn = document.getElementById('dialogClose');
+    
+    if (dialog && closeBtn) {
+        // Remove any existing listeners to prevent duplicates
+        closeBtn.removeEventListener('click', closeMobileDialog);
+        
+        // Add close functionality
+        closeBtn.addEventListener('click', closeMobileDialog);
+        
+        // Also close on escape key
+        document.removeEventListener('keydown', handleDialogEscape);
+        document.addEventListener('keydown', handleDialogEscape);
+    }
+}
+
+function closeMobileDialog() {
+    const dialog = document.getElementById('episodeDialog');
+    if (dialog) {
+        dialog.classList.remove('active');
+        
+        // Reset mobile styles
+        if (window.innerWidth <= 768) {
+            dialog.style.width = '';
+            dialog.style.right = '';
+            dialog.style.left = '';
+        }
+        
+        // Remove escape key listener
+        document.removeEventListener('keydown', handleDialogEscape);
+    }
+}
+
+function handleDialogEscape(e) {
+    if (e.key === 'Escape') {
+        closeMobileDialog();
+    }
+}
+
+function getEpisodeImageName(episodeNum) {
+    const imageNames = [
+        'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
+        'eleven', 'twelve', 'thirdteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen',
+        'eighteen', 'nineteen', 'twenty', 'twentyone', 'twentytwo', 'twentythree',
+        'twentyfour', 'twentyfive', 'twentysix'
+    ];
+    return imageNames[episodeNum - 1] || 'one';
+}
+
 // Initialize mobile component when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
+    // Force close any open dialogs on page load
+    forceCloseAllDialogs();
+    
     // Check if we're on mobile
     if (window.innerWidth <= 768) {
-        createMobileEpisodesGrid();
+        // Wait for EpisodeLibrary to be initialized by the existing code
+        setTimeout(() => {
+            createMobileEpisodesGrid();
+        }, 100);
     }
     
     // Handle window resize
@@ -178,6 +310,25 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+function forceCloseAllDialogs() {
+    // Force close episode dialog
+    const episodeDialog = document.getElementById('episodeDialog');
+    if (episodeDialog) {
+        episodeDialog.classList.remove('active');
+        episodeDialog.style.width = '';
+        episodeDialog.style.right = '';
+        episodeDialog.style.left = '';
+    }
+    
+    // Force close any other modals
+    const imageModal = document.getElementById('imageModal');
+    if (imageModal) {
+        imageModal.classList.remove('active');
+    }
+    
+    console.log('All dialogs closed on page load');
+}
 
 // Gallery images data
 const galleryImages = [
@@ -356,6 +507,7 @@ class EpisodeLibrary {
     }
 
     updateEpisodeCards() {
+        // Update desktop episode cards
         const episodeItems = document.querySelectorAll('.episode-item');
         
         episodeItems.forEach((item, index) => {
@@ -384,6 +536,48 @@ class EpisodeLibrary {
                 watchIcon.textContent = '🔒';
                 watchToggle.setAttribute('title', 'Episode locked');
                 watchToggle.classList.add('disabled');
+            }
+        });
+        
+        // Update mobile episode cards
+        this.updateMobileEpisodeCards();
+    }
+    
+    updateMobileEpisodeCards() {
+        const mobileCards = document.querySelectorAll('.mobile-episode-card');
+        
+        mobileCards.forEach((card) => {
+            const episodeNum = parseInt(card.dataset.episode);
+            const isUnlocked = this.isEpisodeUnlocked(episodeNum);
+            const isWatched = this.watchedEpisodes.has(episodeNum);
+            const watchToggle = card.querySelector('.mobile-watch-toggle');
+            const watchIcon = watchToggle.querySelector('.mobile-watch-icon');
+            const classifiedOverlay = card.querySelector('.mobile-classified-overlay');
+            
+            // Update episode state classes
+            card.classList.remove('locked', 'unlocked', 'watched');
+            
+            if (isWatched) {
+                // Watched episodes
+                card.classList.add('watched');
+                watchIcon.textContent = '✅';
+                watchToggle.setAttribute('title', 'Mark as unwatched');
+                watchToggle.classList.remove('disabled');
+                if (classifiedOverlay) classifiedOverlay.style.display = 'none';
+            } else if (isUnlocked) {
+                // Unlocked episodes
+                card.classList.add('unlocked');
+                watchIcon.textContent = '👁️';
+                watchToggle.setAttribute('title', 'Mark as watched');
+                watchToggle.classList.remove('disabled');
+                if (classifiedOverlay) classifiedOverlay.style.display = 'none';
+            } else {
+                // Locked episodes
+                card.classList.add('locked');
+                watchIcon.textContent = '🔒';
+                watchToggle.setAttribute('title', 'Episode locked');
+                watchToggle.classList.add('disabled');
+                if (classifiedOverlay) classifiedOverlay.style.display = 'block';
             }
         });
     }
@@ -811,7 +1005,8 @@ class EpisodeLibrary {
 
 // Initialize when page loads
 document.addEventListener('DOMContentLoaded', () => {
-    new EpisodeLibrary();
+    // Initialize EpisodeLibrary and make it globally available
+    window.episodeLibrary = new EpisodeLibrary();
     
     // Add some additional terminal effects
     addTerminalScanlines();
