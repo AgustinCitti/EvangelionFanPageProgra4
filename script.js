@@ -1035,15 +1035,14 @@ function initCharacterGallery() {
             
             // Update info panel
             if (character) {
-                // Get current language from language system
-                const currentLang = window.languageSystem ? window.languageSystem.currentLanguage : 'jp';
-                const trans = window.languageSystem ? window.languageSystem.translations[currentLang] : null;
+                // Always use Spanish translations for character info
+                const trans = translations.es;
                 
-                infoName.textContent = (trans && trans[character.nameKey]) ? trans[character.nameKey] : character.nameKey;
-                const description = (trans && trans[character.descriptionKey]) ? trans[character.descriptionKey] : character.descriptionKey;
+                infoName.textContent = trans[character.nameKey] || character.nameKey;
+                const description = trans[character.descriptionKey] || character.descriptionKey;
                 infoDescription.textContent = description;
                 infoAge.textContent = character.age;
-                infoRole.textContent = (trans && trans[character.roleKey]) ? trans[character.roleKey] : character.roleKey;
+                infoRole.textContent = trans[character.roleKey] || character.roleKey;
                 
                 // Show the character info panel
                 characterInfo.classList.add('show');
@@ -1392,15 +1391,21 @@ function updateCharacterInfo(characterKey) {
     const infoRole = document.getElementById('infoRole');
     
     if (character && infoName && infoDescription && infoAge && infoRole) {
-        // Get current language from language system
-        const currentLang = window.languageSystem ? window.languageSystem.currentLanguage : 'jp';
-        const trans = window.languageSystem ? window.languageSystem.translations[currentLang] : null;
+        // Always use Spanish translations for character info
+        const trans = translations.es;
         
-        infoName.textContent = (trans && trans[character.nameKey]) ? trans[character.nameKey] : character.nameKey;
-        const description = (trans && trans[character.descriptionKey]) ? trans[character.descriptionKey] : character.descriptionKey;
+        // Update character name
+        infoName.textContent = trans[character.nameKey] || character.nameKey;
+        
+        // Update character description
+        const description = trans[character.descriptionKey] || character.descriptionKey;
         infoDescription.textContent = description;
+        
+        // Update age (just a number, no translation needed)
         infoAge.textContent = character.age;
-        infoRole.textContent = (trans && trans[character.roleKey]) ? trans[character.roleKey] : character.roleKey;
+        
+        // Update role
+        infoRole.textContent = trans[character.roleKey] || character.roleKey;
         
         // Add typing effect
         typeEffect(infoDescription, description);
@@ -1409,3 +1414,5 @@ function updateCharacterInfo(characterKey) {
 
 // Make character update function available globally
 window.updateCharacterInfo = updateCharacterInfo;
+
+// Character info now uses static Spanish, no refresh needed

@@ -468,10 +468,7 @@ class LanguageSystem {
 
             // Characters section
             { selector: '.character-gallery .section-title', key: 'characters' },
-            { selector: '#infoName', key: 'select-character' },
-            { selector: '#infoDescription', key: 'click-character-info' },
-            { selector: '.stat-label', key: 'age', index: 0 },
-            { selector: '.stat-label', key: 'role', index: 1 },
+            // Note: Character info elements now have manual data-translate attributes in HTML
 
             // Eva section
             { selector: '.eva-section .section-title', key: 'evangelion-units' },
@@ -547,11 +544,7 @@ class LanguageSystem {
             this.translateSection(introOverlay);
         }
         
-        // Immediately translate character info card since it may be shown dynamically
-        const characterInfo = document.querySelector('.character-info');
-        if (characterInfo) {
-            this.translateSection(characterInfo);
-        }
+        // Character info card will be handled by updateLanguage and section observer
         
         // Define sections based on page content - only observe sections that exist
         const allPossibleSections = [
@@ -559,7 +552,6 @@ class LanguageSystem {
             '.hero-section', // Hero section (after video) - index.html
             '.synopsis-section', // Synopsis - index.html
             '.character-gallery', // Characters - index.html
-            '.character-info', // Character info card - index.html
             '.eva-section', // EVA Units - index.html
             '.episodes-library-header', // Episodes header - episodes.html
             '.episodes-library', // Episodes content - episodes.html
@@ -831,6 +823,7 @@ class LanguageSystem {
         const promises = elementsArray.map((element, index) => {
             const translateKey = element.getAttribute('data-translate');
             const originalText = element.textContent.trim();
+            // Use Spanish as target for section translations (Japanese → Spanish)
             const targetText = this.translations.es[translateKey] || originalText;
             
             // Determine element characteristics for glitch intensity

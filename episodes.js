@@ -699,16 +699,16 @@ class EpisodeLibrary {
         
         if (!isUnlocked) {
             watchBtn.classList.add('disabled');
-            watchText.textContent = 'Episode Locked';
+            watchText.textContent = 'Episodio bloqueado';
             watchBtn.disabled = true;
         } else {
             watchBtn.classList.remove('disabled');
             watchBtn.disabled = false;
             if (isWatched) {
-                watchText.textContent = 'Mark as Unwatched';
+                watchText.textContent = 'Marcar como no visto';
                 watchBtn.style.background = 'linear-gradient(135deg, var(--primary-red), rgba(255, 0, 0, 0.8))';
             } else {
-                watchText.textContent = 'Mark as Watched';
+                watchText.textContent = 'Marcar como visto';
                 watchBtn.style.background = 'linear-gradient(135deg, var(--terminal-green), rgba(0, 255, 0, 0.8))';
             }
         }
