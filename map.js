@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initMapbox();
     initMapControls();
     initNavigation();
+    initAngelAlert();
 });
 
 // ===== MAPBOX INTEGRATION =====
@@ -460,8 +461,12 @@ document.addEventListener('keydown', function(e) {
     
     switch(e.key) {
         case 'Escape':
-            // Close mobile menu if open
-            if (burgerMenu && navMenu && navMenu.classList.contains('active')) {
+            // Check if angel alert modal is open first
+            const angelModal = document.getElementById('angelAlertModal');
+            if (angelModal && angelModal.classList.contains('active')) {
+                hideAngelAlert();
+            } else if (burgerMenu && navMenu && navMenu.classList.contains('active')) {
+                // Close mobile menu if open
                 burgerMenu.classList.remove('active');
                 navMenu.classList.remove('active');
                 document.body.style.overflow = '';
@@ -508,3 +513,108 @@ function addTerminalGlitch() {
 setTimeout(() => {
     addTerminalGlitch();
 }, 1000);
+
+// ===== ANGEL ALERT SYSTEM =====
+let angelAlertTimer;
+let angelAlertSound;
+
+function initAngelAlert() {
+    // Set timer for 10 seconds
+    angelAlertTimer = setTimeout(() => {
+        showAngelAlert();
+    }, 10000);
+    
+    // Initialize close button
+    const closeBtn = document.getElementById('closeAngelModal');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', hideAngelAlert);
+    }
+    
+    // Note: Escape key handling is done in the main keyboard shortcuts section
+    
+    // Close modal on background click (not on modal content)
+    const modal = document.getElementById('angelAlertModal');
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            // Only close if clicking directly on the modal background, not its content
+            if (e.target === modal) {
+                hideAngelAlert();
+            }
+        });
+        
+        // Prevent modal content clicks from bubbling up
+        const modalContent = modal.querySelector('.modal-content');
+        if (modalContent) {
+            modalContent.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        }
+    }
+}
+
+function showAngelAlert() {
+    const modal = document.getElementById('angelAlertModal');
+    if (modal) {
+        modal.classList.add('active');
+        
+        // Play alarm sound
+        playAngelAlertSound();
+        
+        // Note: Modal will stay open until user manually closes it
+    }
+}
+
+function hideAngelAlert() {
+    const modal = document.getElementById('angelAlertModal');
+    if (modal) {
+        modal.classList.remove('active');
+        
+        // Stop alarm sound
+        stopAngelAlertSound();
+        
+        // Remove any pending interaction listeners
+        document.removeEventListener('click', playOnInteraction);
+        document.removeEventListener('keydown', playOnInteraction);
+    }
+}
+
+function playAngelAlertSound() {
+    try {
+        // Create new audio instance
+        angelAlertSound = new Audio('Media/sounds/HACKMAGI _ ReWORK - UNKNOWNMAER.mp3');
+        angelAlertSound.volume = 0.7;
+        angelAlertSound.loop = true;
+        
+        // Handle potential autoplay restrictions
+        const playPromise = angelAlertSound.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                console.log('Angel alert sound playing');
+            }).catch(error => {
+                console.warn('Audio autoplay was prevented:', error);
+                // Try to play on user interaction
+                document.addEventListener('click', playOnInteraction, { once: true });
+                document.addEventListener('keydown', playOnInteraction, { once: true });
+            });
+        }
+    } catch (error) {
+        console.warn('Could not load angel alert sound:', error);
+    }
+}
+
+function playOnInteraction() {
+    if (angelAlertSound && document.getElementById('angelAlertModal').classList.contains('active')) {
+        angelAlertSound.play().catch(error => {
+            console.warn('Could not play sound on interaction:', error);
+        });
+    }
+}
+
+function stopAngelAlertSound() {
+    if (angelAlertSound) {
+        angelAlertSound.pause();
+        angelAlertSound.currentTime = 0;
+        angelAlertSound = null;
+    }
+}
