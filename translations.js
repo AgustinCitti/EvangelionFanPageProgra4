@@ -106,6 +106,30 @@ const translations = {
         'academic-project': '学術プロジェクト',
         'programming-4': 'プログラミング 4',
         'educational-purposes': '教育目的で作成されました。',
+        
+        // Sync Overlay
+        'sync-ratio': 'シンクロ率:',
+        'neural-link': 'ニューラルリンク:',
+        'at-field': 'A.T.フィールド:',
+        'standby': 'スタンバイ',
+        'inactive': '不活性',
+        'awaiting-pilot': 'パイロット入力待機中',
+        'initiate-sync': '同期開始',
+
+        // Map page
+        'tactical-map': '戦術マップシステム',
+        'map-controls': 'マップコントロール:',
+        'reset-view': 'ビューリセット',
+        'satellite': '衛星',
+        'terrain': '地形',
+        'labels': 'ラベル',
+
+        // Report page
+        'mission-report': 'ミッションレポート',
+        'classified-nerv': 'NERV機密データベース',
+        'security-level': 'セキュリティレベル: 制限',
+        'authorized-only': '許可された職員のみ',
+        'enter-admin': '管理者として入力',
 
         // Episodes page
         'episode-archive': 'エピソードアーカイブ',
@@ -289,6 +313,30 @@ const translations = {
         'academic-project': 'PROYECTO ACADÉMICO',
         'programming-4': 'Programación 4',
         'educational-purposes': 'Creado con fines educativos.',
+        
+        // Sync Overlay
+        'sync-ratio': 'PROPORCIÓN DE SINCRONIZACIÓN:',
+        'neural-link': 'ENLACE NEURAL:',
+        'at-field': 'CAMPO A.T.:',
+        'standby': 'ESPERA',
+        'inactive': 'INACTIVO',
+        'awaiting-pilot': 'ESPERANDO ENTRADA DEL PILOTO',
+        'initiate-sync': 'INICIAR SINCRONIZACIÓN',
+
+        // Map page
+        'tactical-map': 'SISTEMA DE MAPA TÁCTICO',
+        'map-controls': 'CONTROLES DEL MAPA:',
+        'reset-view': 'RESTABLECER VISTA',
+        'satellite': 'SATÉLITE',
+        'terrain': 'TERRENO',
+        'labels': 'ETIQUETAS',
+
+        // Report page
+        'mission-report': 'INFORME DE MISIÓN',
+        'classified-nerv': 'BASE DE DATOS CLASIFICADA NERV',
+        'security-level': 'NIVEL DE SEGURIDAD: RESTRINGIDO',
+        'authorized-only': 'SOLO PERSONAL AUTORIZADO',
+        'enter-admin': 'INGRESAR COMO ADMINISTRADOR',
 
         // Episodes page
         'episode-archive': 'Archivo de Episodios',
@@ -434,12 +482,25 @@ class LanguageSystem {
             { selector: '.footer-section h3', key: 'academic-project', index: 2 },
             { selector: '.footer-section p', key: 'programming-4', index: 1 },
             { selector: '.footer-bottom p', key: 'educational-purposes' },
+            
+            // Sync Overlay (already have data-translate, but need to be registered)
+            { selector: '.label[data-translate="sync-ratio"]', key: 'sync-ratio' },
+            { selector: '.label[data-translate="neural-link"]', key: 'neural-link' },
+            { selector: '.label[data-translate="at-field"]', key: 'at-field' },
+            { selector: '.value[data-translate="standby"]', key: 'standby' },
+            { selector: '.value[data-translate="inactive"]', key: 'inactive' },
+            { selector: '.status-text[data-translate="awaiting-pilot"]', key: 'awaiting-pilot' },
+            { selector: '.btn-text[data-translate="initiate-sync"]', key: 'initiate-sync' },
 
             // Episodes page
             { selector: '.library-title', key: 'nerv-archive' },
             { selector: '.library-subtitle', key: 'classified-database' },
             { selector: '.tab-text', key: 'episodes', index: 0 },
             { selector: '.tab-text', key: 'gallery', index: 1 },
+            { selector: '.stat-label[data-translate="episodes-unlocked"]', key: 'episodes-unlocked' },
+            { selector: '.stat-label[data-translate="episodes-watched"]', key: 'episodes-watched' },
+            { selector: '.stat-label[data-translate="total-episodes"]', key: 'total-episodes' },
+            { selector: '#dialogWatchText', key: 'mark-watched' },
 
             // Map page
             { selector: '.map-title', key: 'tactical-map' },
@@ -481,14 +542,35 @@ class LanguageSystem {
             this.translateSection(nav);
         }
         
-        // Define main sections to observe (excluding nav since it's translated immediately)
-        const sectionSelectors = [
-            '.hero-section', // Hero section (after video)
-            '.synopsis-section', // Synopsis
-            '.character-gallery', // Characters
-            '.eva-section', // EVA Units
-            '.footer' // Footer
+        // Immediately translate intro overlay since it's visible on page load
+        const introOverlay = document.querySelector('.intro-overlay');
+        if (introOverlay) {
+            console.log('🔥 Immediately translating intro overlay (visible on load)');
+            this.translateSection(introOverlay);
+        }
+        
+        // Define sections based on page content - only observe sections that exist
+        const allPossibleSections = [
+            '.intro-overlay', // Intro overlay with sync interface - index.html
+            '.hero-section', // Hero section (after video) - index.html
+            '.synopsis-section', // Synopsis - index.html
+            '.character-gallery', // Characters - index.html
+            '.eva-section', // EVA Units - index.html
+            '.episodes-library-header', // Episodes header - episodes.html
+            '.episodes-library', // Episodes content - episodes.html
+            '.map-section', // Map section - map.html
+            '.report-header', // Report header - report.html
+            '.footer' // Footer - all pages
         ];
+        
+        // Only include sections that actually exist on this page
+        const sectionSelectors = allPossibleSections.filter(selector => {
+            const exists = document.querySelector(selector) !== null;
+            if (exists) {
+                console.log(`✅ Found section: ${selector}`);
+            }
+            return exists;
+        });
 
         // Create intersection observer
         const observer = new IntersectionObserver((entries) => {
@@ -514,15 +596,11 @@ class LanguageSystem {
             threshold: 0.1 // Trigger when 10% of section is visible
         });
 
-        // Observe each section
+        // Observe each existing section
         sectionSelectors.forEach(selector => {
             const section = document.querySelector(selector);
-            if (section) {
-                console.log(`📍 Observing section: ${selector} (${section.className || section.tagName})`);
-                observer.observe(section);
-            } else {
-                console.warn(`⚠️ Section not found: ${selector}`);
-            }
+            console.log(`📍 Observing section: ${selector} (${section.className || section.tagName})`);
+            observer.observe(section);
         });
 
         // Store observer for cleanup if needed
@@ -732,6 +810,12 @@ class LanguageSystem {
         // Find all translatable elements within this section
         const elements = section.querySelectorAll('[data-translate]');
         console.log(`📝 Found ${elements.length} translatable elements in section`);
+        if (elements.length > 0) {
+            elements.forEach((el, i) => {
+                const key = el.getAttribute('data-translate');
+                console.log(`  - Element ${i + 1}: ${el.tagName.toLowerCase()} with key "${key}"`);
+            });
+        }
         
         if (elements.length === 0) {
             console.warn('⚠️ No translatable elements found in section');

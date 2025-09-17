@@ -39,13 +39,13 @@
             <!-- Navigation Menu -->
             <div class="nav-menu" id="navMenu">
                 <ul class="nav-links">
-                    <li><a href="index.html#hero" class="nav-link" data-section="hero" data-page="index">INTRO</a></li>
-                    <li><a href="index.html#synopsis" class="nav-link" data-section="synopsis" data-page="index">OVERVIEW</a></li>
-                    <li><a href="index.html#characters" class="nav-link" data-section="characters" data-page="index">PILOTS</a></li>
-                    <li><a href="index.html#evas" class="nav-link" data-section="evas" data-page="index">UNITS</a></li>
-                    <li><a href="episodes.html" class="nav-link active" data-page="episodes">ARCHIVE</a></li>
-                    <li><a href="map.html" class="nav-link" data-page="map">MAP</a></li>
-                    <li><a href="report.html" class="nav-link" data-page="report">REPORT</a></li>
+                    <li><a href="index.html#hero" class="nav-link" data-section="hero" data-page="index" data-translate="nav-intro">イントロ</a></li>
+                    <li><a href="index.html#synopsis" class="nav-link" data-section="synopsis" data-page="index" data-translate="nav-overview">概要</a></li>
+                    <li><a href="index.html#characters" class="nav-link" data-section="characters" data-page="index" data-translate="nav-pilots">パイロット</a></li>
+                    <li><a href="index.html#evas" class="nav-link" data-section="evas" data-page="index" data-translate="nav-units">ユニット</a></li>
+                    <li><a href="episodes.html" class="nav-link active" data-page="episodes" data-translate="nav-archive">アーカイブ</a></li>
+                    <li><a href="map.html" class="nav-link" data-page="map" data-translate="nav-map">マップ</a></li>
+                    <li><a href="report.html" class="nav-link" data-page="report" data-translate="nav-report">レポート</a></li>
                 </ul>
                 <div class="nav-indicator">
                     <div class="nav-indicator-line"></div>
@@ -59,31 +59,31 @@
     <section class="episodes-library-header">
         <div class="container">
             <div class="library-header-content">
-                <h1 class="library-title">NERV ARCHIVE</h1>
-                <p class="library-subtitle">CLASSIFIED DATABASE ACCESS</p>
+                <h1 class="library-title" data-translate="nerv-archive">NERVアーカイブ</h1>
+                <p class="library-subtitle" data-translate="classified-database">機密データベースアクセス</p>
                 
                 <!-- Tab Navigation -->
                 <div class="archive-tabs">
                     <button class="archive-tab active" data-tab="episodes">
                         
-                        <span class="tab-text">EPISODES</span>
+                        <span class="tab-text" data-translate="episodes">エピソード</span>
                     </button>
                     <button class="archive-tab" data-tab="gallery">
                         
-                        <span class="tab-text">GALLERY</span>
+                        <span class="tab-text" data-translate="gallery">ギャラリー</span>
                     </button>
                 </div>
                 <div class="library-stats">
                     <div class="stat-item">
-                        <span class="stat-label">EPISODES UNLOCKED:</span>
+                        <span class="stat-label" data-translate="episodes-unlocked">アンロックされたエピソード:</span>
                         <span class="stat-value" id="unlockedCount">1</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-label">EPISODES WATCHED:</span>
+                        <span class="stat-label" data-translate="episodes-watched">視聴済みエピソード:</span>
                         <span class="stat-value" id="watchedCount">0</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-label">TOTAL EPISODES:</span>
+                        <span class="stat-label" data-translate="total-episodes">総エピソード数:</span>
                         <span class="stat-value">27</span>
                     </div>
                 </div>
@@ -602,7 +602,7 @@
                     <p class="episode-dialog-synopsis" id="dialogSynopsis"></p>
                     <div class="episode-dialog-actions">
                         <button class="episode-dialog-watch-btn" id="dialogWatchBtn">
-                            <span id="dialogWatchText">Mark as Watched</span>
+                            <span id="dialogWatchText" data-translate="mark-watched">視聴済みにマーク</span>
                         </button>
                     </div>
                 </div>
