@@ -402,6 +402,37 @@ function initMapControls() {
 // ===== NAVIGATION =====
 function initNavigation() {
     const navLinks = document.querySelectorAll('.nav-link');
+    const burgerMenu = document.getElementById('burgerMenu');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    // Handle burger menu toggle
+    if (burgerMenu && navMenu) {
+        burgerMenu.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        
+        // Close menu when clicking nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                burgerMenu.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!burgerMenu.contains(e.target) && !navMenu.contains(e.target)) {
+                burgerMenu.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
     
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -424,9 +455,18 @@ function initNavigation() {
 
 // ===== KEYBOARD SHORTCUTS =====
 document.addEventListener('keydown', function(e) {
+    const burgerMenu = document.getElementById('burgerMenu');
+    const navMenu = document.querySelector('.nav-menu');
+    
     switch(e.key) {
         case 'Escape':
-            if (map) {
+            // Close mobile menu if open
+            if (burgerMenu && navMenu && navMenu.classList.contains('active')) {
+                burgerMenu.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            } else if (map) {
+                // Reset map view
                 map.flyTo({
                     center: [139.0909, 35.2606],
                     zoom: 10,
@@ -438,11 +478,13 @@ document.addEventListener('keydown', function(e) {
             break;
         case 'r':
         case 'R':
-            document.getElementById('resetView').click();
+            const resetBtn = document.getElementById('resetView');
+            if (resetBtn) resetBtn.click();
             break;
         case 's':
         case 'S':
-            document.getElementById('toggleSatellite').click();
+            const satelliteBtn = document.getElementById('toggleSatellite');
+            if (satelliteBtn) satelliteBtn.click();
             break;
     }
 });

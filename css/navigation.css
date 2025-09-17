@@ -320,10 +320,10 @@
     
     .nav-menu {
         position: fixed;
-        top: 70px;
+        top: 60px;
         right: -100%;
         width: 280px;
-        height: calc(100vh - 70px);
+        height: calc(100vh - 60px);
         background: rgba(0, 0, 0, 0.95);
         backdrop-filter: blur(15px);
         border-left: 1px solid var(--terminal-green);
@@ -334,6 +334,7 @@
         padding: 2rem 1rem;
         gap: 0;
         z-index: 999;
+        overflow-y: auto;
     }
     
     .nav-menu.active {
@@ -365,9 +366,16 @@
     }
     
     .nav-link:hover {
-        transform: translateX(10px) scale(1.02);
+        transform: translateX(8px) scale(1.02);
         border-color: var(--terminal-green);
         background: rgba(0, 255, 65, 0.1);
+    }
+    
+    .nav-link.active {
+        border-color: var(--primary-red);
+        background: rgba(255, 51, 0, 0.15);
+        color: var(--primary-red);
+        text-shadow: 0 0 8px var(--primary-red);
     }
     
     .nav-indicator {
