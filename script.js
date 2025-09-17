@@ -171,11 +171,9 @@ function skipIntroAndUnlockPage() {
         heroVideo.currentTime = 0;
         heroVideo.play().catch(e => {
             // Handle autoplay restrictions
-            console.log('Video autoplay prevented:', e);
         });
     }
     
-    console.log('Intro skipped - page fully unlocked');
 }
 
 // ===== INTRO SYSTEM =====
@@ -246,7 +244,6 @@ function initIntroSystem() {
             initProgressiveUnlock();
         }, 1000);
         
-        console.log('Hero sequence started');
     }
     
     function startSyncAnimation() {
@@ -264,7 +261,6 @@ function initIntroSystem() {
             introAudio.volume = 0.7; // Set volume to 70%
             introAudio.currentTime = 0; // Reset to beginning
             introAudio.play().catch(e => {
-                console.log('Intro audio autoplay prevented:', e);
                 // Audio will be enabled after user interaction
             });
         }
@@ -396,7 +392,6 @@ function initIntroSystem() {
                     }, 50);
                 }, 600); // Brief pause to show completion status
                 
-                console.log('Sync animation completed');
             }
         }, 100);
     }
@@ -535,21 +530,18 @@ function initProgressiveUnlock() {
         if (currentTime >= 23 && !titleShown) {
             heroTitle.classList.add('show-title');
             titleShown = true;
-            console.log('Title unlocked at', currentTime, 'seconds');
         }
         
         // Show CTA button at 24 seconds
         if (currentTime >= 24 && !ctaShown) {
             ctaButton.classList.add('show-cta');
             ctaShown = true;
-            console.log('CTA unlocked at', currentTime, 'seconds');
         }
         
         // Show navigation at 24 seconds
         if (currentTime >= 24 && !navShown) {
             unlockNavigation();
             navShown = true;
-            console.log('Navigation unlocked at', currentTime, 'seconds');
         }
         
         // Unlock page content at 26 seconds
@@ -557,7 +549,6 @@ function initProgressiveUnlock() {
             unlockPageContent();
             contentUnlocked = true;
             pageUnlocked = true;
-            console.log('Page content unlocked at', currentTime, 'seconds');
         }
     }
     
@@ -635,7 +626,6 @@ function initVideoPlayer() {
             miniVideo.pause();
         }
         
-        console.log('Video initialized - will autoplay muted');
         
         // Enable sound after first user interaction
         function enableSoundOnInteraction() {
@@ -644,7 +634,6 @@ function initVideoPlayer() {
                 heroVideo.muted = false;
                 miniVideo.muted = false;
                 isMuted = false;
-                console.log('Sound enabled after user interaction');
                 
                 // Update sound toggle button state
                 soundToggle.textContent = '🔊';
@@ -849,8 +838,7 @@ function initHeroAnimation() {
         if (pageUnlocked) {
             smoothScrollTo('#synopsis');
         } else {
-            // If page isn't unlocked yet, show a message or wait
-            console.log('Page content not yet unlocked');
+            // If page isn't unlocked yet, wait
         }
     });
 }
@@ -957,8 +945,6 @@ function showPageNavigation() {
     if (pageNav) {
         // Add show class for simple slide down animation
         pageNav.classList.add('show');
-        
-        console.log('Page navigation is now visible');
     }
 }
 
@@ -1220,7 +1206,6 @@ function initScrollEffects() {
         // If user scrolled to locked content, unlock it early
         if (synopsisInView && !pageUnlocked) {
             unlockAllContent();
-            console.log('Content unlocked due to early scroll');
         }
     }
     
@@ -1381,8 +1366,6 @@ function initCursorHideSystem() {
     
     // Initialize the timer
     cursorTimer = setTimeout(hideCursor, hideDelay);
-    
-    console.log('Cursor hide system initialized');
 }
 
 // ===== KEYBOARD SHORTCUTS =====

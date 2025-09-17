@@ -80,7 +80,7 @@ function applyRadarMapStyle() {
             map.setPaintProperty('background', 'background-color', '#000000');
         }
     } catch (error) {
-        console.warn('Could not apply some map styling:', error);
+        // Could not apply some map styling
     }
     
     try {
@@ -100,7 +100,7 @@ function applyRadarMapStyle() {
             map.setPaintProperty('building', 'fill-outline-color', '#00ff41');
         }
     } catch (error) {
-        console.warn('Could not apply road/building styling:', error);
+        // Could not apply road/building styling
     }
 }
 
@@ -264,7 +264,7 @@ function initMapEvents() {
     // Handle map interactions for HUD updates
     map.on('click', function(e) {
         const coords = e.lngLat;
-        console.log(`Clicked at: ${coords.lat}, ${coords.lng}`);
+        // Map clicked
     });
 
     // Update status based on map activity
@@ -303,7 +303,7 @@ function updateMapHUD() {
             zoomElement.textContent = zoom.toFixed(1);
         }
     } catch (error) {
-        console.warn('Error updating map HUD:', error);
+        // Error updating map HUD
     }
 }
 
@@ -316,7 +316,6 @@ function initMapControls() {
 
     // Check if all required elements exist
     if (!resetBtn || !satelliteBtn || !terrainBtn || !labelsBtn) {
-        console.warn('Some map control buttons are missing from the DOM');
         return;
     }
 
@@ -354,7 +353,7 @@ function initMapControls() {
                 map.once('styledata', applyRadarMapStyle);
             }
         } catch (error) {
-            console.warn('Error toggling satellite view:', error);
+            // Error toggling satellite view
         }
     });
 
@@ -377,7 +376,7 @@ function initMapControls() {
                 this.classList.add('active');
             }
         } catch (error) {
-            console.warn('Error toggling terrain:', error);
+            // Error toggling terrain
         }
     });
 
@@ -395,7 +394,7 @@ function initMapControls() {
             this.classList.toggle('active');
             this.textContent = isHidden ? 'LABELS' : 'NO LABELS';
         } catch (error) {
-            console.warn('Error toggling labels:', error);
+            // Error toggling labels
         }
     });
 }
@@ -590,23 +589,22 @@ function playAngelAlertSound() {
         
         if (playPromise !== undefined) {
             playPromise.then(() => {
-                console.log('Angel alert sound playing');
+                // Angel alert sound playing
             }).catch(error => {
-                console.warn('Audio autoplay was prevented:', error);
                 // Try to play on user interaction
                 document.addEventListener('click', playOnInteraction, { once: true });
                 document.addEventListener('keydown', playOnInteraction, { once: true });
             });
         }
     } catch (error) {
-        console.warn('Could not load angel alert sound:', error);
+        // Could not load angel alert sound
     }
 }
 
 function playOnInteraction() {
     if (angelAlertSound && document.getElementById('angelAlertModal').classList.contains('active')) {
         angelAlertSound.play().catch(error => {
-            console.warn('Could not play sound on interaction:', error);
+            // Could not play sound on interaction
         });
     }
 }

@@ -538,14 +538,12 @@ class LanguageSystem {
         // Immediately translate navigation since it's always visible
         const nav = document.querySelector('.page-nav');
         if (nav) {
-            console.log('🔥 Immediately translating navigation (always visible)');
             this.translateSection(nav);
         }
         
         // Immediately translate intro overlay since it's visible on page load
         const introOverlay = document.querySelector('.intro-overlay');
         if (introOverlay) {
-            console.log('🔥 Immediately translating intro overlay (visible on load)');
             this.translateSection(introOverlay);
         }
         
@@ -567,7 +565,6 @@ class LanguageSystem {
         const sectionSelectors = allPossibleSections.filter(selector => {
             const exists = document.querySelector(selector) !== null;
             if (exists) {
-                console.log(`✅ Found section: ${selector}`);
             }
             return exists;
         });
@@ -575,17 +572,11 @@ class LanguageSystem {
         // Create intersection observer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                console.log(`🔍 Section observed: ${entry.target.className || entry.target.tagName}`, {
-                    isIntersecting: entry.isIntersecting,
-                    intersectionRatio: entry.intersectionRatio,
-                    hasBeenTranslated: entry.target.hasAttribute('data-translated')
-                });
                 
                 if (entry.isIntersecting && entry.intersectionRatio > 0.1) {
                     // Check if this section hasn't been translated yet
                     const section = entry.target;
                     if (!section.hasAttribute('data-translated')) {
-                        console.log(`🎯 Triggering translation for section: ${section.className || section.tagName}`);
                         this.translateSection(section);
                         section.setAttribute('data-translated', 'true');
                     }
@@ -599,7 +590,6 @@ class LanguageSystem {
         // Observe each existing section
         sectionSelectors.forEach(selector => {
             const section = document.querySelector(selector);
-            console.log(`📍 Observing section: ${selector} (${section.className || section.tagName})`);
             observer.observe(section);
         });
 
@@ -801,24 +791,13 @@ class LanguageSystem {
     // Translate a specific section
     async translateSection(section) {
         if (this.currentLanguage === 'es') {
-            console.log('🚫 Section already in Spanish, skipping translation');
             return;
         }
         
-        console.log('🎭 Translating section:', section.className || section.tagName);
         
         // Find all translatable elements within this section
         const elements = section.querySelectorAll('[data-translate]');
-        console.log(`📝 Found ${elements.length} translatable elements in section`);
-        if (elements.length > 0) {
-            elements.forEach((el, i) => {
-                const key = el.getAttribute('data-translate');
-                console.log(`  - Element ${i + 1}: ${el.tagName.toLowerCase()} with key "${key}"`);
-            });
-        }
-        
         if (elements.length === 0) {
-            console.warn('⚠️ No translatable elements found in section');
             return;
         }
         
@@ -829,7 +808,6 @@ class LanguageSystem {
         if (this.isAnimating) return;
         this.isAnimating = true;
 
-        console.log('Real-time translation system activated...');
         
         // Directly start the page translation without overlay
         await this.performPageTransition();
@@ -841,7 +819,6 @@ class LanguageSystem {
     async performSectionTransition(elements) {
         const elementsArray = Array.from(elements);
         
-        console.log(`🎯 Processing ${elementsArray.length} elements in section...`);
         
         // Create array of promises for simultaneous element processing
         const promises = elementsArray.map((element, index) => {
@@ -865,7 +842,6 @@ class LanguageSystem {
         // Execute all element transitions simultaneously
         await Promise.all(promises);
         
-        console.log('✅ Section translation completed!');
     }
 
     // Perform the actual page translation with element glitching
@@ -1049,8 +1025,5 @@ document.addEventListener('DOMContentLoaded', function() {
         // Make it available globally for testing
         window.languageSystem = languageSystem;
         
-        console.log('Language system initialized - Section-based translation ready! Press L for manual trigger.');
-        console.log('You can manually trigger the glitch with: window.languageSystem.triggerGlitchTransition()');
-        console.log('Current language:', languageSystem.currentLanguage);
     }, 500);
 });

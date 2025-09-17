@@ -156,7 +156,6 @@ function setupMobileEventListeners() {
                 window.episodeLibrary.openEpisodeDialog(episodeId);
             } else {
                 // Fallback if EpisodeLibrary not initialized
-                console.log(`Mobile episode ${episodeId} clicked - opening dialog`);
                 openMobileEpisodeDialog(episodeId);
             }
         } else {
@@ -181,7 +180,7 @@ function setupMobileEventListeners() {
                 window.episodeLibrary.toggleWatchStatus(episodeId);
                 // updateMobileEpisodeCards is now called automatically by updateUI in EpisodeLibrary
             } else {
-                console.log(`Mobile episode ${episodeId} watch status toggled (fallback)`);
+                // Mobile episode watch status toggled (fallback)
             }
         }
     });
@@ -193,14 +192,12 @@ function openMobileEpisodeDialog(episodeId) {
     // Fallback dialog opening functionality
     const dialog = document.getElementById('episodeDialog');
     if (!dialog) {
-        console.error('Episode dialog not found');
         return;
     }
     
     // Use existing episode data
     const episode = episodes[episodeId - 1];
     if (!episode) {
-        console.error(`Episode ${episodeId} not found`);
         return;
     }
     
@@ -236,7 +233,7 @@ function openMobileEpisodeDialog(episodeId) {
         // Ensure close button works
         setupDialogCloseHandler();
     } else {
-        console.error('Dialog elements not found');
+        // Dialog elements not found
     }
 }
 
@@ -327,7 +324,6 @@ function forceCloseAllDialogs() {
         imageModal.classList.remove('active');
     }
     
-    console.log('All dialogs closed on page load');
 }
 
 // Gallery images data
