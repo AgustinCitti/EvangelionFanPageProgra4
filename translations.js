@@ -473,12 +473,7 @@ class LanguageSystem {
             // Eva section
             { selector: '.eva-section .section-title', key: 'evangelion-units' },
 
-            // Footer
-            { selector: '.footer-section p', key: 'redefined-anime', index: 0 },
-            { selector: '.footer-section h3', key: 'developer', index: 1 },
-            { selector: '.footer-section h3', key: 'academic-project', index: 2 },
-            { selector: '.footer-section p', key: 'programming-4', index: 1 },
-            { selector: '.footer-bottom p', key: 'educational-purposes' },
+            // Footer is now static Spanish only
             
             // Sync Overlay (already have data-translate, but need to be registered)
             { selector: '.label[data-translate="sync-ratio"]', key: 'sync-ratio' },
@@ -556,8 +551,8 @@ class LanguageSystem {
             '.episodes-library-header', // Episodes header - episodes.html
             '.episodes-library', // Episodes content - episodes.html
             '.map-section', // Map section - map.html
-            '.report-header', // Report header - report.html
-            '.footer' // Footer - all pages
+            '.report-header' // Report header - report.html
+            // Footer is now static Spanish only
         ];
         
         // Only include sections that actually exist on this page
