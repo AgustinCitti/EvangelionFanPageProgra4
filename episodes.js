@@ -44,6 +44,141 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// ===== MOBILE EPISODES COMPONENT =====
+function createMobileEpisodesGrid() {
+    const mobileGrid = document.getElementById('mobileEpisodesGrid');
+    if (!mobileGrid) return;
+
+    // Clear existing content
+    mobileGrid.innerHTML = '';
+
+    // Episode data
+    const episodes = [
+        { id: 1, image: 'Media/episodes/one.webp', status: 'unlocked' },
+        { id: 2, image: 'Media/episodes/two.webp', status: 'locked' },
+        { id: 3, image: 'Media/episodes/three.webp', status: 'locked' },
+        { id: 4, image: 'Media/episodes/four.webp', status: 'locked' },
+        { id: 5, image: 'Media/episodes/five.webp', status: 'locked' },
+        { id: 6, image: 'Media/episodes/six.webp', status: 'locked' },
+        { id: 7, image: 'Media/episodes/seven.webp', status: 'locked' },
+        { id: 8, image: 'Media/episodes/eight.webp', status: 'locked' },
+        { id: 9, image: 'Media/episodes/nine.webp', status: 'locked' },
+        { id: 10, image: 'Media/episodes/ten.webp', status: 'locked' },
+        { id: 11, image: 'Media/episodes/eleven.webp', status: 'locked' },
+        { id: 12, image: 'Media/episodes/twelve.webp', status: 'locked' },
+        { id: 13, image: 'Media/episodes/thirdteen.webp', status: 'locked' },
+        { id: 14, image: 'Media/episodes/fourteen.webp', status: 'locked' },
+        { id: 15, image: 'Media/episodes/fifteen.webp', status: 'locked' },
+        { id: 16, image: 'Media/episodes/sixteen.webp', status: 'locked' },
+        { id: 17, image: 'Media/episodes/seventeen.webp', status: 'locked' },
+        { id: 18, image: 'Media/episodes/eighteen.webp', status: 'locked' },
+        { id: 19, image: 'Media/episodes/nineteen.webp', status: 'locked' },
+        { id: 20, image: 'Media/episodes/twenty.webp', status: 'locked' },
+        { id: 21, image: 'Media/episodes/twentyone.webp', status: 'locked' },
+        { id: 22, image: 'Media/episodes/twentytwo.webp', status: 'locked' },
+        { id: 23, image: 'Media/episodes/twentythree.webp', status: 'locked' },
+        { id: 24, image: 'Media/episodes/twentyfour.webp', status: 'locked' },
+        { id: 25, image: 'Media/episodes/twentyfive.webp', status: 'locked' },
+        { id: 26, image: 'Media/episodes/twentysix.webp', status: 'locked' },
+        { id: 27, image: 'Media/episodes/endofevangelion.jpeg', status: 'locked', number: 'EOE' }
+    ];
+
+    // Generate mobile episode cards
+    episodes.forEach(episode => {
+        const episodeCard = document.createElement('div');
+        episodeCard.className = `mobile-episode-card ${episode.status}`;
+        episodeCard.dataset.episode = episode.id;
+
+        const episodeNumber = episode.number || (episode.id < 10 ? `0${episode.id}` : episode.id);
+        const watchIcon = episode.status === 'locked' ? '🔒' : '👁️';
+        const isDisabled = episode.status === 'locked' ? 'disabled' : '';
+
+        episodeCard.innerHTML = `
+            <div class="mobile-episode-image">
+                <img src="${episode.image}" alt="Episode ${episode.id}">
+            </div>
+            ${episode.status === 'locked' ? `
+                <div class="mobile-classified-overlay">
+                    <div class="mobile-classified-text"></div>
+                </div>
+            ` : ''}
+            <div class="mobile-episode-number">${episodeNumber}</div>
+            <button class="mobile-watch-toggle ${isDisabled}" data-episode="${episode.id}" title="${episode.status === 'locked' ? 'Episode locked' : 'Mark as watched'}">
+                <span class="mobile-watch-icon">${watchIcon}</span>
+            </button>
+        `;
+
+        mobileGrid.appendChild(episodeCard);
+    });
+
+    // Add mobile event listeners
+    setupMobileEventListeners();
+}
+
+function setupMobileEventListeners() {
+    const mobileGrid = document.getElementById('mobileEpisodesGrid');
+    if (!mobileGrid) return;
+
+    // Handle mobile episode card clicks
+    mobileGrid.addEventListener('click', function(e) {
+        const episodeCard = e.target.closest('.mobile-episode-card');
+        if (!episodeCard) return;
+
+        const episodeId = episodeCard.dataset.episode;
+        const isLocked = episodeCard.classList.contains('locked');
+
+        if (!isLocked) {
+            // Handle unlocked episode interaction
+            console.log(`Mobile episode ${episodeId} clicked`);
+            // You can add more functionality here like opening a modal or dialog
+        } else {
+            // Handle locked episode feedback
+            episodeCard.style.animation = 'shake 0.5s ease-in-out';
+            setTimeout(() => {
+                episodeCard.style.animation = '';
+            }, 500);
+        }
+    });
+
+    // Handle mobile watch toggle
+    mobileGrid.addEventListener('click', function(e) {
+        if (e.target.closest('.mobile-watch-toggle') && !e.target.closest('.disabled')) {
+            e.stopPropagation();
+            const button = e.target.closest('.mobile-watch-toggle');
+            const episodeCard = button.closest('.mobile-episode-card');
+            const episodeId = button.dataset.episode;
+
+            // Toggle watched state
+            if (episodeCard.classList.contains('watched')) {
+                episodeCard.classList.remove('watched');
+                button.querySelector('.mobile-watch-icon').textContent = '👁️';
+                button.title = 'Mark as watched';
+            } else {
+                episodeCard.classList.add('watched');
+                button.querySelector('.mobile-watch-icon').textContent = '✅';
+                button.title = 'Marked as watched';
+            }
+
+            console.log(`Mobile episode ${episodeId} watch status toggled`);
+        }
+    });
+}
+
+// Initialize mobile component when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if we're on mobile
+    if (window.innerWidth <= 768) {
+        createMobileEpisodesGrid();
+    }
+    
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth <= 768) {
+            createMobileEpisodesGrid();
+        }
+    });
+});
+
 // Gallery images data
 const galleryImages = [
     // Characters
