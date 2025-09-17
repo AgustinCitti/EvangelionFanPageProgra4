@@ -86,3 +86,27 @@
         line-height: 1.4;
     }
 }
+
+/* ===== SITEMAP FOOTER LINK ===== */
+.sitemap-footer-link {
+    color: var(--terminal-green);
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin-left: 1rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+}
+
+.sitemap-footer-link:hover {
+    color: var(--text-primary);
+    background: rgba(0, 255, 65, 0.1);
+    text-shadow: 0 0 5px var(--terminal-green);
+}
+
+@media (max-width: 480px) {
+    .sitemap-footer-link {
+        margin-left: 0.5rem;
+        font-size: 0.75rem;
+    }
+}

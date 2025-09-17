@@ -1,0 +1,405 @@
+/* ===== SITEMAP PAGE STYLES ===== */
+
+.sitemap-page {
+    background: var(--background-dark);
+    color: var(--text-primary);
+    min-height: 100vh;
+}
+
+.sitemap-main {
+    padding-top: 80px;
+    padding-bottom: 2rem;
+    min-height: calc(100vh - 80px);
+}
+
+/* ===== SITEMAP HEADER ===== */
+.sitemap-header {
+    text-align: center;
+    padding: 3rem 0;
+    position: relative;
+}
+
+.sitemap-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--terminal-green);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 1rem 0;
+    text-shadow: 
+        0 0 20px var(--terminal-green),
+        0 0 40px var(--terminal-green);
+    animation: titleGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+    0% {
+        text-shadow: 
+            0 0 20px var(--terminal-green),
+            0 0 40px var(--terminal-green);
+    }
+    100% {
+        text-shadow: 
+            0 0 30px var(--terminal-green),
+            0 0 60px var(--terminal-green),
+            0 0 80px var(--terminal-green);
+    }
+}
+
+.sitemap-subtitle {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.08em;
+    margin: 0.5rem 0 2rem;
+    text-transform: uppercase;
+}
+
+.section-border {
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--terminal-green), transparent);
+    margin: 0 auto 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.section-border::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--primary-red), transparent);
+    animation: borderScan 3s linear infinite;
+}
+
+@keyframes borderScan {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* ===== SITEMAP CONTENT ===== */
+.sitemap-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.sitemap-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 3rem;
+    padding: 2rem 0;
+}
+
+.sitemap-section {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--dark-green);
+    border-radius: 8px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.sitemap-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--terminal-green), transparent);
+    animation: sectionScan 4s linear infinite;
+}
+
+@keyframes sectionScan {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.sitemap-section:hover {
+    border-color: var(--terminal-green);
+    background: rgba(0, 255, 65, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 255, 65, 0.2);
+}
+
+.section-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--terminal-green);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--dark-green);
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 30%;
+    height: 1px;
+    background: var(--terminal-green);
+    box-shadow: 0 0 5px var(--terminal-green);
+}
+
+.subsection-title {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 2rem 0 1rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--dark-green);
+}
+
+/* ===== SITEMAP LINKS ===== */
+.sitemap-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.sitemap-links.subsections {
+    margin-left: 1rem;
+    border-left: 1px solid var(--dark-green);
+    padding-left: 1rem;
+}
+
+.sitemap-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--dark-green);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.sitemap-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+    transition: left 0.3s ease;
+}
+
+.sitemap-link:hover::before {
+    left: 0;
+}
+
+.sitemap-link:hover {
+    border-color: var(--terminal-green);
+    background: rgba(0, 255, 65, 0.08);
+    transform: translateX(5px);
+    box-shadow: 0 2px 10px rgba(0, 255, 65, 0.2);
+}
+
+.sitemap-link.main-page {
+    border-color: var(--primary-red);
+    background: rgba(255, 51, 0, 0.1);
+}
+
+.sitemap-link.main-page:hover {
+    border-color: var(--primary-red);
+    background: rgba(255, 51, 0, 0.15);
+    box-shadow: 0 2px 10px rgba(255, 51, 0, 0.3);
+}
+
+.sitemap-link.feature,
+.sitemap-link.info {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.9;
+}
+
+.sitemap-link.feature {
+    border-color: var(--neon-orange);
+    background: rgba(255, 165, 0, 0.08);
+}
+
+.sitemap-link.info {
+    border-color: var(--warning-yellow);
+    background: rgba(255, 255, 0, 0.05);
+}
+
+.link-icon {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.2rem;
+    color: var(--terminal-green);
+    font-weight: bold;
+    min-width: 20px;
+    text-align: center;
+}
+
+.sitemap-link.main-page .link-icon {
+    color: var(--primary-red);
+}
+
+.sitemap-link.feature .link-icon {
+    color: var(--neon-orange);
+}
+
+.sitemap-link.info .link-icon {
+    color: var(--warning-yellow);
+}
+
+.link-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.link-title {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.link-desc {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+/* ===== FOOTER SITEMAP LINK ===== */
+.sitemap-footer-link {
+    color: var(--terminal-green);
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin-left: 1rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+}
+
+.sitemap-footer-link:hover {
+    color: var(--text-primary);
+    background: rgba(0, 255, 65, 0.1);
+    text-shadow: 0 0 5px var(--terminal-green);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1024px) {
+    .sitemap-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .sitemap-section {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .sitemap-main {
+        padding-top: 70px;
+    }
+    
+    .sitemap-title {
+        font-size: 2.2rem;
+    }
+    
+    .sitemap-subtitle {
+        font-size: 1rem;
+    }
+    
+    .sitemap-grid {
+        gap: 1.5rem;
+        padding: 1rem 0;
+    }
+    
+    .sitemap-section {
+        padding: 1.2rem;
+    }
+    
+    .section-title {
+        font-size: 1.2rem;
+    }
+    
+    .sitemap-link {
+        padding: 0.8rem;
+        gap: 0.8rem;
+    }
+    
+    .link-title {
+        font-size: 0.9rem;
+    }
+    
+    .link-desc {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .sitemap-header {
+        padding: 2rem 0;
+    }
+    
+    .sitemap-title {
+        font-size: 1.8rem;
+    }
+    
+    .sitemap-subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .sitemap-section {
+        padding: 1rem;
+    }
+    
+    .section-title {
+        font-size: 1.1rem;
+    }
+    
+    .subsection-title {
+        font-size: 0.9rem;
+    }
+    
+    .sitemap-link {
+        padding: 0.7rem;
+        gap: 0.7rem;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+    
+    .link-icon {
+        align-self: flex-start;
+    }
+    
+    .link-title {
+        font-size: 0.85rem;
+    }
+    
+    .link-desc {
+        font-size: 0.75rem;
+    }
+    
+    .sitemap-links.subsections {
+        margin-left: 0.5rem;
+        padding-left: 0.5rem;
+    }
+}
