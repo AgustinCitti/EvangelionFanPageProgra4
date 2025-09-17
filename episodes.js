@@ -377,35 +377,35 @@ const galleryImages = [
     { src: 'Media/nav.png', title: 'NERV Logo', category: 'other', alt: 'NERV Navigation Logo' }
 ];
 
-// Episodes data
+// Episodes data - Spanish only
 const episodes = [
-    { title: "Angel Attack", synopsis: "Fifteen years after the Second Impact, Shinji Ikari is summoned to Tokyo-3 by his estranged father to pilot a giant bio-mechanical robot called Evangelion to combat beings known as Angels." },
-    { title: "The Beast", synopsis: "Shinji wakes up in the hospital and is immediately ordered to pilot Eva Unit-01 again. He meets his fellow pilot Rei Ayanami and begins to understand the weight of his responsibilities." },
-    { title: "A Transfer", synopsis: "A new student transfers to Shinji's school, and the mysterious Third Angel appears. Shinji must overcome his fears to protect those he cares about." },
-    { title: "Hedgehog's Dilemma", synopsis: "Shinji moves in with Misato and starts attending school. He struggles with connecting to others while learning about the Hedgehog's Dilemma." },
-    { title: "Rei I", synopsis: "Shinji tries to get to know Rei better, while a new Angel attacks. We learn more about Rei's mysterious connection to Gendo." },
-    { title: "Rei II", synopsis: "The sixth Angel attacks Tokyo-3, forcing Shinji and Rei to work together in a synchronized operation to defeat it." },
-    { title: "A Human Work", synopsis: "NERV faces a human threat as a prototype giant robot built by the Japanese government challenges the Evangelions." },
-    { title: "Asuka Strikes!", synopsis: "The fiery Asuka Langley arrives from Germany with Eva Unit-02, immediately clashing with Shinji while fighting the eighth Angel." },
-    { title: "Both of You, Dance Like You Want to Win!", synopsis: "Shinji and Asuka must learn to synchronize their movements to defeat an Angel that has split into two parts." },
-    { title: "Magma Diver", synopsis: "Asuka pilots Eva Unit-02 in a dangerous mission to capture an Angel hiding in an active volcano." },
-    { title: "The Day Tokyo-3 Stood Still", synopsis: "A massive blackout hits Tokyo-3 just as an Angel attacks, forcing the Eva pilots to fight without power support." },
-    { title: "She said, 'Don't make others suffer for your personal hatred.'", synopsis: "As the twelfth Angel infiltrates NERV headquarters, Shinji must navigate through the facility to reach his Eva." },
-    { title: "Lilliputian Hitcher", synopsis: "A microscopic Angel infects Eva Unit-00 and threatens to take control of it, forcing the pilots to enter a computer simulation." },
-    { title: "Weaving a Story", synopsis: "Tokyo-3 faces a powerful Angel that can learn and adapt to any attack, pushing the Evas to their limits." },
-    { title: "Those women longed for the touch of others' lips, and thus invited their kisses.", synopsis: "The fifteenth Angel attacks during a total solar eclipse, leading to revelations about the Angels' true nature." },
-    { title: "Splitting of the Breast", synopsis: "Shinji's sync ratio reaches dangerous levels as he faces psychological breakdown and questions his own identity." },
-    { title: "Fourth Child", synopsis: "The selection of the Fourth Child creates tension at NERV, while Unit-03 becomes possessed by an Angel." },
-    { title: "Ambivalence", synopsis: "Shinji pilots Eva Unit-01 against the Angel-possessed Unit-03, not knowing who the pilot inside is." },
-    { title: "Introjection", synopsis: "The most powerful Angel yet appears and begins a psychological attack on the Eva pilots' minds." },
-    { title: "Weaving a Story 2: oral stage", synopsis: "Shinji's psychological state deteriorates further as the twentieth Angel continues its mental assault." },
-    { title: "He was aware that he was still a child.", synopsis: "Kaji's investigation into NERV's true agenda reaches its climax, while relationships between characters become strained." },
-    { title: "Don't Be.", synopsis: "The twenty-second Angel attacks and Asuka faces her traumatic past, leading to a devastating defeat." },
-    { title: "Rei III", synopsis: "Rei faces her own existential crisis as Armisael, the twenty-third Angel, attacks by trying to merge with Eva Unit-00." },
-    { title: "The Beginning and the End, or 'Knockin' on Heaven's Door'", synopsis: "Kaworu Nagisa arrives as the final Angel and pilot, forming a deep connection with Shinji before revealing his true nature." },
-    { title: "Do you love me?", synopsis: "Shinji must make an impossible choice regarding Kaworu, leading to the series' psychological exploration." },
-    { title: "Take care of yourself.", synopsis: "The final TV episode delves deep into the minds of the characters during the Human Instrumentality Project." },
-    { title: "The End of Evangelion", synopsis: "The feature film conclusion to the series. As the Third Impact begins, Shinji must make the ultimate choice for humanity's future while confronting his deepest fears and desires." }
+    { title: "El Ataque del Ángel", synopsis: "Quince años después del Segundo Impacto, Shinji Ikari es convocado a Tokyo-3 por su padre distanciado para pilotar un robot bio-mecánico gigante llamado Evangelion para combatir seres conocidos como Ángeles." },
+    { title: "La Bestia", synopsis: "Shinji despierta en el hospital y inmediatamente recibe la orden de pilotar la Unidad EVA-01 nuevamente. Conoce a su compañera piloto Rei Ayanami y comienza a entender el peso de sus responsabilidades." },
+    { title: "Un Trasladado", synopsis: "Un nuevo estudiante se transfiere a la escuela de Shinji, y aparece el misterioso Tercer Ángel. Shinji debe superar sus miedos para proteger a aquellos que le importan." },
+    { title: "El Dilema del Erizo", synopsis: "Shinji se muda con Misato y comienza a asistir a la escuela. Lucha por conectar con otros mientras aprende sobre el Dilema del Erizo." },
+    { title: "Rei I", synopsis: "Shinji trata de conocer mejor a Rei, mientras un nuevo Ángel ataca. Aprendemos más sobre la misteriosa conexión de Rei con Gendo." },
+    { title: "Rei II", synopsis: "El sexto Ángel ataca Tokyo-3, obligando a Shinji y Rei a trabajar juntos en una operación sincronizada para derrotarlo." },
+    { title: "Una Obra Humana", synopsis: "NERV enfrenta una amenaza humana cuando un prototipo de robot gigante construido por el gobierno japonés desafía a los Evangelions." },
+    { title: "¡Asuka Ataca!", synopsis: "La ardiente Asuka Langley llega de Alemania con la Unidad EVA-02, chocando inmediatamente con Shinji mientras lucha contra el octavo Ángel." },
+    { title: "¡Los Dos, Bailen Como Si Quisieran Ganar!", synopsis: "Shinji y Asuka deben aprender a sincronizar sus movimientos para derrotar a un Ángel que se ha dividido en dos partes." },
+    { title: "Buceador de Magma", synopsis: "Asuka pilota la Unidad EVA-02 en una misión peligrosa para capturar un Ángel escondido en un volcán activo." },
+    { title: "El Día que Tokyo-3 Se Detuvo", synopsis: "Un apagón masivo golpea Tokyo-3 justo cuando un Ángel ataca, obligando a los pilotos Eva a luchar sin soporte energético." },
+    { title: "Ella Dijo, 'No Hagas Sufrir a Otros por tu Odio Personal'", synopsis: "Mientras el duodécimo Ángel se infiltra en la sede de NERV, Shinji debe navegar por la instalación para llegar a su Eva." },
+    { title: "El Invasor Liliputiense", synopsis: "Un Ángel microscópico infecta la Unidad EVA-00 y amenaza con tomar control de ella, obligando a los pilotos a entrar en una simulación computarizada." },
+    { title: "Tejiendo una Historia", synopsis: "Tokyo-3 enfrenta un poderoso Ángel que puede aprender y adaptarse a cualquier ataque, llevando a los Evas a sus límites." },
+    { title: "Esas Mujeres Anhelaban el Toque de Otros Labios", synopsis: "El decimoquinto Ángel ataca durante un eclipse solar total, llevando a revelaciones sobre la verdadera naturaleza de los Ángeles." },
+    { title: "La División del Pecho", synopsis: "La proporción de sincronización de Shinji alcanza niveles peligrosos mientras enfrenta un colapso psicológico y cuestiona su propia identidad." },
+    { title: "El Cuarto Niño", synopsis: "La selección del Cuarto Niño crea tensión en NERV, mientras la Unidad-03 se ve poseída por un Ángel." },
+    { title: "Ambivalencia", synopsis: "Shinji pilota la Unidad EVA-01 contra la Unidad-03 poseída por el Ángel, sin saber quién es el piloto adentro." },
+    { title: "Introyección", synopsis: "El Ángel más poderoso hasta ahora aparece y comienza un ataque psicológico en las mentes de los pilotos Eva." },
+    { title: "Tejiendo una Historia 2: Etapa Oral", synopsis: "El estado psicológico de Shinji se deteriora aún más mientras el vigésimo Ángel continúa su asalto mental." },
+    { title: "Él Era Consciente de que Aún Era un Niño", synopsis: "La investigación de Kaji sobre la verdadera agenda de NERV llega a su clímax, mientras las relaciones entre personajes se vuelven tensas." },
+    { title: "No Seas", synopsis: "El vigésimo segundo Ángel ataca y Asuka enfrenta su pasado traumático, llevando a una derrota devastadora." },
+    { title: "Rei III", synopsis: "Rei enfrenta su propia crisis existencial mientras Armisael, el vigésimo tercer Ángel, ataca tratando de fusionarse con la Unidad EVA-00." },
+    { title: "El Principio y el Final, o 'Tocando las Puertas del Cielo'", synopsis: "Kaworu Nagisa llega como el Ángel final y piloto, formando una conexión profunda con Shinji antes de revelar su verdadera naturaleza." },
+    { title: "¿Me Amas?", synopsis: "Shinji debe hacer una elección imposible respecto a Kaworu, llevando a la exploración psicológica de la serie." },
+    { title: "Cuídate", synopsis: "El episodio final de TV se adentra profundamente en las mentes de los personajes durante el Proyecto de Instrumentalidad Humana." },
+    { title: "El Fin de Evangelion", synopsis: "La conclusión cinematográfica de la serie. Mientras comienza el Tercer Impacto, Shinji debe hacer la elección definitiva para el futuro de la humanidad mientras confronta sus miedos y deseos más profundos." }
 ];
 
 // Episode watch state management
@@ -669,7 +669,7 @@ class EpisodeLibrary {
         dialogNumber.textContent = episodeNum === 27 ? 'EOE' : episodeNum.toString().padStart(2, '0');
         
         // Set title
-        const title = episodeNum === 27 ? 'The End of Evangelion' : `Episode ${episodeNum}: ${episode.title}`;
+        const title = episodeNum === 27 ? 'El Fin de Evangelion' : `Episodio ${episodeNum}: ${episode.title}`;
         dialogTitle.textContent = title;
         
         // Set synopsis
