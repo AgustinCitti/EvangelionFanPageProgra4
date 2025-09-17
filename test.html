@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translation Test - Evangelion</title>
+    <style>
+        body {
+            font-family: 'Orbitron', monospace;
+            background: #000;
+            color: #00ff41;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ff3300;
+            background: rgba(255, 51, 0, 0.1);
+        }
+        h1, h2 {
+            color: #ff3300;
+            text-shadow: 0 0 10px #ff3300;
+        }
+        .info {
+            background: rgba(0, 255, 65, 0.1);
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 3px solid #00ff41;
+        }
+        button {
+            background: linear-gradient(135deg, #ff3300, #cc2200);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            font-family: 'Orbitron', monospace;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+        button:hover {
+            background: linear-gradient(135deg, #ff6600, #ff3300);
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1 data-translate="neon-genesis">ネオン・ジェネシス</h1>
+    <h2 data-translate="evangelion">エヴァンゲリオン</h2>
+
+    <div class="test-section">
+        <h2>Translation Test</h2>
+        <div class="info">
+            <p><strong>Section-Based Translation:</strong> The website starts in Japanese and each section translates when it comes into view!</p>
+            <p><strong>Intersection Observer:</strong> Automatically detects when 30% of a section is visible and triggers translation</p>
+            <p><strong>Manual Trigger:</strong> Press 'L' key to manually trigger the entire page translation</p>
+            <p><strong>Languages:</strong> Japanese (default) → Spanish</p>
+            <p><strong>Synchronized Effect:</strong> All text elements within each section glitch and translate simultaneously!</p>
+            <p><strong>Clean Transition:</strong> No overlapping text - smooth corruption from Japanese → Glitch → Spanish!</p>
+            <p><strong>Natural Feel:</strong> Sections translate independently as you scroll, perfect for intro videos!</p>
+        </div>
+        
+        <button onclick="manualTrigger()">Manual Glitch Trigger</button>
+        <button onclick="location.reload()">Reload Page</button>
+    </div>
+
+    <div class="test-section">
+        <h2>Sample Translations</h2>
+        <p><strong data-translate="nav-intro">イントロ</strong></p>
+        <p><strong data-translate="nav-overview">概要</strong></p>
+        <p><strong data-translate="nav-pilots">パイロット</strong></p>
+        <p><strong data-translate="nav-units">ユニット</strong></p>
+        <p><strong data-translate="characters">キャラクター</strong></p>
+        <p data-translate="synopsis-text">2015年、世界は黙示録の瀬戸際に立っている。「使徒」と呼ばれる謎の存在が人類の存在を脅かし、巨大なバイオメカニカルメカ「エヴァンゲリオン」だけが彼らに立ち向かうことができる。</p>
+    </div>
+
+    <div class="test-section">
+        <h2>Character Data Test</h2>
+        <p><strong data-translate="shinji-ikari">碇シンジ</strong> - <span data-translate="shinji-role">サード・チルドレン / EVA-01パイロット</span></p>
+        <p><span data-translate="shinji-description">人類の救世主の役割に押し込まれた不本意な十代。うつ病、見捨てられることへの不安、エヴァンゲリオン初号機を操縦する重圧に苦しんでいる。</span></p>
+    </div>
+
+    <div class="test-section">
+        <h2>Eva Units</h2>
+        <p data-translate="evangelion-units">エヴァンゲリオンユニット</p>
+        <p><strong data-translate="unit-01">ユニット-01</strong> - <span data-translate="eva-berserk">暴走モード</span></p>
+        <p><strong data-translate="unit-00">ユニット-00</strong> - <span data-translate="eva-prototype">プロトタイプ</span></p>
+        <p><strong data-translate="unit-02">ユニット-02</strong> - <span data-translate="eva-active">活性</span></p>
+    </div>
+
+    <script src="translations.js"></script>
+    <script>
+        function manualTrigger() {
+            if (window.languageSystem) {
+                window.languageSystem.manualTrigger();
+            } else {
+                alert('Language system not yet loaded. Please wait a moment and try again.');
+            }
+        }
+
+        // Status display
+        setTimeout(() => {
+            const status = document.createElement('div');
+            status.className = 'info';
+            status.innerHTML = `
+                <h3>System Status</h3>
+                <p>Language System: ${window.languageSystem ? 'Loaded' : 'Loading...'}</p>
+                <p>Current Language: ${window.languageSystem ? window.languageSystem.currentLanguage : 'Unknown'}</p>
+                <p>Translations Available: ${typeof translations !== 'undefined' ? Object.keys(translations).join(', ') : 'Loading...'}</p>
+            `;
+            document.body.appendChild(status);
+        }, 1000);
+    </script>
+</body>
+</html>

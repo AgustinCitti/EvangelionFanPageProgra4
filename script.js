@@ -6,52 +6,52 @@ let pageUnlocked = false;
 
 const characters = {
     shinji: {
-        name: "SHINJI IKARI",
+        nameKey: "shinji-ikari",
         age: "14",
-        role: "THIRD CHILD / EVA-01 PILOT",
-        description: "A reluctant teenager thrust into the role of humanity's savior. Struggles with depression, abandonment issues, and the weight of piloting Evangelion Unit-01."
+        roleKey: "shinji-role",
+        descriptionKey: "shinji-description"
     },
     rei: {
-        name: "REI AYANAMI",
+        nameKey: "rei-ayanami",
         age: "14",
-        role: "FIRST CHILD / EVA-00 PILOT",
-        description: "A mysterious and quiet girl who pilots Evangelion Unit-00. Her enigmatic nature hides deep connections to the Human Instrumentality Project."
+        roleKey: "rei-role",
+        descriptionKey: "rei-description"
     },
     asuka: {
-        name: "ASUKA LANGLEY SORYU",
+        nameKey: "asuka-langley",
         age: "14",
-        role: "SECOND CHILD / EVA-02 PILOT",
-        description: "A proud and competitive pilot from Germany. Her outgoing personality masks deep insecurities and a traumatic past."
+        roleKey: "asuka-role",
+        descriptionKey: "asuka-description"
     },
     gendo: {
-        name: "GENDO IKARI",
+        nameKey: "gendo-ikari",
         age: "48",
-        role: "NERV COMMANDER",
-        description: "Shinji's estranged father and commander of NERV. A cold and calculating man whose ultimate goal is to reunite with his deceased wife through the Human Instrumentality Project."
+        roleKey: "gendo-role",
+        descriptionKey: "gendo-description"
     },
     misato: {
-        name: "MISATO KATSURAGI",
+        nameKey: "misato-katsuragi",
         age: "29",
-        role: "OPERATIONS DIRECTOR",
-        description: "A young woman who serves as guardian to Shinji and Asuka. Despite her casual demeanor, she is a skilled tactician haunted by memories of the Second Impact."
+        roleKey: "misato-role",
+        descriptionKey: "misato-description"
     },
     kaworu: {
-        name: "KAWORU NAGISA",
+        nameKey: "kaworu-nagisa",
         age: "15",
-        role: "FIFTH CHILD / SEVENTEENTH ANGEL",
-        description: "The final Angel to appear, who takes human form. His relationship with Shinji becomes pivotal to the series' conclusion."
+        roleKey: "kaworu-role",
+        descriptionKey: "kaworu-description"
     },
     ryoji: {
-        name: "RYOJI KAJI",
+        nameKey: "ryoji-kaji",
         age: "30",
-        role: "NERV SPECIAL INSPECTOR / SPY",
-        description: "A mysterious triple agent working for multiple organizations. Misato's former lover and a key figure investigating NERV's true agenda and the Human Instrumentality Project."
+        roleKey: "ryoji-role",
+        descriptionKey: "ryoji-description"
     },
     ritsuko: {
-        name: "RITSUKO AKAGI",
+        nameKey: "ritsuko-akagi",
         age: "30",
-        role: "CHIEF SCIENTIST / EVA DEVELOPER",
-        description: "NERV's head scientist and chief developer of the Evangelion units. Daughter of the late Dr. Naoko Akagi, she maintains the MAGI computer system and harbors complex feelings about her work."
+        roleKey: "ritsuko-role",
+        descriptionKey: "ritsuko-description"
     }
 };
 
@@ -1049,16 +1049,21 @@ function initCharacterGallery() {
             
             // Update info panel
             if (character) {
-                infoName.textContent = character.name;
-                infoDescription.textContent = character.description;
+                // Get current language from language system
+                const currentLang = window.languageSystem ? window.languageSystem.currentLanguage : 'jp';
+                const trans = window.languageSystem ? window.languageSystem.translations[currentLang] : null;
+                
+                infoName.textContent = (trans && trans[character.nameKey]) ? trans[character.nameKey] : character.nameKey;
+                const description = (trans && trans[character.descriptionKey]) ? trans[character.descriptionKey] : character.descriptionKey;
+                infoDescription.textContent = description;
                 infoAge.textContent = character.age;
-                infoRole.textContent = character.role;
+                infoRole.textContent = (trans && trans[character.roleKey]) ? trans[character.roleKey] : character.roleKey;
                 
                 // Show the character info panel
                 characterInfo.classList.add('show');
                 
                 // Add typing effect
-                typeEffect(infoDescription, character.description);
+                typeEffect(infoDescription, description);
             }
         });
         
@@ -1393,3 +1398,31 @@ document.addEventListener('keydown', function(e) {
 setTimeout(() => {
     addTerminalGlitch();
 }, 1000);
+
+// ===== LANGUAGE SYSTEM INTEGRATION =====
+// Enhanced character info update function to work with translations
+function updateCharacterInfo(characterKey) {
+    const character = characters[characterKey];
+    const infoName = document.getElementById('infoName');
+    const infoDescription = document.getElementById('infoDescription');
+    const infoAge = document.getElementById('infoAge');
+    const infoRole = document.getElementById('infoRole');
+    
+    if (character && infoName && infoDescription && infoAge && infoRole) {
+        // Get current language from language system
+        const currentLang = window.languageSystem ? window.languageSystem.currentLanguage : 'jp';
+        const trans = window.languageSystem ? window.languageSystem.translations[currentLang] : null;
+        
+        infoName.textContent = (trans && trans[character.nameKey]) ? trans[character.nameKey] : character.nameKey;
+        const description = (trans && trans[character.descriptionKey]) ? trans[character.descriptionKey] : character.descriptionKey;
+        infoDescription.textContent = description;
+        infoAge.textContent = character.age;
+        infoRole.textContent = (trans && trans[character.roleKey]) ? trans[character.roleKey] : character.roleKey;
+        
+        // Add typing effect
+        typeEffect(infoDescription, description);
+    }
+}
+
+// Make character update function available globally
+window.updateCharacterInfo = updateCharacterInfo;
