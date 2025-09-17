@@ -2,6 +2,8 @@
 .report-page {
     background: var(--background-darker);
     min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
 }
 
 /* ===== CUSTOM SCROLLBAR - HUD STYLE ===== */
@@ -802,51 +804,111 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    /* Container Mobile */
+    .report-page .container {
+        padding: 0 1rem;
+        max-width: 100%;
+    }
+    
+    /* Report Header Mobile */
+    .report-header {
+        padding: 80px 0 40px;
+    }
+    
     .report-title {
         font-size: 2rem;
+        letter-spacing: 0.15em;
+        margin-bottom: 0.8rem;
+    }
+    
+    .report-subtitle {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
     }
     
     .report-warning {
         flex-direction: column;
         text-align: center;
-        padding: 1rem;
+        padding: 0.8rem 1rem;
+        margin: 0 auto 1.5rem;
+        max-width: 90%;
     }
     
+    .warning-icon {
+        font-size: 1.5rem;
+    }
+    
+    .warning-text {
+        font-size: 0.9rem;
+        line-height: 1.3;
+    }
+    
+    /* Terminal Mobile */
     .terminal-header {
         flex-direction: column;
-        gap: 1rem;
+        gap: 0.8rem;
         text-align: center;
+        padding: 0.8rem 1rem;
+    }
+    
+    .terminal-id {
+        padding-right: 0;
+        font-size: 0.9rem;
+    }
+    
+    .status-text {
+        font-size: 0.9rem;
     }
     
     .nerv-form {
-        padding: 2rem;
+        padding: 1.5rem;
+    }
+    
+    .nerv-form label {
+        font-size: 0.8rem;
+    }
+    
+    .nerv-form input,
+    .nerv-form select,
+    .nerv-form textarea {
+        padding: 1rem;
+        font-size: 0.9rem;
     }
     
     .terminal-info {
         flex-direction: column;
         gap: 0.5rem;
+        padding: 0.8rem 1rem;
     }
     
     .info-item {
         justify-content: space-between;
+        font-size: 0.8rem;
     }
     
     /* Alert Card Mobile */
     .alert-card {
-        margin: 1rem;
+        margin: 1rem 0.5rem;
     }
     
     .alert-content {
-        padding: 1.5rem 2rem 2rem;
+        padding: 1.5rem 1.5rem 2rem;
     }
     
     .alert-title {
         font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+    
+    .alert-message {
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
     }
     
     .alert-details {
         flex-direction: column;
         gap: 1rem;
+        padding: 1rem;
     }
     
     .detail-item {
@@ -854,30 +916,56 @@
         justify-content: space-between;
     }
     
+    .detail-label {
+        font-size: 0.75rem;
+    }
+    
+    .detail-value {
+        font-size: 0.85rem;
+    }
+    
     .admin-access-btn {
         font-size: 1rem;
         padding: 1.2rem 1.5rem;
+        gap: 0.8rem;
     }
     
     .header-admin-btn {
         max-width: 100%;
         margin: 0;
+        font-size: 0.95rem;
+        padding: 1rem 1.5rem;
+    }
+    
+    .btn-icon {
+        font-size: 1.2rem;
     }
     
     /* Modal Mobile */
     .modal-container {
         width: 95%;
         margin: 1rem;
+        max-height: 95vh;
     }
     
     .modal-content {
-        padding: 1.5rem 2rem;
+        padding: 1rem 1.5rem;
     }
     
     .modal-header {
         flex-direction: column;
-        gap: 1rem;
+        gap: 0.8rem;
         text-align: center;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+    }
+    
+    .modal-title {
+        font-size: 1.3rem;
+    }
+    
+    .access-granted {
+        font-size: 0.9rem;
     }
     
     .modal-close {
@@ -887,21 +975,187 @@
         height: 35px;
         font-size: 1.2rem;
     }
+    
+    .modal-terminal .form-group {
+        margin-bottom: 1rem;
+    }
+    
+    .modal-terminal .nerv-form {
+        padding: 0;
+    }
+    
+    .modal-terminal .nerv-submit {
+        padding: 1rem 1.5rem;
+        font-size: 0.95rem;
+    }
 }
 
 @media (max-width: 480px) {
+    /* Report Header Ultra Mobile */
+    .report-header {
+        padding: 70px 0 30px;
+    }
+    
     .report-title {
         font-size: 1.5rem;
         letter-spacing: 0.1em;
+        margin-bottom: 0.6rem;
     }
     
+    .report-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .report-warning {
+        padding: 0.6rem 0.8rem;
+        margin: 0 auto 1.2rem;
+        max-width: 95%;
+    }
+    
+    .warning-text {
+        font-size: 0.8rem;
+    }
+    
+    .warning-text strong {
+        font-size: 0.85rem;
+    }
+    
+    /* Form Ultra Mobile */
     .nerv-form {
-        padding: 1.5rem;
+        padding: 1rem;
+    }
+    
+    .nerv-form label {
+        font-size: 0.75rem;
+        margin-bottom: 0.4rem;
     }
     
     .nerv-form input,
     .nerv-form select,
     .nerv-form textarea {
-        padding: 1rem;
+        padding: 0.8rem;
+        font-size: 0.85rem;
+    }
+    
+    .modal-terminal .nerv-form input,
+    .modal-terminal .nerv-form select,
+    .modal-terminal .nerv-form textarea {
+        padding: 0.8rem;
+        font-size: 0.85rem;
+    }
+    
+    .nerv-submit {
+        font-size: 0.9rem;
+        padding: 1rem 1.5rem;
+    }
+    
+    /* Modal Ultra Mobile */
+    .modal-container {
+        width: 98%;
+        margin: 0.5rem;
+        max-height: 98vh;
+    }
+    
+    .modal-content {
+        padding: 0.8rem 1rem;
+    }
+    
+    .modal-title {
+        font-size: 1.1rem;
+    }
+    
+    .modal-close {
+        width: 30px;
+        height: 30px;
+        font-size: 1rem;
+        top: 0.3rem;
+        right: 0.3rem;
+    }
+    
+    .terminal-header {
+        padding: 0.6rem 0.8rem;
+    }
+    
+    .terminal-info {
+        padding: 0.6rem 0.8rem;
+    }
+    
+    .info-item {
+        font-size: 0.75rem;
+    }
+    
+    .admin-access-btn {
+        font-size: 0.9rem;
+        padding: 1rem 1.2rem;
+    }
+    
+    .header-admin-btn {
+        font-size: 0.85rem;
+        padding: 0.9rem 1.2rem;
+    }
+    
+    .btn-icon {
+        font-size: 1rem;
+    }
+    
+    /* Alert Ultra Mobile */
+    .alert-content {
+        padding: 1rem 1.2rem 1.5rem;
+    }
+    
+    .alert-title {
+        font-size: 1.2rem;
+    }
+    
+    .alert-message {
+        font-size: 0.85rem;
+    }
+    
+    .alert-details {
+        padding: 0.8rem;
+    }
+    
+    .detail-label {
+        font-size: 0.7rem;
+    }
+    
+    .detail-value {
+        font-size: 0.8rem;
+    }
+    
+    /* Footer Mobile */
+    .report-page .footer {
+        margin-top: 2rem;
+    }
+    
+    .report-page .footer .container {
+        padding: 0 1rem;
+    }
+    
+    .report-page .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .report-page .footer-section h3 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .report-page .footer-section p {
+        font-size: 0.85rem;
+    }
+    
+    .report-page .footer-bottom {
+        padding: 1rem 0;
+        border-top: 1px solid var(--dark-green);
+        margin-top: 1rem;
+    }
+    
+    .report-page .footer-bottom p {
+        font-size: 0.8rem;
+        text-align: center;
     }
 }

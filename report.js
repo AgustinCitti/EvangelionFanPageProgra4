@@ -7,6 +7,61 @@ document.addEventListener('DOMContentLoaded', function() {
     const submitButton = document.querySelector('.nerv-submit');
     const statusIndicator = document.querySelector('.status-indicator');
     
+    // Burger menu functionality
+    const burgerMenu = document.getElementById('burgerMenu');
+    const navMenu = document.getElementById('navMenu');
+    
+    if (burgerMenu && navMenu) {
+        burgerMenu.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if (navMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Close menu when clicking on a link
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                burgerMenu.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!burgerMenu.contains(e.target) && !navMenu.contains(e.target)) {
+                burgerMenu.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Close menu on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                burgerMenu.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                burgerMenu.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+    
     // Modal functionality
     if (adminAccessBtn && modalOverlay) {
         adminAccessBtn.addEventListener('click', function() {
@@ -76,6 +131,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Modal functions
     function openModal() {
+        // Close mobile menu if open
+        if (burgerMenu && navMenu) {
+            burgerMenu.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
+        
         modalOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
         
